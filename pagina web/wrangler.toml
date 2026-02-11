@@ -1,0 +1,8 @@
+name = "good-call-travel"
+compatibility_date = "2024-02-11"
+
+# Configuración para sitio estático
+pages_build_output_dir = "."
+
+[site]
+bucket = "."
