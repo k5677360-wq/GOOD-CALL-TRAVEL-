@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centro de Ayuda - Good Call Travel</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(135deg, rgba(52,152,219,0.95), rgba(41,128,185,0.9)), 
+                        url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2000') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .search-box {
+            max-width: 700px;
+            margin: -3rem auto 4rem;
+            position: relative;
+            z-index: 10;
+        }
+        .search-input {
+            width: 100%;
+            padding: 1.5rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        .help-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        .category-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(52,152,219,0.2);
+        }
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: white;
+        }
+        .category-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: #1a1a1a;
+        }
+        .category-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        .faq-section {
+            background: #f8f9fa;
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .faq-question {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .faq-answer {
+            color: #555;
+            line-height: 1.8;
+            padding-left: 3rem;
+        }
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+        .contact-card:hover {
+            border-color: #3498db;
+            transform: translateY(-5px);
+        }
+        .contact-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        .contact-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+        .contact-info {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        .btn-contact {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-contact:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(52,152,219,0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" style="background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <img src="1770144302124_image.png" alt="Good Call Travel Logo" class="logo-img" style="height: 50px;">
+                    <div class="logo-text">
+                        <span class="logo-name" style="color: #00579e;">GOOD CALL TRAVEL</span>
+                        <span class="logo-tagline" style="color: #666;">Tu camino hacia tu destino</span>
+                    </div>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html" class="nav-link" style="color: #333;">Inicio</a>
+                    <a href="index.html#destinos" class="nav-link" style="color: #333;">Destinos</a>
+                    <a href="index.html#servicios" class="nav-link" style="color: #333;">Servicios</a>
+                    <a href="index.html#nosotros" class="nav-link" style="color: #333;">Nosotros</a>
+                    <a href="index.html#contacto" class="btn-primary btn-nav">Contactar</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div>
+            <h1><i class="fas fa-life-ring"></i> Centro de Ayuda</h1>
+            <p style="font-size: 1.2rem; margin-top: 1rem; opacity: 0.95;">¿En qué podemos ayudarte hoy?</p>
+        </div>
+    </section>
+
+    <!-- Search Box -->
+    <div class="container">
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="🔍 Busca respuestas a tus preguntas...">
+        </div>
+    </div>
+
+    <!-- Help Categories -->
+    <div class="container">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; text-align: center; margin-bottom: 3rem;">
+            Categorías de Ayuda
+        </h2>
+        <div class="help-categories">
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas fa-suitcase"></i>
+                </div>
+                <h3 class="category-title">Reservas y Paquetes</h3>
+                <p class="category-description">
+                    Información sobre cómo realizar reservas, modificaciones y cancelaciones de tus viajes.
+                </p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                    <i class="fas fa-credit-card"></i>
+                </div>
+                <h3 class="category-title">Pagos y Facturación</h3>
+                <p class="category-description">
+                    Todo sobre métodos de pago, facturación, reembolsos y garantías de precio.
+                </p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                    <i class="fas fa-passport"></i>
+                </div>
+                <h3 class="category-title">Documentación</h3>
+                <p class="category-description">
+                    Requisitos de visas, pasaportes, vacunas y documentos necesarios para viajar.
+                </p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon" style="background: linear-gradient(135deg, #27ae60, #16a085);">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="category-title">Seguros de Viaje</h3>
+                <p class="category-description">
+                    Información sobre coberturas, asistencia médica y protección para tu viaje.
+                </p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3 class="category-title">Soporte Durante el Viaje</h3>
+                <p class="category-description">
+                    Asistencia 24/7 mientras estás viajando, emergencias y cambios de último momento.
+                </p>
+            </div>
+            
+            <div class="category-card">
+                <div class="category-icon" style="background: linear-gradient(135deg, #34495e, #2c3e50);">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <h3 class="category-title">Políticas de Cancelación</h3>
+                <p class="category-description">
+                    Conoce nuestras políticas de cancelación, penalidades y opciones de reprogramación.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; text-align: center; margin-bottom: 3rem;">
+                Preguntas Frecuentes
+            </h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle" style="color: #3498db;"></i>
+                    ¿Cómo puedo realizar una reserva?
+                </div>
+                <div class="faq-answer">
+                    Puedes realizar tu reserva de tres formas: (1) A través de nuestra página web usando el cotizador en línea, (2) Contactando a nuestros asesores por WhatsApp al +51 999 888 777, o (3) Llamando a nuestra línea directa. Nuestro equipo te guiará en todo el proceso y te ayudará a personalizar tu viaje según tus necesidades.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle" style="color: #3498db;"></i>
+                    ¿Qué métodos de pago aceptan?
+                </div>
+                <div class="faq-answer">
+                    Aceptamos tarjetas de crédito (Visa, Mastercard, American Express), tarjetas de débito, transferencias bancarias y pagos en efectivo en nuestras oficinas. También ofrecemos planes de pago flexibles para reservas anticipadas. Los pagos internacionales se pueden realizar en USD, EUR o tu moneda local.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle" style="color: #3498db;"></i>
+                    ¿Cuál es su política de cancelación?
+                </div>
+                <div class="faq-answer">
+                    Nuestra política varía según el tipo de servicio. Generalmente: cancelaciones con más de 30 días de anticipación tienen reembolso del 90%, entre 15-30 días 70%, entre 7-15 días 50%, y menos de 7 días no hay reembolso. Sin embargo, si contratas nuestro seguro de cancelación flexible, puedes cancelar hasta 48 horas antes con reembolso del 80%.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle" style="color: #3498db;"></i>
+                    ¿Necesito seguro de viaje?
+                </div>
+                <div class="faq-answer">
+                    Aunque no es obligatorio, recomendamos fuertemente contratar un seguro de viaje. Este cubre emergencias médicas, cancelaciones, pérdida de equipaje y otros imprevistos. Algunos destinos como países Schengen lo requieren obligatoriamente. Ofrecemos paquetes de seguro adaptados a cada tipo de viaje.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle" style="color: #3498db;"></i>
+                    ¿Puedo modificar mi reserva después de confirmarla?
+                </div>
+                <div class="faq-answer">
+                    Sí, las modificaciones son posibles sujetas a disponibilidad y posibles cargos de las aerolíneas u hoteles. Te recomendamos contactarnos lo antes posible si necesitas hacer cambios. Cambios de fecha, nombres de pasajeros o servicios adicionales pueden gestionarse con nuestro equipo de soporte.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <i class="fas fa-question-circle" style="color: #3498db;"></i>
+                    ¿Qué documentos necesito para viajar?
+                </div>
+                <div class="faq-answer">
+                    Los requisitos varían por destino. Generalmente necesitas pasaporte vigente (con al menos 6 meses de validez), visa si aplica, certificado de vacunación para ciertos países, y seguro de viaje. Te enviamos una lista personalizada de documentos cuando confirmas tu reserva. También ofrecemos asesoría completa sobre requisitos específicos de cada país.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Options -->
+    <div class="container">
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; text-align: center; margin-bottom: 3rem;">
+            ¿Necesitas Más Ayuda?
+        </h2>
+        <div class="contact-options">
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <h3 class="contact-title">WhatsApp</h3>
+                <p class="contact-info">Respuesta inmediata<br>+51 999 888 777</p>
+                <button class="btn-contact">
+                    <i class="fab fa-whatsapp"></i> Chatear Ahora
+                </button>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3 class="contact-title">Teléfono</h3>
+                <p class="contact-info">Lun - Vie: 9am - 7pm<br>+51 (01) 234-5678</p>
+                <button class="btn-contact">
+                    <i class="fas fa-phone-alt"></i> Llamar
+                </button>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3 class="contact-title">Email</h3>
+                <p class="contact-info">Respuesta en 24hrs<br>ayuda@goodcalltravel.com</p>
+                <button class="btn-contact" onclick="window.location.href='index.html#contacto'">
+                    <i class="fas fa-envelope"></i> Enviar Email
+                </button>
+            </div>
+            
+            <div class="contact-card">
+                <div class="contact-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="contact-title">Chat en Vivo</h3>
+                <p class="contact-info">Disponible 24/7<br>Soporte instantáneo</p>
+                <button class="btn-contact">
+                    <i class="fas fa-comments"></i> Iniciar Chat
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Contact -->
+    <section style="background: linear-gradient(135deg, #e74c3c, #c0392b); padding: 4rem 0; margin: 4rem 0; text-align: center; color: white;">
+        <div class="container">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 1rem;">
+                <i class="fas fa-exclamation-triangle"></i> Asistencia de Emergencia
+            </h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95;">
+                Si estás viajando y necesitas ayuda urgente, contáctanos inmediatamente
+            </p>
+            <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                <div>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">Línea de Emergencia 24/7</p>
+                    <h3 style="font-size: 2rem; font-weight: 800;">+51 999 000 911</h3>
+                </div>
+                <div>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">WhatsApp Emergencias</p>
+                    <h3 style="font-size: 2rem; font-weight: 800;">+51 999 000 912</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #1a1a1a; color: white; padding: 3rem 0 1rem;">
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2026 Good Call Travel. Todos los derechos reservados.</p>
+            <div style="margin-top: 1rem;">
+                <a href="index.html" style="color: #3498db; margin: 0 1rem;">Inicio</a>
+                <a href="paquetes-turisticos.html" style="color: #3498db; margin: 0 1rem;">Paquetes</a>
+                <a href="index.html#contacto" style="color: #3498db; margin: 0 1rem;">Contacto</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
