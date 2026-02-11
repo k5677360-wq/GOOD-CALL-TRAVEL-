@@ -691,19 +691,6 @@ function initParallax() {
 }
 
 // ===========================================
-// LOADING SCREEN
-// ===========================================
-function hideLoadingScreen() {
-    const loadingScreen = document.querySelector('.loading-screen');
-    
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            document.body.classList.add('loaded');
-        }, 500);
-    });
-}
-
-// ===========================================
 // ANIMACIÓN DE NÚMEROS
 // ===========================================
 function animateNumbers() {
@@ -846,7 +833,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('%c🌍 Good Call Travel - Sistema Inicializado', 'font-size: 20px; font-weight: bold; color: #1a3a52; background: #e8f2f7; padding: 10px; border-radius: 5px;');
     
     // Inicializar todos los módulos
-    hideLoadingScreen();
     renderDestinations();
     initAOS();
     initMobileMenu();
