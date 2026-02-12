@@ -325,6 +325,14 @@ function initSearchForm() {
         return fechaISO.replace(/-/g, '');
     }
     
+    // Función para calcular días hasta el viaje
+    function diasHastaViaje(fechaString) {
+        const fechaViaje = new Date(fechaString);
+        const hoy = new Date();
+        const difTiempo = fechaViaje - hoy;
+        return Math.ceil(difTiempo / (1000 * 60 * 60 * 24));
+    }
+    
     // Manejar envío del formulario
     searchForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -410,14 +418,12 @@ function initSearchForm() {
                 const mejorVuelo = resultado.vuelos[0];
                 
                 // ========================================
-                // LLENAR INFORMACIÓN DEL VIAJE
+                // 1. INFORMACIÓN DEL VIAJE
                 // ========================================
                 
-                // Origen y destino
                 document.getElementById('quoteOrigin').textContent = `${originCity} (${codigoOrigen})`;
                 document.getElementById('quoteDestination').textContent = `${destinationCity} (${codigoDestino})`;
                 
-                // Fecha formateada
                 const fechaObj = new Date(date + 'T00:00:00');
                 const fechaFormateada = fechaObj.toLocaleDateString('es-PE', {
                     weekday: 'long',
@@ -426,56 +432,105 @@ function initSearchForm() {
                     day: 'numeric'
                 });
                 document.getElementById('quoteDate').textContent = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
-                
-                // Viajeros
                 document.getElementById('quoteTravelers').textContent = `${travelers} ${travelers === 1 ? 'persona' : 'personas'}`;
                 
                 // ========================================
-                // LLENAR INFORMACIÓN DEL VUELO
+                // 2. INFORMACIÓN DEL VUELO
                 // ========================================
                 
                 document.getElementById('quoteAirline').textContent = mejorVuelo.aerolinea || 'N/A';
-                document.getElementById('quoteDeparture').textContent = mejorVuelo.hora_salida || 'N/A';
-                document.getElementById('quoteArrival').textContent = mejorVuelo.hora_llegada || 'N/A';
+                document.getElementById('quoteSchedule').textContent = `${mejorVuelo.hora_salida || 'N/A'} → ${mejorVuelo.hora_llegada || 'N/A'}`;
                 document.getElementById('quoteDuration').textContent = mejorVuelo.duracion || 'N/A';
                 document.getElementById('quoteStops').textContent = mejorVuelo.escalas || 'N/A';
                 document.getElementById('quoteBaggage').textContent = mejorVuelo.equipaje || 'No incluido';
                 
                 // ========================================
-                // LLENAR DESGLOSE DE PRECIOS
+                // 3. DESGLOSE DE PRECIOS
                 // ========================================
                 
-                // Precio base (precio del vuelo base sin fees)
-                const precioBaseVuelo = Math.round(mejorVuelo.precio_base * travelers);
-                document.getElementById('basePrice').textContent = `${mejorVuelo.moneda_final} ${precioBaseVuelo.toLocaleString('es-PE')}`;
+                // Precio base (vuelo sin fees por persona)
+                const precioBaseVueloPorPersona = Math.round(mejorVuelo.precio_base);
+                const precioBaseTotalVuelo = precioBaseVueloPorPersona * travelers;
+                document.getElementById('basePrice').textContent = `${mejorVuelo.moneda_final} ${precioBaseTotalVuelo.toLocaleString('es-PE')}`;
                 
                 // Fee de servicio
-                const feeTotal = Math.round(mejorVuelo.fee_total * (resultado.moneda === 'PEN' ? 3.60 : 1));
-                document.getElementById('flightLabel').textContent = `Fee de servicio (${mejorVuelo.aerolinea})`;
+                const feePorPersona = Math.round(mejorVuelo.fee_por_persona * (resultado.moneda === 'PEN' ? 3.60 : 1));
+                const feeTotal = feePorPersona * travelers;
+                document.getElementById('flightLabel').textContent = `Vuelos + Fee de servicio (${mejorVuelo.aerolinea})`;
                 document.getElementById('flightCost').textContent = `${mejorVuelo.moneda_final} ${feeTotal.toLocaleString('es-PE')}`;
                 
-                // Descuento por grupo (si aplica)
+                // Calcular días de anticipación
+                const diasAnticipacion = diasHastaViaje(date);
+                
+                // Descuento por reserva anticipada
+                const earlyBookingRow = document.getElementById('earlyBookingRow');
+                if (diasAnticipacion > 60) {
+                    const porcentaje = diasAnticipacion > 90 ? 0.10 : 0.05;
+                    const descuento = Math.round((precioBaseTotalVuelo + feeTotal) * porcentaje);
+                    document.getElementById('earlyBookingLabel').textContent = 
+                        diasAnticipacion > 90 ? '10% descuento reserva anticipada (+90 días)' : '5% descuento reserva anticipada (+60 días)';
+                    document.getElementById('earlyBookingDiscount').textContent = 
+                        `-${mejorVuelo.moneda_final} ${descuento.toLocaleString('es-PE')}`;
+                    earlyBookingRow.style.display = 'flex';
+                } else {
+                    earlyBookingRow.style.display = 'none';
+                }
+                
+                // Descuento por grupo
                 const groupDiscountRow = document.getElementById('groupDiscountRow');
                 if (travelers >= 3) {
-                    const descuentoPorcentaje = travelers >= 5 ? 0.15 : travelers >= 4 ? 0.10 : 0.05;
-                    const montoDescuento = Math.round((precioBaseVuelo + feeTotal) * descuentoPorcentaje);
-                    document.getElementById('groupDiscount').textContent = `-${mejorVuelo.moneda_final} ${montoDescuento.toLocaleString('es-PE')}`;
+                    const porcentaje = travelers >= 5 ? 0.15 : travelers >= 4 ? 0.10 : 0.05;
+                    const descuento = Math.round((precioBaseTotalVuelo + feeTotal) * porcentaje);
+                    document.getElementById('groupDiscount').textContent = 
+                        `-${mejorVuelo.moneda_final} ${descuento.toLocaleString('es-PE')} (${Math.round(porcentaje * 100)}%)`;
                     groupDiscountRow.style.display = 'flex';
                 } else {
                     groupDiscountRow.style.display = 'none';
                 }
                 
-                // Ajuste de temporada (puedes ocultarlo si no lo usas)
+                // Ajuste de temporada (opcional, puedes ocultarlo si no lo usas)
                 document.getElementById('seasonAdjustmentRow').style.display = 'none';
                 
-                // Precio total
-                const precioTotal = Math.round(mejorVuelo.precio_final);
-                document.getElementById('totalPrice').textContent = `${mejorVuelo.moneda_final} ${precioTotal.toLocaleString('es-PE')}`;
+                // ========================================
+                // 4. PRECIO TOTAL
+                // ========================================
+                
+                const precioTotalPorPersona = Math.round(mejorVuelo.precio_final);
+                const precioTotalGrupo = precioTotalPorPersona * travelers;
+                
+                document.getElementById('totalPrice').textContent = 
+                    `${mejorVuelo.moneda_final} ${precioTotalPorPersona.toLocaleString('es-PE')}`;
+                
+                document.getElementById('groupSize').textContent = travelers;
+                document.getElementById('groupTotal').textContent = 
+                    `${mejorVuelo.moneda_final} ${precioTotalGrupo.toLocaleString('es-PE')}`;
+                
+                // ========================================
+                // 5. INCLUYE (Personalizable según destino)
+                // ========================================
+                
+                const includesList = document.getElementById('includesList');
+                const includes = [
+                    `✓ Vuelo ${codigoOrigen} → ${codigoDestino} (${mejorVuelo.aerolinea})`,
+                    '✓ Equipaje incluido según aerolínea',
+                    '✓ Asistencia 24/7 durante el viaje',
+                    '✓ Seguro básico de viaje'
+                ];
+                
+                includesList.innerHTML = includes.map(item => `<li>${item}</li>`).join('');
                 
                 // Guardar datos para referencia
-                window.lastQuoteData = resultado;
+                window.lastQuoteData = {
+                    resultado,
+                    mejorVuelo,
+                    origen: `${originCity} (${codigoOrigen})`,
+                    destino: `${destinationCity} (${codigoDestino})`,
+                    fecha: fechaFormateada,
+                    viajeros: travelers,
+                    precioTotal: precioTotalGrupo
+                };
                 
-                console.log('✈️ Detalles completos del mejor vuelo:', mejorVuelo);
+                console.log('✈️ Cotización completada:', window.lastQuoteData);
                 
             } else {
                 throw new Error(resultado.error || 'No se encontraron vuelos disponibles');
@@ -489,17 +544,11 @@ function initSearchForm() {
                 quoteResult.style.display = 'block';
                 quoteResult.innerHTML = `
                     <div style="text-align: center; padding: 3rem 2rem; color: white;">
-                        <div style="width: 80px; height: 80px; background: rgba(239, 68, 68, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="15" y1="9" x2="9" y2="15"></line>
-                                <line x1="9" y1="9" x2="15" y2="15"></line>
-                            </svg>
-                        </div>
-                        <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #ef4444;">Error al buscar vuelos</h2>
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">❌</div>
+                        <h2 style="font-size: 1.75rem; margin-bottom: 1rem;">Error al buscar vuelos</h2>
                         <p style="margin-bottom: 2rem; color: rgba(255,255,255,0.8);">${error.message}</p>
                         <button onclick="document.getElementById('quoteModal').classList.remove('active'); document.body.style.overflow='';" 
-                                style="background: white; color: #1a3a52; border: none; padding: 12px 32px; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                                style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #1e3a5f; border: none; padding: 14px 32px; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 1rem;">
                             Cerrar
                         </button>
                     </div>
@@ -509,7 +558,6 @@ function initSearchForm() {
             showNotification(`❌ ${error.message}`, 'error');
         }
     });
-    
     // Botón cerrar modal
     if (closeQuoteBtn) {
         closeQuoteBtn.addEventListener('click', () => {
