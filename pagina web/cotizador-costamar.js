@@ -202,17 +202,12 @@ async function cotizarEnCostamar(origen, destino, fechaIda, fechaVuelta = null, 
   console.log('🔍 Enviando request al proxy:', payload);
 
   // ⚠️ CAMBIO CRÍTICO: Llama al PROXY LOCAL en lugar de Costamar directo
-  const response = await fetch('/api/flights/search', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-      // Ya NO se necesitan User-Agent, Origin, Referer aquí
-      // El proxy se encarga de eso
-    },
-    body: JSON.stringify(payload)
-  });
-
+  const API_BASE_URL = window.API_BASE_URL = 'https://goodcalltravel.com/';
+ fetch(`${API_BASE_URL}/api/search`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(payload)
+})
   if (!response.ok) {
     const errorText = await response.text();
     console.error('❌ Error del proxy:', response.status, errorText);
