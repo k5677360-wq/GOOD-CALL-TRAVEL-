@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Call Travel | Vuelos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <!-- Puedes reemplazar esto con tu imagen de logo:
+                         <img src="logos/goodcall-logo.png" alt="Good Call Travel" class="logo-img"> -->
+                    <h1>GOOD CALL</h1>
+                    <span class="tagline">Travel Agency</span>
+                </div>
+                <nav class="main-nav">
+                    <button class="nav-btn active">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                        <span>Vuelos</span>
+                    </button>
+                    <button class="nav-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V7H1v13h2v-2h18v2h2v-9c0-2.21-1.79-4-4-4z"/></svg>
+                        <span>Hoteles</span>
+                    </button>
+                    <button class="nav-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-3V4c0-1.11-.89-2-2-2H9c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM9 4h6v2H9V4zm11 15H4v-2h16v2zm0-5H4V8h3v2h2V8h6v2h2V8h3v6z"/></svg>
+                        <span>Paquetes</span>
+                    </button>
+                </nav>
+                <div class="header-actions">
+                    <button class="btn-outline">Iniciar sesión</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Buscador -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-card">
+                    <h2 class="search-title">Encuentra tu vuelo ideal</h2>
+                    <div class="trip-type-selector">
+                        <label class="trip-type-option"><input type="radio" name="tripType" value="roundtrip" checked><span>Ida y vuelta</span></label>
+                        <label class="trip-type-option"><input type="radio" name="tripType" value="oneway"><span>Solo ida</span></label>
+                        <label class="trip-type-option"><input type="radio" name="tripType" value="multicity" disabled><span>Multidestino</span></label>
+                    </div>
+
+                    <form id="searchForm" class="search-form" novalidate>
+                        <div class="form-row form-row--locations">
+                            <div class="form-group">
+                                <label for="origin">Origen</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                                    <input type="text" id="origin" placeholder="Ej: Lima (LIM)" list="airportsList" autocomplete="off" required>
+                                </div>
+                            </div>
+                            <button type="button" class="swap-btn" id="swapBtn" aria-label="Intercambiar">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"/></svg>
+                            </button>
+                            <div class="form-group">
+                                <label for="destination">Destino</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                                    <input type="text" id="destination" placeholder="Ej: Cusco (CUZ)" list="airportsList" autocomplete="off" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row form-row--details">
+                            <div class="form-group">
+                                <label for="departDate">Fecha de salida</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
+                                    <input type="date" id="departDate" required>
+                                </div>
+                            </div>
+                            <div class="form-group" id="returnDateGroup">
+                                <label for="returnDate">Fecha de regreso</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
+                                    <input type="date" id="returnDate">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="passengers">Pasajeros</label>
+                                <div class="input-wrapper passengers-input" id="passengersInput">
+                                    <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                                    <input type="text" id="passengers" value="1 Adulto" readonly>
+                                    <svg class="dropdown-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+                                </div>
+                                <div class="passengers-dropdown" id="passengersDropdown">
+                                    <div class="passenger-row">
+                                        <div class="passenger-label"><span>Adultos</span><small>12+ años</small></div>
+                                        <div class="counter">
+                                            <button type="button" class="counter-btn" data-action="decrease" data-field="adults">−</button>
+                                            <span id="adultsCount">1</span>
+                                            <button type="button" class="counter-btn" data-action="increase" data-field="adults">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="passenger-row">
+                                        <div class="passenger-label"><span>Niños</span><small>2-11 años</small></div>
+                                        <div class="counter">
+                                            <button type="button" class="counter-btn" data-action="decrease" data-field="children">−</button>
+                                            <span id="childrenCount">0</span>
+                                            <button type="button" class="counter-btn" data-action="increase" data-field="children">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="passenger-row">
+                                        <div class="passenger-label"><span>Bebés</span><small>0-2 años</small></div>
+                                        <div class="counter">
+                                            <button type="button" class="counter-btn" data-action="decrease" data-field="infants">−</button>
+                                            <span id="infantsCount">0</span>
+                                            <button type="button" class="counter-btn" data-action="increase" data-field="infants">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary btn-large" id="searchBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+                                Buscar vuelos
+                            </button>
+                        </div>
+                    </form>
+
+                    <datalist id="airportsList">
+                        <option value="LIM - Lima">Jorge Chávez International</option>
+                        <option value="CUZ - Cusco">Alejandro Velasco Astete</option>
+                        <option value="AQP - Arequipa">Rodríguez Ballón</option>
+                        <option value="TRU - Trujillo">Carlos Martínez de Pinillos</option>
+                        <option value="IQT - Iquitos">Coronel FAP Francisco Secada</option>
+                        <option value="PIU - Piura">Capitán FAP Guillermo Concha</option>
+                        <option value="TCQ - Tacna">Coronel FAP Carlos Ciriani</option>
+                        <option value="JUL - Juliaca">Inca Manco Cápac</option>
+                        <option value="CIX - Chiclayo">Capitán FAP José A. Quiñones</option>
+                        <option value="PEM - Puerto Maldonado">Padre Aldamiz</option>
+                        <option value="MIA - Miami">Miami International</option>
+                        <option value="CUN - Cancún">Cancún International</option>
+                        <option value="BOG - Bogotá">El Dorado International</option>
+                        <option value="SCL - Santiago">Arturo Merino Benítez</option>
+                        <option value="MEX - Ciudad de México">Benito Juárez</option>
+                        <option value="MAD - Madrid">Madrid-Barajas</option>
+                        <option value="JFK - New York">John F. Kennedy</option>
+                        <option value="LAX - Los Ángeles">Los Angeles International</option>
+                    </datalist>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resultados -->
+        <section class="results-section" id="resultsSection" style="display:none;">
+            <div class="container">
+                <div class="loading-state" id="loadingState"><div class="spinner"></div><p>Buscando los mejores vuelos para ti...</p></div>
+
+                <div class="results-header" id="resultsHeader" style="display:none;">
+                    <div class="results-info"><h3 id="resultsTitle"></h3><p id="resultsSubtitle"></p></div>
+                    <div class="results-filters">
+                        <div class="filter-group"><label for="sortBy">Ordenar por:</label><select id="sortBy" class="filter-select"><option value="price">Precio más bajo</option><option value="duration">Duración</option><option value="departure">Hora de salida</option></select></div>
+                        <label class="checkbox-label"><input type="checkbox" id="directOnly"><span>Solo directos</span></label>
+                    </div>
+                </div>
+
+                <div class="results-grid" id="resultsGrid">
+                    <div class="flights-list">
+                        <div class="flight-section"><h4 class="section-title" id="outboundTitle">Vuelos de ida</h4><div id="outboundFlights" class="flights-container"></div></div>
+                        <div class="flight-section" id="returnSection" style="display:none;"><h4 class="section-title" id="returnTitle">Vuelos de regreso</h4><div id="returnFlights" class="flights-container"></div></div>
+                        <div class="empty-state" id="emptyState" style="display:none;">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg>
+                            <h3>No se encontraron vuelos</h3><p>Intenta con otras fechas o destinos</p>
+                        </div>
+                    </div>
+                    <aside class="price-sidebar" id="priceSidebar" style="display:none;">
+                        <div class="price-card">
+                            <div class="price-badge">NDC PUBLISHED</div>
+                            <h4>Resumen de precio</h4>
+                            <p class="price-subtitle">Selecciona vuelos y tarifa</p>
+                            <div id="priceBreakdown" class="price-breakdown"><p class="text-muted">Selecciona un vuelo para ver el precio</p></div>
+                            <div class="fare-options" id="fareOptions"></div>
+                            <button class="btn-primary btn-large" id="selectFlightBtn" disabled>Continuar con la reserva</button>
+                            <p class="help-text">Precios sujetos a disponibilidad</p>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 Good Call Travel Agency. Todos los derechos reservados.</p>
+            <div class="footer-links"><a href="#">Términos</a><a href="#">Privacidad</a><a href="#">Contacto</a></div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
