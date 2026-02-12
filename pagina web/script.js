@@ -291,55 +291,273 @@ function initBackToTop() {
     });
 }
 
-// ===========================================
-// FORMULARIO DE BÚSQUEDA CON API COTIZADOR
-// ===========================================
+// ============================================
+// FUNCIÓN ACTUALIZADA PARA LLENAR EL MODAL PROFESIONAL
+// Reemplaza la función initSearchForm() en tu script-integrado.js
+// ============================================
+
 function initSearchForm() {
     const searchForm = document.getElementById('searchForm');
+    const quoteModal = document.getElementById('quoteModal');
+    const closeQuoteBtn = document.getElementById('closeQuote');
+    const newSearchBtn = document.getElementById('newSearch');
+    const bookNowBtn = document.getElementById('bookNow');
     const searchError = document.getElementById('searchError');
     
-    if (!searchForm) return;
-    
-    // Establecer fecha mínima a hoy
-    const dateInput = document.getElementById('date');
-    if (dateInput) {
-        const today = new Date().toISOString().split('T')[0];
-        dateInput.min = today;
+    if (!searchForm || !quoteModal) {
+        console.warn('Elementos del formulario de búsqueda no encontrados');
+        return;
     }
     
+    // Configurar fechas mínimas
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    const dateInput = document.getElementById('date');
+    if (dateInput) {
+        dateInput.min = tomorrow.toISOString().split('T')[0];
+        dateInput.value = tomorrow.toISOString().split('T')[0];
+    }
+    
+    // Función para convertir fecha YYYY-MM-DD a YYYYMMDD
+    function formatearFechaParaAPI(fechaISO) {
+        return fechaISO.replace(/-/g, '');
+    }
+    
+    // Manejar envío del formulario
     searchForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        
+        // Ocultar error previo
+        if (searchError) {
+            searchError.style.display = 'none';
+        }
         
         // Obtener valores del formulario
         const origin = document.getElementById('origin').value.trim();
         const destination = document.getElementById('destination').value.trim();
         const date = document.getElementById('date').value;
-        const travelers = document.getElementById('travelers').value;
+        const travelers = parseInt(document.getElementById('travelers').value);
         
-        // Validación
+        // Validar campos
         if (!origin || !destination || !date || !travelers) {
-            searchError.classList.add('active');
-            setTimeout(() => searchError.classList.remove('active'), 3000);
+            if (searchError) {
+                searchError.style.display = 'block';
+            }
             return;
         }
         
-        // Ocultar error si estaba visible
-        searchError.classList.remove('active');
+        // Extraer solo el nombre de la ciudad
+        const originCity = origin.split(',')[0].trim();
+        const destinationCity = destination.split(',')[0].trim();
         
-        // Calcular cotización usando el API
-        const quote = calculateQuote(origin, destination, date, travelers);
-        
-        if (!quote) {
-            showNotification('❌ Destino no disponible en nuestra base de datos. Por favor, intenta con otro destino.', 'error');
+        // Obtener códigos IATA
+        if (!window.CotizadorCostamar) {
+            showNotification('❌ Error: Cotizador no cargado. Recarga la página.', 'error');
             return;
         }
         
-        // Mostrar modal con la cotización
-        displayQuoteModal(quote, origin, destination, date, travelers);
+        const codigoOrigen = window.CotizadorCostamar.obtenerCodigoIATA(originCity);
+        const codigoDestino = window.CotizadorCostamar.obtenerCodigoIATA(destinationCity);
+        
+        if (!codigoOrigen || !codigoDestino) {
+            showNotification(`❌ Error: No se encontró código IATA para ${!codigoOrigen ? originCity : destinationCity}`, 'error');
+            return;
+        }
+        
+        // Convertir fecha al formato de la API
+        const fechaIda = formatearFechaParaAPI(date);
+        
+        console.log('📋 Iniciando cotización:', {
+            origen: `${originCity} (${codigoOrigen})`,
+            destino: `${destinationCity} (${codigoDestino})`,
+            fechaIda,
+            adultos: travelers
+        });
+        
+        // Mostrar modal con loading
+        quoteModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        const quoteLoading = document.getElementById('quoteLoading');
+        const quoteResult = document.getElementById('quoteResult');
+        
+        if (quoteLoading) quoteLoading.style.display = 'block';
+        if (quoteResult) quoteResult.style.display = 'none';
+        
+        try {
+            // Llamar al cotizador de API real
+            const resultado = await window.CotizadorCostamar.cotizarConFees({
+                origen: codigoOrigen,
+                destino: codigoDestino,
+                fechaIda,
+                fechaVuelta: null,
+                adultos: travelers,
+                ninos: 0,
+                infantes: 0,
+                maxResultados: 5
+            });
+            
+            console.log('✅ Resultado de cotización:', resultado);
+            
+            if (resultado.success && resultado.vuelos && resultado.vuelos.length > 0) {
+                // Ocultar loading y mostrar resultado
+                if (quoteLoading) quoteLoading.style.display = 'none';
+                if (quoteResult) quoteResult.style.display = 'block';
+                
+                // Tomar el mejor vuelo (más barato)
+                const mejorVuelo = resultado.vuelos[0];
+                
+                // ========================================
+                // LLENAR INFORMACIÓN DEL VIAJE
+                // ========================================
+                
+                // Origen y destino
+                document.getElementById('quoteOrigin').textContent = `${originCity} (${codigoOrigen})`;
+                document.getElementById('quoteDestination').textContent = `${destinationCity} (${codigoDestino})`;
+                
+                // Fecha formateada
+                const fechaObj = new Date(date + 'T00:00:00');
+                const fechaFormateada = fechaObj.toLocaleDateString('es-PE', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                document.getElementById('quoteDate').textContent = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+                
+                // Viajeros
+                document.getElementById('quoteTravelers').textContent = `${travelers} ${travelers === 1 ? 'persona' : 'personas'}`;
+                
+                // ========================================
+                // LLENAR INFORMACIÓN DEL VUELO
+                // ========================================
+                
+                document.getElementById('quoteAirline').textContent = mejorVuelo.aerolinea || 'N/A';
+                document.getElementById('quoteDeparture').textContent = mejorVuelo.hora_salida || 'N/A';
+                document.getElementById('quoteArrival').textContent = mejorVuelo.hora_llegada || 'N/A';
+                document.getElementById('quoteDuration').textContent = mejorVuelo.duracion || 'N/A';
+                document.getElementById('quoteStops').textContent = mejorVuelo.escalas || 'N/A';
+                document.getElementById('quoteBaggage').textContent = mejorVuelo.equipaje || 'No incluido';
+                
+                // ========================================
+                // LLENAR DESGLOSE DE PRECIOS
+                // ========================================
+                
+                // Precio base (precio del vuelo base sin fees)
+                const precioBaseVuelo = Math.round(mejorVuelo.precio_base * travelers);
+                document.getElementById('basePrice').textContent = `${mejorVuelo.moneda_final} ${precioBaseVuelo.toLocaleString('es-PE')}`;
+                
+                // Fee de servicio
+                const feeTotal = Math.round(mejorVuelo.fee_total * (resultado.moneda === 'PEN' ? 3.60 : 1));
+                document.getElementById('flightLabel').textContent = `Fee de servicio (${mejorVuelo.aerolinea})`;
+                document.getElementById('flightCost').textContent = `${mejorVuelo.moneda_final} ${feeTotal.toLocaleString('es-PE')}`;
+                
+                // Descuento por grupo (si aplica)
+                const groupDiscountRow = document.getElementById('groupDiscountRow');
+                if (travelers >= 3) {
+                    const descuentoPorcentaje = travelers >= 5 ? 0.15 : travelers >= 4 ? 0.10 : 0.05;
+                    const montoDescuento = Math.round((precioBaseVuelo + feeTotal) * descuentoPorcentaje);
+                    document.getElementById('groupDiscount').textContent = `-${mejorVuelo.moneda_final} ${montoDescuento.toLocaleString('es-PE')}`;
+                    groupDiscountRow.style.display = 'flex';
+                } else {
+                    groupDiscountRow.style.display = 'none';
+                }
+                
+                // Ajuste de temporada (puedes ocultarlo si no lo usas)
+                document.getElementById('seasonAdjustmentRow').style.display = 'none';
+                
+                // Precio total
+                const precioTotal = Math.round(mejorVuelo.precio_final);
+                document.getElementById('totalPrice').textContent = `${mejorVuelo.moneda_final} ${precioTotal.toLocaleString('es-PE')}`;
+                
+                // Guardar datos para referencia
+                window.lastQuoteData = resultado;
+                
+                console.log('✈️ Detalles completos del mejor vuelo:', mejorVuelo);
+                
+            } else {
+                throw new Error(resultado.error || 'No se encontraron vuelos disponibles');
+            }
+            
+        } catch (error) {
+            console.error('❌ Error en cotización:', error);
+            
+            if (quoteLoading) quoteLoading.style.display = 'none';
+            if (quoteResult) {
+                quoteResult.style.display = 'block';
+                quoteResult.innerHTML = `
+                    <div style="text-align: center; padding: 3rem 2rem; color: white;">
+                        <div style="width: 80px; height: 80px; background: rgba(239, 68, 68, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg>
+                        </div>
+                        <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #ef4444;">Error al buscar vuelos</h2>
+                        <p style="margin-bottom: 2rem; color: rgba(255,255,255,0.8);">${error.message}</p>
+                        <button onclick="document.getElementById('quoteModal').classList.remove('active'); document.body.style.overflow='';" 
+                                style="background: white; color: #1a3a52; border: none; padding: 12px 32px; border-radius: 12px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                            Cerrar
+                        </button>
+                    </div>
+                `;
+            }
+            
+            showNotification(`❌ ${error.message}`, 'error');
+        }
     });
+    
+    // Botón cerrar modal
+    if (closeQuoteBtn) {
+        closeQuoteBtn.addEventListener('click', () => {
+            quoteModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+    
+    // Botón nueva búsqueda
+    if (newSearchBtn) {
+        newSearchBtn.addEventListener('click', () => {
+            quoteModal.classList.remove('active');
+            document.body.style.overflow = '';
+            searchForm.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+    
+    // Botón reservar ahora
+    if (bookNowBtn) {
+        bookNowBtn.addEventListener('click', () => {
+            quoteModal.classList.remove('active');
+            document.body.style.overflow = '';
+            showNotification('✅ ¡Excelente! Redirigiendo al formulario de contacto...', 'success');
+            setTimeout(() => {
+                const contactSection = document.getElementById('contacto');
+                if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 1000);
+        });
+    }
+    
+    // Cerrar modal al hacer clic fuera
+    quoteModal.addEventListener('click', (e) => {
+        if (e.target === quoteModal || e.target.classList.contains('quote-modal-overlay')) {
+            quoteModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+    
+    console.log('✅ Formulario de búsqueda inicializado con modal profesional');
 }
 
-// Mostrar modal de cotización
+// Asegúrate de que esta función se llame en la inicialización
+document.addEventListener('DOMContentLoaded', () => {
+    // ... otras inicializaciones ...
+    initSearchForm();
+});
 function displayQuoteModal(quote, origin, destination, date, travelers) {
     // Crear modal si no existe
     let modal = document.getElementById('quoteModal');
