@@ -267,134 +267,70 @@
 
 <div id="quoteModal" class="quote-modal">
     <div class="quote-modal-overlay"></div>
-    <div class="quote-modal-content">
+    
+    <div class="quote-content">
         <!-- Botón cerrar -->
-        <button id="closeQuote" class="quote-close-btn" aria-label="Cerrar">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-        </button>
+        <button id="closeQuote" class="quote-close">×</button>
 
-        <!-- Estado de carga -->
-        <div id="quoteLoading" class="quote-loading">
-            <div class="loading-spinner">
-                <div class="spinner-ring"></div>
-                <div class="spinner-ring"></div>
-                <div class="spinner-ring"></div>
-            </div>
+        <!-- Loading -->
+        <div id="quoteLoading" class="loading-spinner">
+            <div class="spinner"></div>
             <h3>Buscando los mejores vuelos...</h3>
-            <p>Estamos consultando disponibilidad en tiempo real</p>
+            <p>Consultando disponibilidad en tiempo real</p>
         </div>
 
-        <!-- Resultado de cotización -->
-        <div id="quoteResult" class="quote-result" style="display: none;">
-            <!-- Header con título -->
+        <!-- Resultado -->
+        <div id="quoteResult" style="display: none;">
+            <!-- Header -->
             <div class="quote-header">
-                <div class="quote-icon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
-                        <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
-                        <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                    </svg>
-                </div>
-                <div class="quote-header-text">
-                    <h2>Tu Cotización Personalizada</h2>
-                    <p>Precio calculado en tiempo real</p>
-                </div>
+                <div class="header-icon">✈️</div>
+                <h2>Tu Cotización Personalizada</h2>
+                <p>Precio calculado en tiempo real</p>
             </div>
 
-            <!-- Información del viaje -->
-            <div class="quote-travel-info">
-                <div class="travel-route">
-                    <div class="route-point">
-                        <div class="route-icon origin">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <circle cx="12" cy="12" r="10"></circle>
-                            </svg>
-                        </div>
-                        <div class="route-details">
-                            <span class="route-label">Desde</span>
-                            <strong id="quoteOrigin">Lima (LIM)</strong>
-                        </div>
-                    </div>
-
-                    <div class="route-divider">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 2L11 13"></path>
-                            <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
-                        </svg>
-                    </div>
-
-                    <div class="route-point">
-                        <div class="route-icon destination">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                        </div>
-                        <div class="route-details">
-                            <span class="route-label">Hasta</span>
-                            <strong id="quoteDestination">Cusco (CUZ)</strong>
-                        </div>
-                    </div>
+            <!-- Detalles del viaje -->
+            <div class="quote-details">
+                <div class="quote-row">
+                    <span class="quote-label">🗺️ Desde</span>
+                    <span class="quote-value" id="quoteOrigin">Lima (LIM)</span>
                 </div>
-
-                <div class="travel-metadata">
-                    <div class="metadata-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                        </svg>
-                        <span id="quoteDate">Jueves, 12 de febrero de 2026</span>
-                    </div>
-                    <div class="metadata-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                        <span id="quoteTravelers">2 personas</span>
-                    </div>
+                <div class="quote-row">
+                    <span class="quote-label">🎯 Hasta</span>
+                    <span class="quote-value" id="quoteDestination">Cusco (CUZ)</span>
+                </div>
+                <div class="quote-row">
+                    <span class="quote-label">📅 Fecha de salida</span>
+                    <span class="quote-value" id="quoteDate">Jueves, 12 de febrero de 2026</span>
+                </div>
+                <div class="quote-row">
+                    <span class="quote-label">👥 Viajeros</span>
+                    <span class="quote-value" id="quoteTravelers">2 personas</span>
                 </div>
             </div>
 
             <!-- Información del vuelo -->
-            <div class="quote-flight-card">
-                <div class="flight-card-header">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path>
-                    </svg>
-                    <h3>Detalles del Vuelo</h3>
-                </div>
-                <div class="flight-info-grid">
-                    <div class="flight-info-item">
-                        <span class="info-label">Aerolínea</span>
-                        <span class="info-value" id="quoteAirline">LATAM Airlines</span>
+            <div class="flight-info-box">
+                <h3>✈️ Detalles del Vuelo</h3>
+                <div class="flight-grid">
+                    <div class="flight-item">
+                        <span class="flight-label">Aerolínea</span>
+                        <span class="flight-value" id="quoteAirline">LATAM Airlines</span>
                     </div>
-                    <div class="flight-info-item">
-                        <span class="info-label">Salida</span>
-                        <span class="info-value" id="quoteDeparture">08:30</span>
+                    <div class="flight-item">
+                        <span class="flight-label">Horario</span>
+                        <span class="flight-value" id="quoteSchedule">08:30 → 09:50</span>
                     </div>
-                    <div class="flight-info-item">
-                        <span class="info-label">Llegada</span>
-                        <span class="info-value" id="quoteArrival">09:50</span>
+                    <div class="flight-item">
+                        <span class="flight-label">Duración</span>
+                        <span class="flight-value" id="quoteDuration">1h 20m</span>
                     </div>
-                    <div class="flight-info-item">
-                        <span class="info-label">Duración</span>
-                        <span class="info-value" id="quoteDuration">1h 20m</span>
+                    <div class="flight-item">
+                        <span class="flight-label">Tipo</span>
+                        <span class="flight-value" id="quoteStops">Directo</span>
                     </div>
-                    <div class="flight-info-item">
-                        <span class="info-label">Escalas</span>
-                        <span class="info-value" id="quoteStops">Directo</span>
-                    </div>
-                    <div class="flight-info-item">
-                        <span class="info-label">Equipaje</span>
-                        <span class="info-value" id="quoteBaggage">1 maleta</span>
+                    <div class="flight-item">
+                        <span class="flight-label">Equipaje</span>
+                        <span class="flight-value" id="quoteBaggage">1 maleta</span>
                     </div>
                 </div>
             </div>
