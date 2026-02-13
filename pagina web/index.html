@@ -142,7 +142,7 @@
                                 </svg>
                                 Partida
                             </label>
-                            <input type="text" id="origin" class="search-input" placeholder="¿Desde dónde viajas?" list="origin-list" required>
+                            <input type="text" id="origin" name="origin" class="search-input" placeholder="¿Desde dónde viajas?" list="origin-list" required>
                             <datalist id="origin-list">
                                 <option value="Lima, Perú">
                                 <option value="Ciudad de México, México">
@@ -165,7 +165,7 @@
                                 </svg>
                                 Destino
                             </label>
-                            <input type="text" id="destination" class="search-input" placeholder="¿A dónde quieres ir?" list="destinos-list" required>
+                            <input type="text" id="destination" name="destination" class="search-input" placeholder="¿A dónde quieres ir?" list="destinos-list" required>
                             <datalist id="destinos-list">
                                 <option value="Cusco, Perú">
                                 <option value="Arequipa, Perú">
@@ -184,7 +184,7 @@
                                 </svg>
                                 Fechas
                             </label>
-                            <input type="date" id="date" class="search-input" required>
+                            <input type="date" id="date" name="date" class="search-input" required>
                         </div>
                         
                         <div class="search-group">
@@ -197,7 +197,7 @@
                                 </svg>
                                 Viajeros
                             </label>
-                            <select id="travelers" class="search-input" required>
+                            <select id="travelers" name="travelers" class="search-input" required>
                                 <option value="1">1 Persona</option>
                                 <option value="2" selected>2 Personas</option>
                                 <option value="3">3 Personas</option>
@@ -248,171 +248,40 @@
         </div>
     </section>
 
-    <!-- Modal de Cotización -->
-    <div class="quote-modal" id="quoteModal">
+    <!-- ========================================= -->
+    <!-- MODAL DE COTIZACIÓN - VERSIÓN ÚNICA Y LIMPIA -->
+    <!-- ========================================= -->
+    <div id="quoteModal" class="quote-modal">
+        <div class="quote-modal-overlay"></div>
+        
         <div class="quote-content">
-            <button class="quote-close" id="closeQuote">&times;</button>
-            
+            <!-- Botón cerrar -->
+            <button type="button" id="closeQuote" class="quote-close">×</button>
+
             <!-- Loading -->
-            <div class="loading-spinner" id="quoteLoading">
+            <div id="quoteLoading" class="loading-spinner">
                 <div class="spinner"></div>
-                <p style="color: white;">Calculando tu cotización personalizada...</p>
+                <h3>Buscando los mejores vuelos...</h3>
+                <p>Consultando disponibilidad en tiempo real</p>
             </div>
 
-<!-- ========================================= -->
-<!-- MODAL DE COTIZACIÓN - VERSIÓN PROFESIONAL -->
-<!-- ========================================= -->
-
-<!-- Reemplaza tu modal actual con este código -->
-
-<div id="quoteModal" class="quote-modal">
-    <div class="quote-modal-overlay"></div>
-    
-    <div class="quote-content">
-        <!-- Botón cerrar -->
-        <button id="closeQuote" class="quote-close">×</button>
-
-        <!-- Loading -->
-        <div id="quoteLoading" class="loading-spinner">
-            <div class="spinner"></div>
-            <h3>Buscando los mejores vuelos...</h3>
-            <p>Consultando disponibilidad en tiempo real</p>
-        </div>
-
-        <!-- Resultado -->
-        <div id="quoteResult" style="display: none;">
-            <!-- Header -->
-            <div class="quote-header">
-                <div class="header-icon">✈️</div>
-                <h2>Tu Cotización Personalizada</h2>
-                <p>Precio calculado en tiempo real</p>
-            </div>
-
-            <!-- Detalles del viaje -->
-            <div class="quote-details">
-                <div class="quote-row">
-                    <span class="quote-label">🗺️ Desde</span>
-                    <span class="quote-value" id="quoteOrigin">Lima (LIM)</span>
-                </div>
-                <div class="quote-row">
-                    <span class="quote-label">🎯 Hasta</span>
-                    <span class="quote-value" id="quoteDestination">Cusco (CUZ)</span>
-                </div>
-                <div class="quote-row">
-                    <span class="quote-label">📅 Fecha de salida</span>
-                    <span class="quote-value" id="quoteDate">Jueves, 12 de febrero de 2026</span>
-                </div>
-                <div class="quote-row">
-                    <span class="quote-label">👥 Viajeros</span>
-                    <span class="quote-value" id="quoteTravelers">2 personas</span>
-                </div>
-            </div>
-
-            <!-- Información del vuelo -->
-            <div class="flight-info-box">
-                <h3>✈️ Detalles del Vuelo</h3>
-                <div class="flight-grid">
-                    <div class="flight-item">
-                        <span class="flight-label">Aerolínea</span>
-                        <span class="flight-value" id="quoteAirline">LATAM Airlines</span>
-                    </div>
-                    <div class="flight-item">
-                        <span class="flight-label">Horario</span>
-                        <span class="flight-value" id="quoteSchedule">08:30 → 09:50</span>
-                    </div>
-                    <div class="flight-item">
-                        <span class="flight-label">Duración</span>
-                        <span class="flight-value" id="quoteDuration">1h 20m</span>
-                    </div>
-                    <div class="flight-item">
-                        <span class="flight-label">Tipo</span>
-                        <span class="flight-value" id="quoteStops">Directo</span>
-                    </div>
-                    <div class="flight-item">
-                        <span class="flight-label">Equipaje</span>
-                        <span class="flight-value" id="quoteBaggage">1 maleta</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Desglose de precios -->
-            <div class="quote-pricing">
-                <h3 class="pricing-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                    </svg>
-                    Desglose de Precios
-                </h3>
-
-                <div class="pricing-breakdown">
-                    <div class="pricing-item">
-                        <span class="pricing-label">Precio base del paquete</span>
-                        <span class="pricing-value" id="basePrice">PEN 668.72</span>
-                    </div>
-                    <div class="pricing-item">
-                        <span class="pricing-label" id="flightLabel">Fee de servicio (LATAM Airlines)</span>
-                        <span class="pricing-value" id="flightCost">PEN 100.8</span>
-                    </div>
-                    <div class="pricing-item discount" style="display: none;" id="groupDiscountRow">
-                        <span class="pricing-label">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            Descuento por grupo
-                        </span>
-                        <span class="pricing-value" id="groupDiscount">-S/ 150</span>
-                    </div>
-                    <div class="pricing-item adjustment" style="display: none;" id="seasonAdjustmentRow">
-                        <span class="pricing-label" id="seasonLabel">Ajuste de temporada</span>
-                        <span class="pricing-value" id="seasonAdjustment">+S/ 80</span>
-                    </div>
+            <!-- Resultado -->
+            <div id="quoteResult" style="display: none;">
+                <!-- Header -->
+                <div class="quote-header">
+                    <div class="header-icon">✈️</div>
+                    <h2>Tu Cotización Personalizada</h2>
+                    <p>Precio calculado en tiempo real</p>
                 </div>
 
-                <div class="pricing-total">
-                    <span class="total-label">PRECIO TOTAL</span>
-                    <span class="total-value" id="totalPrice">PEN 2,609</span>
-                </div>
-
-                <div class="pricing-note">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                    </svg>
-                    <span>Precio final por persona. Incluye vuelo + paquete turístico + fees.</span>
-                </div>
-            </div>
-
-            <!-- Botones de acción -->
-            <div class="quote-actions">
-                <button id="newSearch" class="btn-secondary">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-                        <path d="M21 3v5h-5"></path>
-                        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-                        <path d="M3 21v-5h5"></path>
-                    </svg>
-                    Nueva Búsqueda
-                </button>
-                <button id="bookNow" class="btn-primary">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                    </svg>
-                    Reservar Ahora
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
+                <!-- Detalles del viaje -->
                 <div class="quote-details">
                     <div class="quote-row">
-                        <span class="quote-label">🛫 Desde</span>
+                        <span class="quote-label">🗺️ Desde</span>
                         <span class="quote-value" id="quoteOrigin">-</span>
                     </div>
                     <div class="quote-row">
-                        <span class="quote-label">🏖️ Hasta</span>
+                        <span class="quote-label">🎯 Hasta</span>
                         <span class="quote-value" id="quoteDestination">-</span>
                     </div>
                     <div class="quote-row">
@@ -425,39 +294,98 @@
                     </div>
                 </div>
 
-                <div class="price-breakdown">
-                    <h3>💰 Desglose de Precios</h3>
-                    <div class="price-item">
-                        <span>Precio base del paquete</span>
-                        <span id="basePrice">-</span>
+                <!-- Información del vuelo -->
+                <div class="flight-info-box">
+                    <h3>✈️ Detalles del Vuelo</h3>
+                    <div class="flight-grid">
+                        <div class="flight-item">
+                            <span class="flight-label">Aerolínea</span>
+                            <span class="flight-value" id="quoteAirline">-</span>
+                        </div>
+                        <div class="flight-item">
+                            <span class="flight-label">Horario</span>
+                            <span class="flight-value" id="quoteSchedule">-</span>
+                        </div>
+                        <div class="flight-item">
+                            <span class="flight-label">Duración</span>
+                            <span class="flight-value" id="quoteDuration">-</span>
+                        </div>
+                        <div class="flight-item">
+                            <span class="flight-label">Tipo</span>
+                            <span class="flight-value" id="quoteStops">-</span>
+                        </div>
+                        <div class="flight-item">
+                            <span class="flight-label">Equipaje</span>
+                            <span class="flight-value" id="quoteBaggage">-</span>
+                        </div>
                     </div>
-                    <div class="price-item">
-                        <span id="flightLabel">Vuelos internacionales</span>
-                        <span id="flightCost">-</span>
-                    </div>
-                    <div class="price-item">
-                        <span>Descuento por grupo</span>
-                        <span id="groupDiscount" style="color: #4ade80;">-</span>
-                    </div>
-                    <div class="price-item">
-                        <span id="seasonLabel">Ajuste de temporada</span>
-                        <span id="seasonAdjustment">-</span>
-                    </div>
-                    <div class="price-total">
-                        <span class="label">PRECIO TOTAL</span>
-                        <span class="amount" id="totalPrice">-</span>
-                    </div>
-                    <p style="color: rgba(255,255,255,0.6); font-size: 12px; margin-top: 12px; text-align: center;">
-                        *Precio por persona. Incluye vuelos, hoteles, tours y seguros.
-                    </p>
                 </div>
 
+                <!-- Desglose de precios -->
+                <div class="quote-pricing">
+                    <h3 class="pricing-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                        </svg>
+                        Desglose de Precios
+                    </h3>
+
+                    <div class="pricing-breakdown">
+                        <div class="pricing-item">
+                            <span class="pricing-label">Precio base del paquete</span>
+                            <span class="pricing-value" id="basePrice">-</span>
+                        </div>
+                        <div class="pricing-item">
+                            <span class="pricing-label" id="flightLabel">Fee de servicio</span>
+                            <span class="pricing-value" id="flightCost">-</span>
+                        </div>
+                        <div class="pricing-item discount" style="display: none;" id="groupDiscountRow">
+                            <span class="pricing-label">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                                Descuento por grupo
+                            </span>
+                            <span class="pricing-value" id="groupDiscount">-</span>
+                        </div>
+                        <div class="pricing-item adjustment" style="display: none;" id="seasonAdjustmentRow">
+                            <span class="pricing-label" id="seasonLabel">Ajuste de temporada</span>
+                            <span class="pricing-value" id="seasonAdjustment">-</span>
+                        </div>
+                    </div>
+
+                    <div class="pricing-total">
+                        <span class="total-label">PRECIO TOTAL</span>
+                        <span class="total-value" id="totalPrice">-</span>
+                    </div>
+
+                    <div class="pricing-note">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span>Precio final por persona. Incluye vuelo + paquete turístico + fees.</span>
+                    </div>
+                </div>
+
+                <!-- Botones de acción -->
                 <div class="quote-actions">
-                    <button class="quote-btn quote-btn-secondary" id="newSearch">
-                        🔄 Nueva Búsqueda
+                    <button type="button" id="newSearch" class="btn-secondary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                            <path d="M21 3v5h-5"></path>
+                            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                            <path d="M3 21v-5h5"></path>
+                        </svg>
+                        Nueva Búsqueda
                     </button>
-                    <button class="quote-btn quote-btn-primary" id="bookNow">
-                        ✅ Reservar Ahora
+                    <button type="button" id="bookNow" class="btn-primary">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+                        Reservar Ahora
                     </button>
                 </div>
             </div>
@@ -549,74 +477,16 @@
                 <div class="service-card" data-aos="fade-up">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2v20M2 12h20M12 2C8.5 2 6 4.5 6 8s2.5 6 6 6 6-2.5 6-6-2.5-6-6-6zM12 14c-3.5 0-6 2.5-6 6s2.5 6 6 6 6-2.5 6-6-2.5-6-6-6z"/>
-                        </svg>
-                    </div>
-                    <h3>Paquetes Turísticos</h3>
-                    <p>Paquetes completos con vuelos, hoteles y actividades seleccionadas especialmente para cada destino.</p>
-                    <ul class="service-features">
-                        <li>✓ Itinerarios personalizados</li>
-                        <li>✓ Hoteles 4 y 5 estrellas</li>
-                        <li>✓ Tours y excursiones incluidas</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Más información
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="service-card featured-service" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-badge">⭐ Más Solicitado</div>
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                            <polyline points="7.5 4.21 12 6.81 16.5 4.21"/>
-                            <polyline points="7.5 19.79 7.5 14.6 3 12"/>
-                            <polyline points="21 12 16.5 14.6 16.5 19.79"/>
                             <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
                             <line x1="12" y1="22.08" x2="12" y2="12"/>
                         </svg>
                     </div>
-                    <h3>Luna de Miel</h3>
-                    <p>Experiencias románticas diseñadas para hacer de tu luna de miel un recuerdo perfecto e inolvidable.</p>
-                    <ul class="service-features">
-                        <li>✓ Resorts premium exclusivos</li>
-                        <li>✓ Cenas románticas privadas</li>
-                        <li>✓ Spa y tratamientos de pareja</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Más información
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </a>
+                    <h3>Paquetes Todo Incluido</h3>
+                    <p>Vuelos, alojamiento, tours y seguros en un solo paquete personalizado</p>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                        </svg>
-                    </div>
-                    <h3>Viajes Corporativos</h3>
-                    <p>Soluciones integrales para eventos empresariales, convenciones y viajes de incentivos.</p>
-                    <ul class="service-features">
-                        <li>✓ Logística completa</li>
-                        <li>✓ Salas de conferencias</li>
-                        <li>✓ Actividades team building</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Más información
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="service-card" data-aos="fade-up">
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -625,62 +495,52 @@
                             <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
                         </svg>
                     </div>
-                    <h3>Viajes en Grupo</h3>
-                    <p>Experiencias grupales con descuentos especiales para familias, amigos o grupos organizados.</p>
-                    <ul class="service-features">
-                        <li>✓ Descuentos por volumen</li>
-                        <li>✓ Coordinador de grupo</li>
-                        <li>✓ Actividades compartidas</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Más información
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                        </svg>
-                    </div>
-                    <h3>Seguros de Viaje</h3>
-                    <p>Protección completa para tu viaje con las mejores aseguradoras internacionales.</p>
-                    <ul class="service-features">
-                        <li>✓ Cobertura médica internacional</li>
-                        <li>✓ Cancelación y demoras</li>
-                        <li>✓ Pérdida de equipaje</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Más información
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </a>
+                    <h3>Viajes Corporativos</h3>
+                    <p>Soluciones empresariales con tarifas especiales y gestión completa</p>
                 </div>
 
                 <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="service-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                            <polyline points="9 22 9 12 15 12 15 22"/>
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                         </svg>
                     </div>
-                    <h3>Alojamiento Premium</h3>
-                    <p>Selección exclusiva de hoteles, resorts y alojamientos únicos en cada destino.</p>
-                    <ul class="service-features">
-                        <li>✓ Hoteles boutique</li>
-                        <li>✓ Resorts todo incluido</li>
-                        <li>✓ Experiencias únicas</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Más información
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
+                    <h3>Luna de Miel</h3>
+                    <p>Paquetes románticos diseñados para hacer tu luna de miel inolvidable</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
                         </svg>
-                    </a>
+                    </div>
+                    <h3>Asistencia 24/7</h3>
+                    <p>Soporte continuo durante todo tu viaje, estamos aquí cuando nos necesites</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Tours Personalizados</h3>
+                    <p>Itinerarios diseñados específicamente según tus intereses y preferencias</p>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>Viajes en Grupo</h3>
+                    <p>Tarifas especiales y coordinación completa para grupos grandes</p>
                 </div>
             </div>
         </div>
@@ -690,84 +550,42 @@
     <section id="nosotros" class="about">
         <div class="container">
             <div class="about-content">
-                <div class="about-image" data-aos="fade-right">
-                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&q=80" alt="Sobre Good Call Travel">
-                    <div class="about-image-overlay">
-                        <div class="about-badge">
-                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                <div class="about-text" data-aos="fade-right">
+                    <span class="section-label">NUESTRA HISTORIA</span>
+                    <h2 class="section-title">Más de 6 años <span class="text-gradient">Creando Sueños</span></h2>
+                    <p>
+                        Good Call Travel nació de la pasión por viajar y el deseo de compartir 
+                        experiencias únicas con el mundo. Desde 2020, hemos ayudado a miles de 
+                        viajeros a descubrir destinos increíbles y crear recuerdos inolvidables.
+                    </p>
+                    <p>
+                        Nuestro equipo de expertos en viajes trabaja incansablemente para 
+                        ofrecerte las mejores opciones, precios competitivos y un servicio 
+                        personalizado que supera todas tus expectativas.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                             </svg>
-                            <div>
-                                <strong>6 Años</strong>
-                                <span>de Excelencia</span>
-                            </div>
+                            <span>Certificados IATA</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Mejor Precio Garantizado</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Soporte 24/7</span>
                         </div>
                     </div>
                 </div>
-                
-                <div class="about-text" data-aos="fade-left">
-                    <span class="section-label">CONOCE NUESTRA HISTORIA</span>
-                    <h2 class="section-title">Creando <span class="text-gradient">Experiencias</span> Desde 2020</h2>
-                    <p class="section-description">
-                        En Good Call Travel, no solo vendemos viajes, creamos recuerdos que duran toda la vida. 
-                        Desde nuestros inicios en 2020, nos hemos dedicado a transformar los sueños de viaje de 
-                        nuestros clientes en experiencias reales e inolvidables.
-                    </p>
-                    <p class="section-description">
-                        Nuestro equipo de expertos cuenta con más de 50 años de experiencia combinada en la 
-                        industria del turismo, garantizando que cada detalle de tu viaje sea perfecto.
-                    </p>
-
-                    <div class="about-stats">
-                        <div class="stat-item" data-aos="zoom-in" data-aos-delay="100">
-                            <div class="stat-icon">🌍</div>
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Destinos</div>
-                        </div>
-                        <div class="stat-item" data-aos="zoom-in" data-aos-delay="200">
-                            <div class="stat-icon">😊</div>
-                            <div class="stat-number">15K+</div>
-                            <div class="stat-label">Clientes Felices</div>
-                        </div>
-                        <div class="stat-item" data-aos="zoom-in" data-aos-delay="300">
-                            <div class="stat-icon">⭐</div>
-                            <div class="stat-number">4.9</div>
-                            <div class="stat-label">Rating Promedio</div>
-                        </div>
-                        <div class="stat-item" data-aos="zoom-in" data-aos-delay="400">
-                            <div class="stat-icon">🏆</div>
-                            <div class="stat-number">12</div>
-                            <div class="stat-label">Premios</div>
-                        </div>
-                    </div>
-
-                    <div class="about-values">
-                        <div class="value-item" data-aos="fade-up">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <div>
-                                <strong>Compromiso</strong>
-                                <p>Tu satisfacción es nuestra prioridad</p>
-                            </div>
-                        </div>
-                        <div class="value-item" data-aos="fade-up" data-aos-delay="100">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                            </svg>
-                            <div>
-                                <strong>Excelencia</strong>
-                                <p>Calidad premium en cada servicio</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a href="#contacto" class="btn-about">
-                        <span>Conoce más sobre nosotros</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
-                        </svg>
-                    </a>
+                <div class="about-image" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600" alt="Equipo Good Call Travel">
                 </div>
             </div>
         </div>
@@ -778,34 +596,18 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-label">TESTIMONIOS</span>
-                <h2 class="section-title">Lo que dicen <span class="text-gradient">nuestros clientes</span></h2>
+                <h2 class="section-title">Lo que dicen <span class="text-gradient">Nuestros Clientes</span></h2>
                 <p class="section-subtitle">
-                    Miles de viajeros felices comparten sus experiencias
+                    Miles de viajeros satisfechos respaldan nuestro compromiso con la excelencia
                 </p>
             </div>
-            
+
             <div class="testimonials-grid">
                 <div class="testimonial-card" data-aos="fade-up">
-                    <div class="testimonial-rating">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                    </div>
+                    <div class="testimonial-stars">★★★★★</div>
                     <p class="testimonial-text">
-                        "Nuestra luna de miel en Maldivas fue simplemente perfecta gracias a Good Call Travel. 
-                        Cada detalle estaba cuidadosamente planeado y el servicio fue excepcional."
+                        "Increíble experiencia. El equipo de Good Call Travel organizó 
+                        cada detalle de nuestro viaje a Cusco. Todo perfecto desde el inicio."
                     </p>
                     <div class="testimonial-author">
                         <img src="https://i.pravatar.cc/150?img=1" alt="María González">
@@ -814,201 +616,36 @@
                             <span>Lima, Perú</span>
                         </div>
                     </div>
-                    <div class="testimonial-destination">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Maldivas</span>
-                    </div>
                 </div>
 
-                <div class="testimonial-card featured-testimonial" data-aos="fade-up" data-aos-delay="100">
-                    <div class="testimonial-badge">⭐ Destacado</div>
-                    <div class="testimonial-rating">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                    </div>
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-stars">★★★★★</div>
                     <p class="testimonial-text">
-                        "El viaje a Machu Picchu superó todas nuestras expectativas. La organización fue impecable 
-                        y el guía turístico increíblemente conocedor. ¡Una experiencia que nunca olvidaremos!"
+                        "Profesionalismo de primer nivel. Nos ayudaron en todo momento 
+                        y el precio fue muy competitivo. Totalmente recomendados."
                     </p>
                     <div class="testimonial-author">
-                        <img src="https://i.pravatar.cc/150?img=12" alt="Carlos Ramírez">
+                        <img src="https://i.pravatar.cc/150?img=33" alt="Carlos Ramos">
                         <div>
-                            <strong>Carlos Ramírez</strong>
-                            <span>Bogotá, Colombia</span>
+                            <strong>Carlos Ramos</strong>
+                            <span>Arequipa, Perú</span>
                         </div>
-                    </div>
-                    <div class="testimonial-destination">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>Machu Picchu, Perú</span>
                     </div>
                 </div>
 
                 <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="testimonial-rating">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                    </div>
+                    <div class="testimonial-stars">★★★★★</div>
                     <p class="testimonial-text">
-                        "París siempre fue mi sueño y Good Call Travel lo hizo realidad. El hotel, los tours, 
-                        todo estuvo perfecto. Sin duda volveré a viajar con ellos."
+                        "Nuestra luna de miel fue un sueño hecho realidad gracias a Good Call. 
+                        Atención personalizada y destinos espectaculares."
                     </p>
                     <div class="testimonial-author">
-                        <img src="https://i.pravatar.cc/150?img=5" alt="Ana Martínez">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="Ana & Roberto">
                         <div>
-                            <strong>Ana Martínez</strong>
-                            <span>Santiago, Chile</span>
+                            <strong>Ana & Roberto</strong>
+                            <span>Trujillo, Perú</span>
                         </div>
                     </div>
-                    <div class="testimonial-destination">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
-                        <span>París, Francia</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Trabaja con Nosotros -->
-    <section id="trabaja" class="hiring">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-label">ÚNETE AL EQUIPO</span>
-                <h2 class="section-title">Trabaja con <span class="text-gradient">Nosotros</span></h2>
-                <p class="section-subtitle">
-                    Forma parte de un equipo apasionado por crear experiencias inolvidables
-                </p>
-            </div>
-
-            <div class="hiring-content">
-                <div class="hiring-info" data-aos="fade-right">
-                    <h3>¿Por qué trabajar con Good Call Travel?</h3>
-                    <ul class="hiring-benefits">
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>Ambiente de trabajo dinámico y profesional</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>Oportunidades de crecimiento y desarrollo</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>Descuentos especiales en viajes para empleados</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>Capacitación continua en turismo internacional</span>
-                        </li>
-                        <li>
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>Beneficios competitivos y buen clima laboral</span>
-                        </li>
-                    </ul>
-
-                    <div class="hiring-positions">
-                        <h4>Posiciones Abiertas:</h4>
-                        <div class="position-badges">
-                            <span class="position-badge">Agente de Viajes</span>
-                            <span class="position-badge">Marketing Digital</span>
-                            <span class="position-badge">Servicio al Cliente</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hiring-form-wrapper" data-aos="fade-left">
-                    <form id="hiringForm" class="hiring-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" name="name" placeholder="Nombre completo *" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Email *" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="tel" name="phone" placeholder="Teléfono *" required>
-                            </div>
-                            <div class="form-group">
-                                <select name="position" required>
-                                    <option value="">Posición de interés *</option>
-                                    <option value="agente">Agente de Viajes</option>
-                                    <option value="marketing">Marketing Digital</option>
-                                    <option value="servicio">Servicio al Cliente</option>
-                                    <option value="otro">Otra posición</option>
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <textarea name="message" placeholder="Cuéntanos sobre ti y tu experiencia..." rows="4" required></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="file-upload-label">
-                                <input type="file" name="cv" accept=".pdf,.doc,.docx" style="display: none;">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                                    <polyline points="17 8 12 3 7 8"/>
-                                    <line x1="12" y1="3" x2="12" y2="15"/>
-                                </svg>
-                                <span class="file-upload-text">Adjuntar CV (opcional)</span>
-                            </label>
-                        </div>
-                        
-                        <button type="submit" class="btn-submit">
-                            <span>Enviar Postulación</span>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-                            </svg>
-                        </button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -1017,95 +654,81 @@
     <!-- Contacto -->
     <section id="contacto" class="contact">
         <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <span class="section-label">CONTÁCTANOS</span>
-                <h2 class="section-title">Comienza tu <span class="text-gradient">Aventura Hoy</span></h2>
-                <p class="section-subtitle">
-                    Estamos listos para ayudarte a planificar el viaje de tus sueños
-                </p>
-            </div>
-
-            <div class="contact-content">
+            <div class="contact-wrapper">
                 <div class="contact-info" data-aos="fade-right">
-                    <div class="contact-card">
-                        <div class="contact-icon">
+                    <span class="section-label">CONTÁCTANOS</span>
+                    <h2 class="section-title">Hablemos de tu <span class="text-gradient">Próximo Viaje</span></h2>
+                    <p>
+                        ¿Listo para vivir una aventura inolvidable? Nuestro equipo está 
+                        aquí para ayudarte a planificar el viaje perfecto.
+                    </p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                                 <circle cx="12" cy="10" r="3"/>
                             </svg>
+                            <div>
+                                <strong>Dirección</strong>
+                                <p>Av. Larco 1234, Miraflores<br>Lima, Perú</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4>Ubicación</h4>
-                            <p>Av. Principal 123<br>Lima, Perú</p>
-                        </div>
-                    </div>
 
-                    <div class="contact-card">
-                        <div class="contact-icon">
+                        <div class="contact-item">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                             </svg>
+                            <div>
+                                <strong>Teléfono</strong>
+                                <p>+51 987 654 321<br>+51 1 234 5678</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4>Email</h4>
-                            <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82ebece4edc2e5edede6e1e3eeeef6f0e3f4e7eeace1edef">[email&#160;protected]</a></p>
-                        </div>
-                    </div>
 
-                    <div class="contact-card">
-                        <div class="contact-icon">
+                        <div class="contact-item">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/>
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
                             </svg>
+                            <div>
+                                <strong>Email</strong>
+                                <p>info@goodcalltravel.com<br>ventas@goodcalltravel.com</p>
+                            </div>
                         </div>
-                        <div>
-                            <h4>Teléfono</h4>
-                            <p>+51 999 888 777<br>+51 111 222 333</p>
-                        </div>
-                    </div>
 
-                    <div class="contact-card">
-                        <div class="contact-icon">
+                        <div class="contact-item">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"/>
                                 <polyline points="12 6 12 12 16 14"/>
                             </svg>
-                        </div>
-                        <div>
-                            <h4>Horario</h4>
-                            <p>Lunes - Viernes: 9:00 - 19:00<br>Sábados: 9:00 - 14:00</p>
+                            <div>
+                                <strong>Horario</strong>
+                                <p>Lun - Vie: 9:00 AM - 7:00 PM<br>Sáb: 10:00 AM - 2:00 PM</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="contact-form-wrapper" data-aos="fade-left">
-                    <form id="contactForm" class="contact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" name="name" placeholder="Nombre completo *" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Email *" required>
-                            </div>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label>Nombre Completo</label>
+                            <input type="text" name="name" placeholder="Tu nombre" required>
                         </div>
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <input type="tel" name="phone" placeholder="Teléfono *" required>
+                                <label>Email</label>
+                                <input type="email" name="email" placeholder="tu@email.com" required>
                             </div>
                             <div class="form-group">
-                                <select name="interested" required>
-                                    <option value="">¿Qué te interesa? *</option>
-                                    <option value="destino">Consulta sobre destino</option>
-                                    <option value="paquete">Cotización de paquete</option>
-                                    <option value="grupo">Viaje en grupo</option>
-                                    <option value="corporativo">Viaje corporativo</option>
-                                    <option value="otro">Otro</option>
-                                </select>
+                                <label>Teléfono</label>
+                                <input type="tel" name="phone" placeholder="+51 987 654 321" required>
                             </div>
                         </div>
                         
                         <div class="form-group">
+                            <label>Mensaje</label>
                             <textarea name="message" placeholder="Cuéntanos sobre el viaje que tienes en mente..." rows="5" required></textarea>
                         </div>
                         
@@ -1233,7 +856,7 @@
     <script data-cfasync="false" src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script src="cotizador-costamar.js?v=3"></script>
-   <script src="script-integrado.js?v=3"></script>
+    <script src="script-integrado.js?v=3"></script>
     
     <!-- Chat Widget (Good Call Travel) -->
     <div id="gct-chat-widget"></div>
