@@ -335,7 +335,7 @@ function initSearchForm() {
     
     // Manejar envío del formulario
     searchForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // ⚠️ CRÍTICO - Evita que el formulario navegue/recargue
         
         // Ocultar error previo
         if (searchError) {
