@@ -1,736 +1,589 @@
-// ===========================================
-// GOOD CALL TRAVEL - JAVASCRIPT PREMIUM 2026
-// Animaciones avanzadas | Interactividad moderna
-// ===========================================
+// =============================================
+// GOOD CALL TRAVEL - JAVASCRIPT PROFESIONAL 2026
+// =============================================
 
-// ===========================================
-// CONFIGURACIÓN DINÁMICA DE DESTINOS
-// ===========================================
+// =============================================
+// DATOS DE DESTINOS
+// =============================================
 const destinationsData = [
     {
         id: 1,
-        name: "Machu Picchu, Perú",
-        location: "Cusco",
+        name: "Machu Picchu",
+        location: "Cusco, Peru",
         category: "Aventura",
-        price: 6650,
-        description: "Explora la legendaria ciudad perdida de los Incas. Un viaje mágico que combina historia milenaria, naturaleza espectacular y cultura viva.",
-        features: ["Guía experto en historia inca", "Hotel 4 estrellas en Cusco", "Tren panorámico incluido", "5 días / 4 noches"],
-        image: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=1200&q=80",
-        badge: "⭐ Más Popular",
-        featured: false
+        price: "6,650",
+        description: "La ciudad sagrada de los Incas. Historia milenaria, paisajes andinos impresionantes y una experiencia cultural unica en el mundo.",
+        features: ["Guia certificado en historia inca", "Hotel 4 estrellas en Cusco", "Tren panoramico incluido", "5 dias / 4 noches"],
+        image: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=800&q=85",
+        badge: "Mas Popular",
+        featured: true
     },
     {
         id: 2,
-        name: "Santorini, Grecia",
-        location: "Mar Egeo",
+        name: "Santorini",
+        location: "Grecia",
         category: "Premium",
-        price: 9250,
-        description: "Atardeceres mágicos sobre el mar Egeo, arquitectura icónica blanca y azul, y gastronomía mediterránea excepcional.",
-        features: ["Hotel boutique con vista", "Tour de vinos incluido", "Crucero al atardecer", "7 días / 6 noches"],
-        image: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&q=80",
+        price: "9,250",
+        description: "Atardeceres iconicos sobre el Mar Egeo, arquitectura cicladica y gastronomia mediterranea de primer nivel.",
+        features: ["Hotel boutique con vista al mar", "Tour de vinos y cata incluida", "Crucero privado al atardecer", "7 dias / 6 noches"],
+        image: "https://images.unsplash.com/photo-1613395877344-13d4a8e0d49e?w=800&q=85",
         badge: null,
         featured: false
     },
     {
         id: 3,
         name: "Maldivas",
-        location: "Océano Índico",
+        location: "Oceano Indico",
         category: "Playa",
-        price: 11840,
-        description: "Paraíso tropical con aguas cristalinas turquesas, resorts de lujo overwater y experiencias de buceo inolvidables.",
-        features: ["Villa sobre el agua", "All-inclusive resort 5★", "Spa y deportes acuáticos", "6 días / 5 noches"],
-        image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=80",
+        price: "11,840",
+        description: "Aguas turquesas, arrecifes de coral y villas sobre el agua. El destino de playa mas exclusivo del mundo.",
+        features: ["Villa privada sobre el agua", "Resort all-inclusive 5 estrellas", "Spa y deportes acuaticos", "6 dias / 5 noches"],
+        image: "https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=85",
         badge: null,
         featured: false
     },
     {
         id: 4,
-        name: "Tokio, Japón",
-        location: "Asia",
+        name: "Tokio",
+        location: "Japon",
         category: "Cultural",
-        price: 10360,
-        description: "Fusión perfecta de tradición milenaria y tecnología de vanguardia en la metrópolis más vibrante de Asia.",
-        features: ["Guía cultural bilingüe", "JR Pass incluido", "Ceremonia del té", "8 días / 7 noches"],
-        image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80",
+        price: "10,360",
+        description: "La metropolis mas vibrante de Asia combina tradicion milenaria con tecnologia de vanguardia en perfecta armonia.",
+        features: ["Guia cultural bilingue", "JR Pass nacional incluido", "Ceremonia del te tradicional", "8 dias / 7 noches"],
+        image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=85",
         badge: null,
         featured: false
     },
     {
         id: 5,
-        name: "París, Francia",
-        location: "Europa",
+        name: "Paris",
+        location: "Francia",
         category: "Romance",
-        price: 8880,
-        description: "La ciudad del amor y la luz. Arte, arquitectura, moda y gastronomía de clase mundial.",
-        features: ["Hotel en Le Marais", "Tours en museos", "Cena en Torre Eiffel", "6 días / 5 noches"],
-        image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80",
+        price: "8,880",
+        description: "La ciudad del arte, la moda y la gastronomia. Monumentos iconicos, museos de clase mundial y una atmosta inigualable.",
+        features: ["Hotel boutique en Le Marais", "Acceso prioritario a museos", "Cena en la Torre Eiffel", "6 dias / 5 noches"],
+        image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=85",
         badge: null,
         featured: false
     },
     {
         id: 6,
-        name: "Bali, Indonesia",
-        location: "Sureste Asiático",
-        category: "Wellness",
-        price: 7770,
-        description: "Isla de los dioses con templos místicos, arrozales esmeraldas y una cultura espiritual única.",
-        features: ["Retiro de yoga y spa", "Villa privada con piscina", "Tour espiritual", "7 días / 6 noches"],
-        image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+        name: "Bali",
+        location: "Indonesia",
+        category: "Bienestar",
+        price: "7,770",
+        description: "La Isla de los Dioses. Templos ancestrales, terrazas de arroz esmeraldas y una cultura espiritual unica.",
+        features: ["Villa privada con piscina", "Retiro de yoga y meditacion", "Tour espiritual por templos", "7 dias / 6 noches"],
+        image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=85",
         badge: null,
         featured: false
     }
 ];
 
-// ===========================================
-// INICIALIZACIÓN AOS (Animate On Scroll)
-// ===========================================
-function initAOS() {
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: 800,
-            easing: 'ease-out-cubic',
-            once: true,
-            offset: 100,
-            delay: 0,
-            anchorPlacement: 'top-bottom',
-            disable: false,
-            startEvent: 'DOMContentLoaded',
-            initClassName: 'aos-init',
-            animatedClassName: 'aos-animate'
-        });
-    } else {
-        // Si AOS no está disponible, hacer todos los elementos visibles
-        console.warn('AOS no disponible, mostrando contenido sin animaciones');
-        document.querySelectorAll('[data-aos]').forEach(el => {
-            el.style.opacity = '1';
-            el.style.transform = 'none';
-            el.style.visibility = 'visible';
-        });
-    }
-}
-
-// ===========================================
-// RENDERIZADO DE DESTINOS
-// ===========================================
+// =============================================
+// RENDERIZAR DESTINOS
+// =============================================
 function renderDestinations() {
     const container = document.getElementById('destinations-container');
     if (!container) return;
 
-    container.innerHTML = destinationsData.map((dest, index) => `
-        <div class="destination-card ${dest.featured ? 'featured' : ''}" 
-             data-aos="fade-up" 
-             data-aos-delay="${index * 100}"
-             style="opacity: 1; transform: none; visibility: visible;">
-            <div class="destination-image">
-                <div class="image-overlay"></div>
-                <img src="${dest.image}" alt="${dest.name}" class="dest-img" loading="lazy">
-                ${dest.badge ? `<div class="destination-badge">${dest.badge}</div>` : ''}
+    container.innerHTML = destinationsData.map(dest => `
+        <article class="dest-card fade-in">
+            <div class="dest-img-wrap">
+                <img src="${dest.image}" alt="${dest.name}" loading="lazy">
+                ${dest.badge ? `<span class="dest-badge">${dest.badge}</span>` : ''}
+                <span class="dest-tag">${dest.category}</span>
             </div>
-            <div class="destination-content">
-                <div class="destination-header">
-                    <span class="destination-tag">${dest.category}</span>
-                    <span class="destination-price">Desde S/ ${dest.price.toLocaleString('es-PE')}</span>
+            <div class="dest-body">
+                <div class="dest-meta">
+                    <div>
+                        <h3 class="dest-name">${dest.name}</h3>
+                        <p style="font-size:.775rem;color:var(--text-muted);margin-top:.15rem">${dest.location}</p>
+                    </div>
+                    <div class="dest-price">
+                        <span class="dest-price-from">Desde</span>
+                        <span class="dest-price-val">S/ ${dest.price}</span>
+                    </div>
                 </div>
-                <h3>${dest.name}</h3>
-                <p>${dest.description}</p>
-                <ul class="destination-features">
-                    ${dest.features.map(feat => `<li>${feat}</li>`).join('')}
+                <p class="dest-desc">${dest.description}</p>
+                <ul class="dest-feats">
+                    ${dest.features.map(f => `<li>${f}</li>`).join('')}
                 </ul>
-                <a href="#contacto" class="destination-link">
-                    Consultar Disponibilidad
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2"/>
-                    </svg>
+                <a href="#contacto" class="dest-link">
+                    <span>Consultar disponibilidad</span>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
             </div>
-        </div>
+        </article>
     `).join('');
 
-    // Refrescar AOS después de renderizar
-    if (typeof AOS !== 'undefined') {
-        AOS.refresh();
-    }
+    observeFadeIns();
 }
 
-// ===========================================
-// MENÚ MÓVIL
-// ===========================================
-function initMobileMenu() {
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-    const navLinkItems = document.querySelectorAll('.nav-link');
-
-    if (!mobileMenuBtn || !navLinks) return;
-
-    mobileMenuBtn.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        mobileMenuBtn.classList.toggle('active');
-    });
-
-    // Cerrar menú al hacer click en un enlace
-    navLinkItems.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            mobileMenuBtn.classList.remove('active');
+// =============================================
+// PRECIOS DEL ADMIN (localStorage)
+// =============================================
+function loadSavedPrices() {
+    const saved = localStorage.getItem('gct_prices');
+    if (!saved) return;
+    try {
+        const prices = JSON.parse(saved);
+        Object.entries(prices).forEach(([id, price]) => {
+            const dest = destinationsData.find(d => d.id === parseInt(id));
+            if (dest) dest.price = price;
         });
-    });
-
-    // Cerrar menú al hacer click fuera
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.navbar')) {
-            navLinks.classList.remove('active');
-            mobileMenuBtn.classList.remove('active');
-        }
-    });
+    } catch (e) { }
 }
 
-// ===========================================
-// SMOOTH SCROLL
-// ===========================================
-function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-            if (href !== '#' && href !== '#!') {
-                e.preventDefault();
-                const target = document.querySelector(href);
-                if (target) {
-                    const offset = 80;
-                    const targetPosition = target.offsetTop - offset;
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            }
-        });
-    });
-}
-
-// ===========================================
-// NAVBAR SCROLL EFFECTS
-// ===========================================
-function initNavbarScroll() {
-    let lastScroll = 0;
-    const navbar = document.querySelector('.navbar');
-    const navLinks = document.querySelectorAll('.nav-link');
+// =============================================
+// NAVBAR
+// =============================================
+function initNavbar() {
+    const navbar = document.getElementById('navbar');
+    const burger = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
 
     if (!navbar) return;
 
+    // Scroll effect
     window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
-        
-        // Agregar clase scrolled
-        if (currentScroll > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        
-        // Ocultar/mostrar navbar
-        if (currentScroll <= 0) {
-            navbar.style.transform = 'translateY(0)';
-            return;
-        }
-        
-        if (currentScroll > lastScroll && currentScroll > 100) {
-            // Scrolling down
-            navbar.style.transform = 'translateY(-100%)';
-        } else {
-            // Scrolling up
-            navbar.style.transform = 'translateY(0)';
-        }
-        
-        lastScroll = currentScroll;
-        
-        // Active link basado en sección visible
-        updateActiveNavLink();
-    });
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
 
-    function updateActiveNavLink() {
-        const sections = document.querySelectorAll('section[id]');
-        const scrollPosition = window.pageYOffset + 150;
+    // Burger menu
+    if (burger && navLinks) {
+        burger.addEventListener('click', () => {
+            const isOpen = navLinks.classList.toggle('open');
+            burger.classList.toggle('open', isOpen);
+            burger.setAttribute('aria-expanded', isOpen);
+        });
 
+        // Cerrar al hacer click en enlace
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                burger.classList.remove('open');
+                burger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Cerrar al hacer click fuera
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target)) {
+                navLinks.classList.remove('open');
+                burger.classList.remove('open');
+            }
+        });
+    }
+
+    // Active link on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinkEls = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY + 120;
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active-link');
-                    if (link.getAttribute('href') === `#${sectionId}`) {
-                        link.classList.add('active-link');
+            if (scrollY >= section.offsetTop && scrollY < section.offsetTop + section.offsetHeight) {
+                navLinkEls.forEach(link => {
+                    link.style.color = '';
+                    if (link.getAttribute('href') === '#' + section.id) {
+                        link.style.color = 'var(--navy)';
                     }
                 });
             }
         });
-    }
+    }, { passive: true });
 }
 
-// ===========================================
-// BACK TO TOP BUTTON
-// ===========================================
+// =============================================
+// SMOOTH SCROLL
+// =============================================
+function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href === '#' || href === '#!') return;
+            const target = document.querySelector(href);
+            if (!target) return;
+            e.preventDefault();
+            const offset = 72;
+            window.scrollTo({
+                top: target.offsetTop - offset,
+                behavior: 'smooth'
+            });
+        });
+    });
+}
+
+// =============================================
+// HERO SLIDESHOW
+// =============================================
+function initHeroSlideshow() {
+    const slides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.dot');
+    if (!slides.length) return;
+
+    let current = 0;
+    let timer;
+
+    function goTo(index) {
+        slides[current].classList.remove('active');
+        dots[current]?.classList.remove('active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current]?.classList.add('active');
+    }
+
+    function autoPlay() {
+        timer = setInterval(() => goTo(current + 1), 5500);
+    }
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            clearInterval(timer);
+            goTo(i);
+            autoPlay();
+        });
+    });
+
+    autoPlay();
+}
+
+// =============================================
+// FORMULARIO DE BUSQUEDA
+// =============================================
+function initSearchForm() {
+    const form = document.getElementById('searchForm');
+    if (!form) return;
+
+    // Fecha minima = manana
+    const dateInput = document.getElementById('date');
+    const returnInput = document.getElementById('returnDate');
+    const returnField = document.getElementById('returnField');
+
+    if (dateInput) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const iso = tomorrow.toISOString().split('T')[0];
+        dateInput.min = iso;
+        dateInput.value = iso;
+    }
+
+    // --- LOGICA REFINADA TABS IDA / IDA Y VUELTA (Fase 3) ---
+    const tabs = document.querySelectorAll('.cot-tab');
+    let tripMode = 'oneway';
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            tripMode = tab.dataset.mode;
+
+            if (tripMode === 'roundtrip') {
+                if (returnInput) {
+                    returnInput.disabled = false;
+                    returnInput.required = true;
+                }
+                if (returnField) returnField.classList.add('enabled');
+                if (dateInput && dateInput.value && returnInput) {
+                    const min = new Date(dateInput.value);
+                    min.setDate(min.getDate() + 1);
+                    returnInput.min = min.toISOString().split('T')[0];
+                }
+            } else {
+                if (returnInput) {
+                    returnInput.disabled = true;
+                    returnInput.required = false;
+                    returnInput.value = '';
+                }
+                if (returnField) returnField.classList.remove('enabled');
+            }
+        });
+    });
+
+    dateInput?.addEventListener('change', () => {
+        if (tripMode === 'roundtrip' && returnInput) {
+            const min = new Date(dateInput.value);
+            min.setDate(min.getDate() + 1);
+            returnInput.min = min.toISOString().split('T')[0];
+            if (returnInput.value && returnInput.value <= dateInput.value) {
+                returnInput.value = '';
+            }
+        }
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const errorEl = document.getElementById('cotError');
+        if (errorEl) errorEl.style.display = 'none';
+
+        const origin = document.getElementById('origin')?.value.trim();
+        const destination = document.getElementById('destination')?.value.trim();
+        const date = document.getElementById('date')?.value;
+        const travelers = document.getElementById('travelers')?.value;
+        const returnDate = document.getElementById('returnDate')?.value;
+
+        // Validar campos base
+        if (!origin || !destination || !date || !travelers) {
+            showNotif('Por favor completa todos los campos de busqueda.', 'error');
+            return;
+        }
+
+        // Validar fecha de regreso si es ida y vuelta
+        if (tripMode === 'roundtrip' && !returnDate) {
+            showNotif('Por favor selecciona la fecha de regreso.', 'error');
+            return;
+        }
+
+        // Construir parametros
+        const params = new URLSearchParams({
+            origin,
+            destination,
+            date,
+            travelers,
+            tripMode,
+            ...(tripMode === 'roundtrip' && returnDate ? { returnDate } : {})
+        });
+
+        // Si tienes el modulo CotizadorCostamar usa redirección
+        if (window.CotizadorCostamar) {
+            window.location.href = `resultados.html?${params.toString()}`;
+        } else {
+            // Fallback: scroll a contacto
+            showNotif('Recibimos tu solicitud. Te redirigimos a nuestro formulario de contacto.', 'success');
+            setTimeout(() => {
+                const contact = document.getElementById('contacto');
+                if (contact) {
+                    window.scrollTo({ top: contact.offsetTop - 72, behavior: 'smooth' });
+                }
+            }, 1200);
+        }
+    });
+}
+
+// =============================================
+// FORMULARIO DE CONTACTO
+// =============================================
+function initContactForm() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        const original = btn.textContent;
+
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+
+        // Simulacion de envio - reemplaza con tu backend
+        await new Promise(r => setTimeout(r, 1600));
+
+        btn.disabled = false;
+        btn.textContent = original;
+        form.reset();
+        showNotif('Mensaje enviado correctamente. Te contactaremos pronto.', 'success');
+    });
+}
+
+// =============================================
+// BACK TO TOP
+// =============================================
 function initBackToTop() {
-    const backToTopBtn = document.getElementById('backToTop');
-    if (!backToTopBtn) return;
+    const btn = document.getElementById('backTop');
+    if (!btn) return;
 
     window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTopBtn.classList.add('visible');
-        } else {
-            backToTopBtn.classList.remove('visible');
-        }
-    });
+        btn.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
 
-    backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
-// ===========================================
-// FORMULARIO DE BÚSQUEDA CON REDIRECCIÓN
-// ===========================================
-function initSearchForm() {
-    const searchForm = document.getElementById('searchForm');
-    const searchError = document.getElementById('searchError');
-    
-    if (!searchForm) {
-        console.warn('Formulario de búsqueda no encontrado');
-        return;
-    }
-    
-    // Configurar fecha mínima
-    const dateInput = document.getElementById('date');
-    if (dateInput) {
-        const today = new Date();
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        dateInput.min = tomorrow.toISOString().split('T')[0];
-        dateInput.value = tomorrow.toISOString().split('T')[0];
-    }
-    
-    // Función para convertir fecha YYYY-MM-DD a YYYYMMDD
-    function formatearFechaParaAPI(fechaISO) {
-        return fechaISO.replace(/-/g, '');
-    }
-    
-    // Manejar envío del formulario
-    searchForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Ocultar error previo
-        if (searchError) {
-            searchError.style.display = 'none';
-        }
-        
-        // Obtener valores del formulario
-        const origin = document.getElementById('origin').value.trim();
-        const destination = document.getElementById('destination').value.trim();
-        const date = document.getElementById('date').value;
-        const travelers = parseInt(document.getElementById('travelers').value);
-        
-        // Validar campos
-        if (!origin || !destination || !date || !travelers) {
-            if (searchError) {
-                searchError.style.display = 'block';
+// =============================================
+// NOTIFICACIONES
+// =============================================
+function showNotif(message, type = 'success') {
+    const notif = document.getElementById('notif');
+    if (!notif) return;
+
+    notif.textContent = message;
+    notif.className = `notif ${type} show`;
+
+    clearTimeout(notif._timer);
+    notif._timer = setTimeout(() => {
+        notif.classList.remove('show');
+    }, 4500);
+}
+
+// =============================================
+// FADE IN ON SCROLL
+// =============================================
+function observeFadeIns() {
+    const elements = document.querySelectorAll('.fade-in');
+    if (!elements.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, i * 80);
+                observer.unobserve(entry.target);
             }
-            return;
-        }
-        
-        // Extraer solo el nombre de la ciudad
-        const originCity = origin.split(',')[0].trim();
-        const destinationCity = destination.split(',')[0].trim();
-        
-        // Verificar que el cotizador esté cargado
-        if (!window.CotizadorCostamar) {
-            showNotification('❌ Error: Cotizador no cargado. Recarga la página.', 'error');
-            return;
-        }
-        
-        // Obtener códigos IATA
-        const codigoOrigen = window.CotizadorCostamar.obtenerCodigoIATA(originCity);
-        const codigoDestino = window.CotizadorCostamar.obtenerCodigoIATA(destinationCity);
-        
-        if (!codigoOrigen || !codigoDestino) {
-            showNotification(`❌ Ciudad no encontrada: ${!codigoOrigen ? originCity : destinationCity}`, 'error');
-            return;
-        }
-        
-        // Convertir fecha al formato de la API
-        const fechaIda = formatearFechaParaAPI(date);
-        
-        console.log('📋 Datos de búsqueda:', {
-            origen: `${originCity} (${codigoOrigen})`,
-            destino: `${destinationCity} (${codigoDestino})`,
-            fecha: fechaIda,
-            pasajeros: travelers
         });
-        
-        // Crear parámetros para la URL
-        const params = new URLSearchParams({
-            origen: codigoOrigen,
-            destino: codigoDestino,
-            fecha: fechaIda,
-            pasajeros: travelers,
-            nombreOrigen: originCity,
-            nombreDestino: destinationCity
+    }, { threshold: 0.12 });
+
+    elements.forEach(el => observer.observe(el));
+}
+
+// =============================================
+// ANIMACION NUMEROS HERO STATS
+// =============================================
+function animateStats() {
+    const stats = document.querySelectorAll('.hstat strong');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const raw = el.textContent;
+            const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+            if (isNaN(num)) return;
+
+            const hasComma = raw.includes(',');
+            const hasDot = raw.includes('.') && !hasComma;
+            const suffix = raw.replace(/[\d.,]/g, '');
+            const prefix = '';
+            const duration = 1800;
+            const steps = 50;
+            let step = 0;
+
+            const interval = setInterval(() => {
+                step++;
+                const progress = step / steps;
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = num * eased;
+
+                let display;
+                if (hasDot) {
+                    display = current.toFixed(1);
+                } else if (hasComma) {
+                    display = Math.round(current).toLocaleString('es-PE');
+                } else {
+                    display = Math.round(current).toString();
+                }
+
+                el.textContent = prefix + display + suffix;
+
+                if (step >= steps) {
+                    clearInterval(interval);
+                    el.textContent = raw;
+                }
+            }, duration / steps);
+
+            observer.unobserve(el);
         });
-        
-        console.log('🚀 Redirigiendo a resultados.html');
-        
-        // Redirigir a página de resultados
-        window.location.href = `resultados.html?${params.toString()}`;
-    });
-    
-    console.log('✅ Formulario de búsqueda inicializado con redirección');
+    }, { threshold: 0.5 });
+
+    stats.forEach(s => observer.observe(s));
 }
 
-// ===========================================
-// FORMULARIOS DE CONTACTO
-// ===========================================
-function initForms() {
-    const contactForm = document.querySelector('.contact-form');
-
-    if (!contactForm) return;
-    
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const submitBtn = contactForm.querySelector('button[type="submit"]');
-        const originalHTML = submitBtn.innerHTML;
-        
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-                <div style="width: 20px; height: 20px; border: 3px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                <span>Enviando...</span>
-            </div>
-        `;
-
-        try {
-            // Simular envío
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            showNotification('✅ ¡Gracias! Nos pondremos en contacto contigo pronto.', 'success');
-            contactForm.reset();
-        } catch (error) {
-            showNotification('Hubo un error. Por favor, inténtalo de nuevo.', 'error');
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalHTML;
-        }
-    });
-}
-
-// ===========================================
-// SISTEMA DE NOTIFICACIONES
-// ===========================================
-function showNotification(message, type = 'success') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.textContent = message;
-    
-    Object.assign(notification.style, {
-        position: 'fixed',
-        top: '100px',
-        right: '-400px',
-        background: type === 'success' ? '#10b981' : '#ef4444',
-        color: 'white',
-        padding: '1.25rem 2rem',
-        borderRadius: '12px',
-        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3)',
-        zIndex: '10000',
-        fontWeight: '600',
-        fontSize: '1rem',
-        maxWidth: '350px',
-        transition: 'right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)'
-    });
-    
-    document.body.appendChild(notification);
-    
-    // Animar entrada
-    setTimeout(() => {
-        notification.style.right = '20px';
-    }, 100);
-    
-    // Animar salida
-    setTimeout(() => {
-        notification.style.right = '-400px';
-        setTimeout(() => notification.remove(), 500);
-    }, 4000);
-}
-
-// ===========================================
-// PANEL DE ADMINISTRACIÓN
-// ===========================================
+// =============================================
+// ADMIN PANEL (protegido por contrasena)
+// =============================================
 function initAdminPanel() {
-    const adminToggle = document.getElementById('adminToggle');
-    const adminPanel = document.getElementById('adminPanel');
-    const adminClose = document.getElementById('adminClose');
-    const adminSave = document.getElementById('adminSave');
-
-    if (!adminToggle || !adminPanel) return;
-
-    // Abrir panel
-    adminToggle.addEventListener('click', () => {
-        adminPanel.classList.add('active');
-        renderAdminDestinations();
-    });
-
-    // Cerrar panel
-    adminClose?.addEventListener('click', () => {
-        adminPanel.classList.remove('active');
-    });
-
-    // Guardar precios
-    adminSave?.addEventListener('click', () => {
-        saveAdminPrices();
-    });
-
-    // Cerrar al hacer click fuera
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.admin-panel') && !e.target.closest('.admin-toggle')) {
-            adminPanel.classList.remove('active');
+    // Activar con Ctrl + Shift + A
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+            const pass = prompt('Contrasena de administrador:');
+            if (pass !== 'goodcall2026') {
+                if (pass !== null) showNotif('Contrasena incorrecta.', 'error');
+                return;
+            }
+            openAdminPanel();
         }
     });
-
-    // Cargar precios guardados
-    loadSavedPrices();
 }
 
-function renderAdminDestinations() {
-    const container = document.getElementById('adminDestinations');
-    if (!container) return;
+function openAdminPanel() {
+    const existing = document.getElementById('adminOverlay');
+    if (existing) existing.remove();
 
-    container.innerHTML = destinationsData.map(dest => `
-        <div class="admin-destination">
-            <h4>${dest.name}</h4>
-            <label style="display: block; margin-bottom: 0.5rem; font-size: 0.85rem; color: #5a7a92;">
-                Precio en Soles (S/)
-            </label>
-            <input 
-                type="number" 
-                class="admin-price-input" 
-                data-dest-id="${dest.id}"
-                value="${dest.price}"
-                min="0"
-                step="50"
-                placeholder="Ingrese precio"
-            >
+    const overlay = document.createElement('div');
+    overlay.id = 'adminOverlay';
+    Object.assign(overlay.style, {
+        position: 'fixed', inset: '0',
+        background: 'rgba(0,0,0,.6)',
+        zIndex: '9999',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '1rem'
+    });
+
+    overlay.innerHTML = `
+        <div style="background:#fff;border-radius:16px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+            <div style="background:var(--navy);padding:1.5rem;border-radius:16px 16px 0 0;display:flex;justify-content:space-between;align-items:center">
+                <h3 style="color:#fff;font-family:var(--font-body);font-size:1rem;font-weight:600;letter-spacing:.03em">Panel de Administracion</h3>
+                <button onclick="document.getElementById('adminOverlay').remove()" style="color:#fff;font-size:1.5rem;background:none;border:none;cursor:pointer;line-height:1;opacity:.7">&times;</button>
+            </div>
+            <div style="padding:1.5rem;display:flex;flex-direction:column;gap:1rem">
+                <p style="font-size:.8rem;color:#6b6560;background:#f7f5f2;padding:.875rem;border-radius:8px;line-height:1.6">Los cambios se guardan localmente en el navegador y se aplican de forma inmediata.</p>
+                ${destinationsData.map(dest => `
+                    <div style="border:1px solid #ddd9d2;border-radius:8px;padding:1rem">
+                        <p style="font-size:.825rem;font-weight:600;color:#0f2335;margin-bottom:.5rem">${dest.name} - ${dest.location}</p>
+                        <label style="font-size:.7rem;color:#9e9990;text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:.35rem">Precio en Soles (S/)</label>
+                        <input type="number" data-dest-id="${dest.id}" value="${dest.price.replace(/,/g, '')}" step="50"
+                            style="width:100%;padding:.625rem .875rem;border:1.5px solid #ddd9d2;border-radius:6px;font-size:.875rem;font-family:inherit;outline:none"
+                        >
+                    </div>
+                `).join('')}
+                <button onclick="saveAdminPrices()" style="padding:.875rem;background:var(--navy);color:#fff;border:none;border-radius:8px;font-size:.875rem;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.04em">Guardar Cambios</button>
+            </div>
         </div>
-    `).join('');
+    `;
+
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
 }
 
 function saveAdminPrices() {
-    const inputs = document.querySelectorAll('.admin-price-input');
+    const inputs = document.querySelectorAll('[data-dest-id]');
     const updates = {};
-    
     inputs.forEach(input => {
-        const destId = parseInt(input.dataset.destId);
-        const newPrice = parseFloat(input.value) || 0;
-        
-        const dest = destinationsData.find(d => d.id === destId);
-        if (dest) {
-            dest.price = newPrice;
-            updates[destId] = newPrice;
-        }
+        const id = parseInt(input.dataset.destId);
+        const val = parseFloat(input.value) || 0;
+        const formatted = val.toLocaleString('es-PE');
+        const dest = destinationsData.find(d => d.id === id);
+        if (dest) { dest.price = formatted; updates[id] = formatted; }
     });
-
-    // Guardar en localStorage
-    localStorage.setItem('goodcall_prices', JSON.stringify(updates));
-
-    // Re-renderizar destinos
+    localStorage.setItem('gct_prices', JSON.stringify(updates));
+    document.getElementById('adminOverlay')?.remove();
     renderDestinations();
-
-    // Notificación
-    showNotification('✅ Precios actualizados correctamente', 'success');
-
-    // Cerrar panel
-    setTimeout(() => {
-        document.getElementById('adminPanel').classList.remove('active');
-    }, 800);
+    showNotif('Precios actualizados correctamente.', 'success');
 }
 
-function loadSavedPrices() {
-    const saved = localStorage.getItem('goodcall_prices');
-    if (!saved) return;
-
-    try {
-        const prices = JSON.parse(saved);
-        Object.keys(prices).forEach(destId => {
-            const dest = destinationsData.find(d => d.id === parseInt(destId));
-            if (dest) {
-                dest.price = prices[destId];
-            }
-        });
-    } catch (e) {
-        console.error('Error loading saved prices:', e);
-    }
-}
-
-// ===========================================
-// EFECTOS PARALLAX EN HERO
-// ===========================================
-function initParallax() {
-    const shapes = document.querySelectorAll('.shape');
-    
-    window.addEventListener('mousemove', (e) => {
-        const mouseX = e.clientX / window.innerWidth;
-        const mouseY = e.clientY / window.innerHeight;
-        
-        shapes.forEach((shape, index) => {
-            const speed = (index + 1) * 0.5;
-            const x = (mouseX - 0.5) * speed * 50;
-            const y = (mouseY - 0.5) * speed * 50;
-            
-            shape.style.transform = `translate(${x}px, ${y}px)`;
-        });
-    });
-}
-
-// ===========================================
-// LOADING SCREEN
-// ===========================================
-function hideLoadingScreen() {
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            document.body.classList.add('loaded');
-        }, 500);
-    });
-}
-
-// ===========================================
-// ANIMACIÓN DE NÚMEROS
-// ===========================================
-function animateNumbers() {
-    const statNumbers = document.querySelectorAll('.stat-number, .hero-stat-number');
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const text = target.textContent;
-                const hasK = text.includes('K');
-                const hasPlus = text.includes('+');
-                const hasStar = text.includes('★');
-                const hasDot = text.includes('.');
-                
-                let finalNumber;
-                if (hasDot) {
-                    finalNumber = parseFloat(text);
-                } else {
-                    finalNumber = parseInt(text.replace(/[^0-9]/g, ''));
-                }
-                
-                if (isNaN(finalNumber)) return;
-                
-                const duration = 2000;
-                const steps = 60;
-                const increment = finalNumber / steps;
-                let current = 0;
-                
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= finalNumber) {
-                        current = finalNumber;
-                        clearInterval(timer);
-                    }
-                    
-                    let display = hasDot ? current.toFixed(1) : Math.floor(current);
-                    if (hasK) display += 'K';
-                    if (hasPlus) display += '+';
-                    if (hasStar) display += '★';
-                    
-                    target.textContent = display;
-                }, duration / steps);
-                
-                observer.unobserve(target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    statNumbers.forEach(num => observer.observe(num));
-}
-
-// ===========================================
-// LAZY LOADING DE IMÁGENES
-// ===========================================
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[loading="lazy"]');
-    
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src || img.src;
-                    img.classList.add('loaded');
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-        
-        images.forEach(img => imageObserver.observe(img));
-    }
-}
-
-// ===========================================
-// INICIALIZACIÓN GLOBAL
-// ===========================================
+// =============================================
+// INICIALIZACION
+// =============================================
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('%c🌍 Good Call Travel - Sistema Inicializado', 'font-size: 20px; font-weight: bold; color: #1a3a52; background: #e8f2f7; padding: 10px; border-radius: 5px;');
-    
-    // Inicializar todos los módulos
-    hideLoadingScreen();
+    loadSavedPrices();
     renderDestinations();
-    initAOS();
-    initMobileMenu();
+    initNavbar();
     initSmoothScroll();
-    initNavbarScroll();
-    initBackToTop();
+    initHeroSlideshow();
     initSearchForm();
-    initForms();
+    initContactForm();
+    initBackToTop();
+    animateStats();
     initAdminPanel();
-    initParallax();
-    animateNumbers();
-    initLazyLoading();
-    
-    console.log('✅ Todos los módulos cargados correctamente');
+
+    // Fade in para secciones
+    document.querySelectorAll('.serv-card, .test-card, .about-feat, .trust-item, .contact-item').forEach(el => {
+        el.classList.add('fade-in');
+    });
+    observeFadeIns();
 });
-
-// ===========================================
-// OPTIMIZACIÓN DE RENDIMIENTO
-// ===========================================
-function throttle(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-window.addEventListener('resize', debounce(() => {
-    if (typeof AOS !== 'undefined') {
-        AOS.refresh();
-    }
-}, 250));
-
-console.log('%c✨ Good Call Travel - Redirección a Resultados Activada', 'font-size: 16px; font-weight: bold; color: #2e5d7f; padding: 5px;');
