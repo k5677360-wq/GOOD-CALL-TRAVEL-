@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Búsqueda | Good Call Travel</title>
+    <link rel="icon" type="image/png" href="1770144302124_image.png">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="resultados.css">
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="header">
+    <div class="header-inner">
+        <a href="index.html" class="logo">
+            <img src="1770144302124_image.png" alt="Good Call Travel" class="logo-img" onerror="this.style.display='none'">
+            <div class="logo-text">
+                <span class="logo-name">GOOD CALL TRAVEL</span>
+                <span class="logo-tag">Tu camino hacia tu destino</span>
+            </div>
+        </a>
+        <a href="index.html" class="btn-nueva-busqueda">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Nueva búsqueda
+        </a>
+    </div>
+</header>
+
+<!-- ========== SEARCH SUMMARY BAR ========== -->
+<div class="search-bar">
+    <div class="search-bar-inner">
+        <div class="route-pill">
+            <span id="ciudadOrigen" class="route-city">-</span>
+            <svg class="route-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <span id="ciudadDestino" class="route-city">-</span>
+        </div>
+        <div class="search-meta">
+            <span class="meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span id="fechaViaje">-</span>
+            </span>
+            <span class="meta-sep">·</span>
+            <span class="meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                <span id="numPasajeros">-</span>
+            </span>
+        </div>
+        <button class="btn-modificar" id="btnToggleSearch">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Modificar
+        </button>
+    </div>
+</div>
+
+<!-- ========== FORMULARIO MODIFICAR BÚSQUEDA ========== -->
+<div class="modify-panel" id="searchFormContainer" style="display:none">
+    <div class="modify-panel-inner">
+        <form id="newSearchForm" class="modify-form">
+            <div class="modify-grid">
+                <div class="modify-group">
+                    <label>Origen</label>
+                    <input type="text" id="newOrigin" placeholder="Lima, Perú" list="citiesOrigin" required>
+                    <datalist id="citiesOrigin">
+                        <option value="Lima, Perú"><option value="Cusco, Perú"><option value="Arequipa, Perú">
+                        <option value="Iquitos, Perú"><option value="Piura, Perú"><option value="Trujillo, Perú">
+                    </datalist>
+                </div>
+                <div class="modify-group">
+                    <label>Destino</label>
+                    <input type="text" id="newDestination" placeholder="Cusco, Perú" list="citiesDestination" required>
+                    <datalist id="citiesDestination">
+                        <option value="Lima, Perú"><option value="Cusco, Perú"><option value="Arequipa, Perú">
+                        <option value="Iquitos, Perú"><option value="Piura, Perú"><option value="Trujillo, Perú">
+                    </datalist>
+                </div>
+                <div class="modify-group">
+                    <label>Fecha</label>
+                    <input type="date" id="newDate" required>
+                </div>
+                <div class="modify-group">
+                    <label>Pasajeros</label>
+                    <input type="number" id="newTravelers" min="1" max="9" value="1" required>
+                </div>
+            </div>
+            <div class="modify-actions">
+                <button type="button" class="btn-cancel" id="btnCancelSearch">Cancelar</button>
+                <button type="submit" class="btn-buscar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    Buscar vuelos
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ========== MAIN ========== -->
+<main class="main">
+    <div class="main-inner">
+
+        <!-- LOADING -->
+        <div id="loadingState" class="state-box">
+            <div class="loading-plane">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#1e4d8c" stroke-width="1.5">
+                    <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                </svg>
+            </div>
+            <h2>Buscando los mejores vuelos...</h2>
+            <p>Consultando disponibilidad en tiempo real</p>
+            <div class="skeleton-list">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+        </div>
+
+        <!-- ERROR -->
+        <div id="errorState" class="state-box" style="display:none">
+            <div class="state-icon error-icon">⚠️</div>
+            <h2>No se pudo conectar</h2>
+            <p id="errorMessage">Verifica que la API esté corriendo (python api_costamar.py)</p>
+            <a href="index.html" class="btn-primary">Volver al inicio</a>
+        </div>
+
+        <!-- SIN RESULTADOS -->
+        <div id="noResultsState" class="state-box" style="display:none">
+            <div class="state-icon">✈️</div>
+            <h2>Sin vuelos disponibles</h2>
+            <p>No encontramos vuelos para esta ruta y fecha. Prueba con otras fechas.</p>
+            <a href="index.html" class="btn-primary">Nueva búsqueda</a>
+        </div>
+
+        <!-- RESULTADOS -->
+        <div id="resultsContainer" style="display:none">
+            <div class="results-topbar">
+                <div class="results-count">
+                    <span id="numVuelos" class="count-num">0</span>
+                    <span class="count-label">vuelos encontrados · ordenados por precio</span>
+                </div>
+                <div class="sort-wrap">
+                    <label for="sortSelect">Ordenar por</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="precio">Precio (menor a mayor)</option>
+                        <option value="hora">Hora de salida</option>
+                        <option value="duracion">Duración</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="vuelosContainer" class="vuelos-list"></div>
+        </div>
+
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer">
+    <div class="footer-inner">
+        <p>© 2026 Good Call Travel · <a href="index.html#contacto">Contacto</a> · <a href="index.html#nosotros">Nosotros</a></p>
+        <p class="footer-legal">Los precios incluyen impuestos y tasas. Sujetos a disponibilidad.</p>
+    </div>
+</footer>
+
+<!-- ========== MODAL WHATSAPP ========== -->
+<div id="waModal" class="wa-modal" style="display:none">
+    <div class="wa-overlay" onclick="cerrarWAModal()"></div>
+    <div class="wa-content">
+        <button class="wa-close" onclick="cerrarWAModal()">×</button>
+        <div class="wa-icon">💬</div>
+        <h3>¡Reserva este vuelo!</h3>
+        <p id="waInfo">-</p>
+        <div class="wa-options">
+            <a id="waLink" href="#" target="_blank" class="btn-wa">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Contactar por WhatsApp
+            </a>
+            <a href="index.html#contacto" class="btn-form">Formulario de contacto</a>
+        </div>
+        <p class="wa-note">Un asesor te confirmará disponibilidad y procesará tu reserva</p>
+    </div>
+</div>
+
+<script src="cotizador-costamar.js"></script>
+<script src="resultados.js"></script>
+</body>
+</html>
