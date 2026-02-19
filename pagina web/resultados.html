@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados de Búsqueda | Good Call Travel</title>
+    <link rel="icon" type="image/png" href="1770144302124_image.png">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="resultados.css?v=blue3">
+
+    <!-- AOS for Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- LOADING SCREEN -->
+    <div id="loadingState" class="state-container">
+        <div class="spinner"></div>
+        <h2 style="font-family:'Syne',sans-serif;font-weight:800;margin-bottom:10px">Buscando las mejores ofertas</h2>
+        <p style="color:#64748b">Analizando miles de vuelos en tiempo real...</p>
+    </div>
+
+    <!-- MAIN CONTENT (Hidden initially) -->
+    <div id="resultsContainer" style="display:none">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-inner">
+                <a href="index.html" class="logo">
+                    <img src="1770144302124_image.png" alt="Good Call Travel" class="logo-img">
+                    <div class="logo-text">
+                        <span class="logo-name">GOOD CALL TRAVEL</span>
+                        <span class="logo-tag">Premium Travel Agency</span>
+                    </div>
+                </a>
+            </div>
+        </header>
+
+        <!-- SEARCH BAR -->
+        <div class="search-summary" data-aos="fade-down">
+            <div class="summary-route">
+                <span id="ciudadOrigen" class="route-city">-</span>
+                <span class="route-icon">✈</span>
+                <span id="ciudadDestino" class="route-city">-</span>
+            </div>
+            <div class="summary-meta">
+                <div class="meta-item">📅 <span id="fechaViaje">-</span></div>
+                <div class="meta-item">👥 <span id="numPasajeros">-</span></div>
+            </div>
+            <button class="btn-modify" onclick="window.location.href='index.html'">Modificar Búsqueda</button>
+        </div>
+
+        <main class="main">
+            <div class="results-header">
+                <div class="results-count">
+                    Encontramos <span><span id="numVuelos">0</span> vuelos</span> para ti
+                </div>
+                <!-- Sort Select (Optional) -->
+                <select id="sortSelect"
+                    style="padding:8px 16px;border-radius:20px;border:1px solid #e2e8f0;font-family:'Plus Jakarta Sans',sans-serif">
+                    <option value="precio">Más baratos primero</option>
+                    <option value="hora">Hora de salida</option>
+                </select>
+            </div>
+
+            <div id="vuelosContainer">
+                <!-- CARDS INJECTED HERE -->
+            </div>
+        </main>
+    </div>
+
+    <!-- ERROR STATE -->
+    <div id="errorState" class="state-container" style="display:none">
+        <h2 style="font-family:'Syne',sans-serif;color:#ef4444;margin-bottom:15px">⚠️ Algo salió mal</h2>
+        <p id="errorMessage" style="margin-bottom:20px">No pudimos conectar con el servidor.</p>
+        <button class="btn-modify" onclick="window.location.reload()">Intentar de nuevo</button>
+    </div>
+
+    <!-- NO RESULTS STATE -->
+    <div id="noResultsState" class="state-container" style="display:none">
+        <h2 style="font-family:'Syne',sans-serif;margin-bottom:15px">✈️ Sin resultados</h2>
+        <p style="margin-bottom:20px">No encontramos vuelos para esta fecha y ruta.</p>
+        <button class="btn-modify" onclick="window.location.href='index.html'">Nueva búsqueda</button>
+    </div>
+
+    <!-- WHATSAPP MODAL -->
+    <div id="waModal"
+        style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(5px);z-index:999;align-items:center;justify-content:center;padding:20px">
+        <div
+            style="background:white;padding:40px;border-radius:30px;max-width:400px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.2)">
+            <div style="font-size:3rem;margin-bottom:20px">💬</div>
+            <h3 style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;margin-bottom:10px">Confirmar
+                Reserva</h3>
+            <p id="waInfo" style="margin-bottom:30px;color:#64748b;font-size:0.95rem">-</p>
+            <a id="waLink" href="#" target="_blank" class="btn-select"
+                style="display:block;text-decoration:none;margin-bottom:15px;background:#25D366">
+                Ir a WhatsApp
+            </a>
+            <button onclick="document.getElementById('waModal').style.display='none'"
+                style="background:none;border:none;color:#94a3b8;font-weight:600;cursor:pointer">Cancelar</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="cotizador-costamar.js"></script>
+    <script src="resultados.js"></script>
+</body>
+
+</html>
