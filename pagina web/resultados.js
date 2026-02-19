@@ -96,7 +96,17 @@ function mostrarResumenBusqueda() {
 async function buscarVuelos() {
     try {
         mostrarLoading();
-        if (!window.CotizadorCostamar) throw new Error('CotizadorCostamar no cargado');
+
+        // Esperar hasta 3 segundos a que cotizador-costamar.js esté disponible
+        let intentos = 0;
+        while (!window.CotizadorCostamar && intentos < 30) {
+            await new Promise(r => setTimeout(r, 100));
+            intentos++;
+        }
+        if (!window.CotizadorCostamar) {
+            mostrarError('⚠️ No se pudo conectar con el sistema de búsqueda. Asegúrate de que el backend esté corriendo en http://localhost:5000');
+            return;
+        }
 
         // Convertir ciudades a IATA si es necesario
         let origenIATA = parametrosBusqueda.origen;
@@ -132,8 +142,10 @@ async function buscarVuelos() {
     } catch (error) {
         console.error('Fetch Error:', error);
         let msg = 'Error al conectar con el servidor';
-        if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-            msg = '🔌 No se pudo conectar. Asegúrate de que API Costamar esté accesible.';
+        if (error.message && (error.message.includes('Failed to fetch') || error.message.includes('NetworkError') || error.message.includes('fetch'))) {
+            msg = '🔌 No se pudo conectar al backend. Asegúrate de que el servidor Flask esté corriendo en http://localhost:5000 y vuelve a intentarlo.';
+        } else if (error.message) {
+            msg = error.message;
         }
         mostrarError(msg);
     }
@@ -141,7 +153,7 @@ async function buscarVuelos() {
 
 // ==================== ESTADOS ====================
 function mostrarLoading() {
-    document.getElementById('loadingState').style.display = 'block';
+    document.getElementById('loadingState').style.display = 'flex';
     document.getElementById('errorState').style.display = 'none';
     document.getElementById('noResultsState').style.display = 'none';
     document.getElementById('resultsContainer').style.display = 'none';
