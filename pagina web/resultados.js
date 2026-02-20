@@ -3,7 +3,7 @@
 // =====================================================
 
 // TU NÚMERO DE WHATSAPP (cámbialo por el tuyo)
-const WHATSAPP_NUMERO = '983 894 837';
+const WHATSAPP_NUMERO = '51987654321';
 
 let vuelosOriginales = [];
 let parametrosBusqueda = {};
@@ -409,18 +409,24 @@ function crearCardVuelo(vuelo, index) {
                 
                 <!-- AGREGAR MALETA -->
                 ${!eqBodegaIncluido ? `
-                <div class="maleta-addon">
-                    <i class="fas fa-suitcase-rolling" style="font-size:1.3rem;color:#1e4d8c;flex-shrink:0"></i>
-                    <div style="flex:1">
-                        <div class="maleta-titulo">Maleta de bodega 23kg</div>
-                        <div class="maleta-desc">Agregar al momento de reservar</div>
+                <div class="maleta-addon" style="margin-top:12px">
+                    <div class="maleta-info">
+                        <div class="maleta-icon">+</div>
+                        <div>
+                            <div class="maleta-titulo">Agregar maleta de bodega</div>
+                            <div class="maleta-desc">23kg · Agregar al momento de reservar</div>
+                        </div>
                     </div>
-                    <span class="maleta-precio">Consultar precio</span>
-                    <button class="btn-add-maleta" id="maleta-btn-${index}" onclick="agregarMaleta(${index})">+ Agregar</button>
+                    <div>
+                        <div class="maleta-precio">Consultar precio</div>
+                        <button class="btn-add-maleta" id="maleta-btn-${index}" onclick="agregarMaleta(${index})">
+                            + Agregar
+                        </button>
+                    </div>
                 </div>
                 ` : ''}
             </div>
-                  
+            
             <!-- Desglose precios -->
             <div class="detalle-seccion">
                 <div class="detalle-titulo">Desglose de precios</div>
