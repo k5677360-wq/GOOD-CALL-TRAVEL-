@@ -40,7 +40,7 @@
         }
         .help-categories {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
             margin: 4rem 0;
         }
@@ -108,17 +108,32 @@
         }
         .contact-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
             margin: 4rem 0;
         }
         .contact-card {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem 1rem;
             border-radius: 15px;
             text-align: center;
             border: 2px solid #e0e0e0;
             transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 220px;
+        }
+        @media (max-width: 768px) {
+            .contact-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .contact-options {
+                grid-template-columns: 1fr;
+            }
         }
         .contact-card:hover {
             border-color: #3498db;
@@ -342,9 +357,9 @@
                 </div>
                 <h3 class="contact-title">WhatsApp</h3>
                 <p class="contact-info">Respuesta inmediata<br>+51 999 888 777</p>
-                <button class="btn-contact">
-                    <i class="fab fa-whatsapp"></i> Chatear Ahora
-                </button>
+                <a href="https://wa.me/51999888777" target="_blank" class="btn-contact">
+    <i class="fas fa-comments"></i> Iniciar Chat
+</a>
             </div>
             
             <div class="contact-card">
@@ -364,9 +379,9 @@
                 </div>
                 <h3 class="contact-title">Email</h3>
                 <p class="contact-info">Respuesta en 24hrs<br>ayuda@goodcalltravel.com</p>
-                <button class="btn-contact" onclick="window.location.href='index.html#contacto'">
-                    <i class="fas fa-envelope"></i> Enviar Email
-                </button>
+                <a href="https://wa.me/51999888777" target="_blank" class="btn-contact">
+    <i class="fab fa-whatsapp"></i> Chatear Ahora
+</a>
             </div>
             
             <div class="contact-card">
@@ -375,9 +390,9 @@
                 </div>
                 <h3 class="contact-title">Chat en Vivo</h3>
                 <p class="contact-info">Disponible 24/7<br>Soporte instantáneo</p>
-                <button class="btn-contact">
-                    <i class="fas fa-comments"></i> Iniciar Chat
-                </button>
+                <a href="tel:+5101234567" class="btn-contact">
+    <i class="fas fa-phone-alt"></i> Llamar
+</a>
             </div>
         </div>
     </div>
