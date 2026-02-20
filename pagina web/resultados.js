@@ -409,23 +409,15 @@ function crearCardVuelo(vuelo, index) {
                 
                 <!-- AGREGAR MALETA -->
                 ${!eqBodegaIncluido ? `
-                <div class="maleta-addon" style="margin-top:12px">
-                    <div class="maleta-info">
-                        <div class="maleta-icon"><i class="fas fa-suitcase-rolling"></i></div>
-                        <div>
-                            <div class="maleta-titulo">Agregar maleta de bodega</div>
-                            <div class="maleta-desc">23kg · Agregar al momento de reservar</div>
-                        </div>
+                <div class="maleta-addon">
+                    <i class="fas fa-suitcase-rolling" style="font-size:1.3rem;color:#1e4d8c;flex-shrink:0"></i>
+                    <div style="flex:1">
+                        <div class="maleta-titulo">Maleta de bodega 23kg</div>
+                        <div class="maleta-desc">Agregar al momento de reservar</div>
                     </div>
-                    <div style="display:flex;align-items:center;gap:14px;flex-shrink:0">
-                        <div class="maleta-precio" style="font-size:0.8rem;color:#555;white-space:nowrap">Consultar precio</div>
-                        <button class="btn-add-maleta" id="maleta-btn-${index}" onclick="agregarMaleta(${index})">
-                            + Agregar
-                        </button>
-                    </div>
+                    <span class="maleta-precio">Consultar precio</span>
+                    <button class="btn-add-maleta" id="maleta-btn-${index}" onclick="agregarMaleta(${index})">+ Agregar</button>
                 </div>
-                ` : ''}
-            </div>
             
             <!-- Desglose precios -->
             <div class="detalle-seccion">
