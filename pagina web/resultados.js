@@ -411,7 +411,7 @@ function crearCardVuelo(vuelo, index) {
                 ${!eqBodegaIncluido ? `
                 <div class="maleta-addon" style="margin-top:12px">
                     <div class="maleta-info">
-                        <div class="maleta-icon">+</div>
+                        <div class="maleta-icon"><i class="fas fa-suitcase-rolling"></i></div>
                         <div>
                             <div class="maleta-titulo">Agregar maleta de bodega</div>
                             <div class="maleta-desc">23kg · Agregar al momento de reservar</div>
