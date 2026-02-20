@@ -1,0 +1,2722 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Call Travel - Tu camino hacia tu destino</title>
+    <meta name="description"
+        content="Agencia de viajes profesional especializada en crear experiencias únicas. Destinos increíbles, servicio premium y atención personalizada.">
+
+    <!-- Preconnect para mejorar performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+
+    <!-- Fuentes optimizadas -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- AOS (Animate On Scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Estilos base -->
+    <link rel="stylesheet" href="styles.css?v=glass">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="1770144302124_image.png">
+
+    <style>
+        /* ================================================
+           MEJORAS DE DISEÑO - INDEX.HTML
+           Variables y componentes que mejoran sin romper
+           ================================================ */
+
+        /* === FIX AOS - el styles.css tiene opacity:1!important que rompe animaciones === */
+        [data-aos] {
+            opacity: 0 !important;
+            transition-property: opacity, transform !important;
+        }
+        [data-aos].aos-animate {
+            opacity: 1 !important;
+        }
+        /* Excepción: elementos dentro del hero que usan animación CSS propia */
+        .cotizador-wrapper[data-aos] {
+            opacity: 1 !important;
+        }
+
+        /* === HERO SLIDER 2 IMÁGENES === */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: var(--primary-dark);
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center 40%;
+            transform: scale(1.08);
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            animation: heroZoom 18s ease-in-out infinite alternate;
+            z-index: 0;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide-1 {
+            background-image: url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=2000&q=85');
+        }
+
+        .hero-slide-2 {
+            background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=2000&q=85');
+        }
+
+        /* === SELECT CIUDADES (origen/destino) === */
+        .input-field select.city-select {
+            width: 100%;
+            padding: 10px 12px 10px 32px;
+            background: rgba(255,255,255,0.92);
+            border: 1.5px solid rgba(255,255,255,0.4);
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-dark);
+            transition: all 0.2s ease;
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+        .input-field select.city-select:focus {
+            background: white;
+            border-color: white;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.25);
+        }
+
+        /* === TESTIMONIALS BANNER === */
+        .testimonials-banner {
+            width: 100%;
+            height: 200px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+        .testimonials-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 40%;
+        }
+        .testimonials-banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(20,45,65,0.78) 0%, rgba(20,45,65,0.35) 55%, transparent 100%);
+            display: flex;
+            align-items: center;
+            padding: 0 2.5rem;
+        }
+        .testimonials-banner-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 0.4rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+        }
+        .testimonials-banner-text h3 em {
+            font-style: italic;
+            color: rgba(255,255,255,0.9);
+        }
+        .testimonials-banner-text p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.88rem;
+        }
+
+        @keyframes heroZoom {
+            from { transform: scale(1.05); }
+            to   { transform: scale(1.12); }
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(13, 37, 55, 0.52) 0%,
+                rgba(13, 37, 55, 0.38) 40%,
+                rgba(13, 37, 55, 0.72) 100%
+            );
+            z-index: 1;
+        }
+
+        .hero-background,
+        .hero-bg-gradient,
+        .hero-overlay,
+        .floating-shapes { display: none; }
+
+        .hero > .container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+}
+
+        .hero-content.horizontal-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            width: 100%;
+            min-height: calc(100vh - 90px);
+        }
+
+        /* Texto intro sobre el cotizador */
+        .hero-intro {
+            text-align: center;
+            animation: fadeInDown 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
+            backdrop-filter: blur(8px);
+            color: rgba(255,255,255,0.92);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.45rem 1.1rem;
+            border-radius: 50px;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-eyebrow i {
+            font-size: 0.7rem;
+            color: var(--accent-gold);
+        }
+
+        .hero-headline {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 5.5vw, 4.8rem);
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.1;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+        }
+
+        .hero-headline em {
+            font-style: italic;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .hero-subtext {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.82);
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            line-height: 1.6;
+        }
+
+        /* === COTIZADOR GLASS REFINADO === */
+       .cotizador-wrapper {
+            width: 100%;
+            max-width: 1080px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 20px;
+            padding: 28px 32px;
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.22),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .cotizador-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 22px;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255,255,255,0.75);
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 7px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.18);
+            color: white;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: var(--primary-navy);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+            border-color: transparent;
+        }
+
+        /* Form grid horizontal */
+        .cotizador-form-horizontal {
+            display: grid;
+            grid-template-columns: 1.3fr 1.3fr 1fr 1fr 1fr 0.7fr 0.7fr 0.9fr;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .input-field label {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
+
+        .input-with-icon input,
+        .input-field select,
+        .input-field input[type="date"],
+        .input-field input[type="number"] {
+            width: 100%;
+            padding: 10px 12px 10px 32px;
+            background: rgba(255,255,255,0.92);
+            border: 1.5px solid rgba(255,255,255,0.4);
+            border-radius: 10px;
+            font-size: 0.88rem;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-dark);
+            transition: all 0.2s ease;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .input-field select,
+        .input-field input[type="date"],
+        .input-field input[type="number"] {
+            padding-left: 12px;
+        }
+
+        .input-with-icon input:focus,
+        .input-field select:focus,
+        .input-field input:focus {
+            background: white;
+            border-color: white;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.25);
+        }
+
+        .input-field input::placeholder {
+            color: #9aadbb;
+            font-size: 0.82rem;
+        }
+
+        /* Botón buscar */
+        .btn-buscar {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-light) 100%);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
+            box-shadow: 0 4px 16px rgba(13,37,55,0.4);
+        }
+
+        .btn-buscar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(13,37,55,0.5);
+        }
+
+        .btn-buscar i { font-size: 0.8rem; }
+
+        /* === HERO STATS === */
+        .hero-stats-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 18px;
+            padding: 0;
+            overflow: hidden;
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+            width: 100%;
+            max-width: 680px;
+        }
+
+        .hero-stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 18px 24px;
+            position: relative;
+        }
+
+        .hero-stat-item + .hero-stat-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 20%;
+            height: 60%;
+            width: 1px;
+            background: rgba(255,255,255,0.22);
+        }
+
+        .hero-stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            -webkit-text-fill-color: #ffffff !important;
+            background-clip: unset !important;
+            display: block;
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+        }
+
+        .hero-stat-label {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.9);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            display: block;
+        }
+
+        /* === SECCIÓN DESTINOS === */
+        .destinations {
+            padding: var(--spacing-3xl) 0;
+            background: var(--off-white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            background: rgba(46,93,127,0.08);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(46,93,127,0.12);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            font-weight: 800;
+            color: var(--primary-navy);
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .text-gradient {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Grid destinos */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .destination-card {
+            border-radius: 16px;
+            overflow: hidden;
+            background: white;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
+        }
+
+        .destination-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .destination-card.featured {
+            grid-column: span 1;
+        }
+
+        .destination-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .destination-image img,
+        .destination-image .dest-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .destination-card:hover .destination-image img,
+        .destination-card:hover .dest-img {
+            transform: scale(1.08);
+        }
+
+        .image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 50%, rgba(13,37,55,0.6) 100%);
+            z-index: 1;
+        }
+
+        .destination-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--accent-gold);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.3rem 0.9rem;
+            border-radius: 50px;
+            z-index: 2;
+        }
+
+        .destination-content {
+            padding: 22px;
+        }
+
+        .destination-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .destination-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--primary-light);
+            background: rgba(46,93,127,0.08);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+        }
+
+        .destination-price {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+        }
+
+        .destination-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .destination-content p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 14px;
+        }
+
+        .destination-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin-bottom: 18px;
+        }
+
+        .destination-features li {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .destination-features li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            flex-shrink: 0;
+        }
+
+        .destination-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: gap 0.25s ease, color 0.25s ease;
+        }
+
+        .destination-link:hover {
+            gap: 10px;
+            color: var(--primary-navy);
+        }
+
+        .destination-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.25s ease;
+        }
+
+        .destination-link:hover svg {
+            transform: translateX(4px);
+        }
+
+        .view-all-section {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        .btn-view-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.9rem 2.2rem;
+            border: 2px solid var(--primary-navy);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            color: var(--primary-navy);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view-all:hover {
+            background: var(--primary-navy);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* === SECCIÓN SERVICIOS === */
+        .services {
+            padding: var(--spacing-3xl) 0;
+            background: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            padding: 32px 28px;
+            border-radius: 16px;
+            background: var(--off-white);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            background: white;
+            border-color: transparent;
+        }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(26,58,82,0.07);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .service-icon i {
+            font-size: 1.4rem;
+            color: var(--primary-navy);
+            transition: color 0.3s ease;
+        }
+
+        .service-icon svg {
+            width: 26px;
+            height: 26px;
+            color: var(--primary-navy);
+            stroke-width: 1.5;
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--primary-navy);
+        }
+
+        .service-card:hover .service-icon i,
+        .service-card:hover .service-icon svg {
+            color: white;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .service-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .service-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 18px;
+        }
+
+        .service-features li {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            line-height: 1.5;
+        }
+
+        .service-features li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            flex-shrink: 0;
+        }
+
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.25s ease;
+        }
+
+        .service-link:hover {
+            color: var(--primary-navy);
+            gap: 10px;
+        }
+
+        /* === SECCIÓN NOSOTROS === */
+        .about {
+            padding: var(--spacing-3xl) 0;
+            background: var(--off-white);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 0.98rem;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 560px;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .about-image:hover img { transform: scale(1.06); }
+
+        .about-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(13,37,55,0.85) 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 28px;
+        }
+
+        .about-badge {
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(10px);
+            padding: 16px 20px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-badge i {
+            font-size: 2rem;
+            color: var(--accent-gold);
+        }
+
+        .about-badge strong {
+            display: block;
+            font-size: 1.6rem;
+            color: var(--primary-navy);
+            font-family: 'Playfair Display', serif;
+            line-height: 1;
+        }
+
+        .about-badge span {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 3px;
+        }
+
+        /* About features */
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 14px;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateX(6px);
+            box-shadow: var(--shadow-sm);
+            border-color: var(--primary-light);
+        }
+
+        .feature-item i {
+            font-size: 1rem;
+            color: var(--primary-light);
+            width: 20px;
+            flex-shrink: 0;
+        }
+
+        .feature-item svg {
+            width: 18px;
+            height: 18px;
+            color: var(--primary-light);
+            flex-shrink: 0;
+        }
+
+        .feature-item span {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+        }
+
+        /* === STATS EN ABOUT === */
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 1rem 0;
+        }
+
+        .stat-item {
+            padding: 20px;
+            background: white;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .btn-about {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.95rem 2rem;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-about:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* === TESTIMONIOS === */
+        .testimonials {
+            padding: var(--spacing-3xl) 0;
+            background: #2a4a62;
+        }
+
+        /* Header centrado debajo del banner */
+        .testimonials-header-row {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .testimonials-header-text .section-label {
+            color: rgba(255,255,255,0.75);
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        .testimonials-header-text .section-title {
+            color: white;
+            text-align: center;
+        }
+
+        .testimonials-header-text .section-subtitle {
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            backdrop-filter: blur(8px);
+            padding: 32px 28px;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 16px 36px rgba(0,0,0,0.18);
+        }
+
+        .testimonial-card.featured-testimonial {
+            border-color: rgba(196,160,80,0.45);
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* Comilla decorativa */
+        .testimonial-card::before {
+            content: '\201C';
+            position: absolute;
+            top: 16px;
+            left: 24px;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: rgba(255,255,255,0.08);
+            pointer-events: none;
+        }
+
+        .testimonial-stars,
+        .testimonial-rating {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-stars {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+        }
+
+        .testimonial-rating i {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.75;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-author img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .testimonial-author strong {
+            display: block;
+            font-size: 0.92rem;
+            color: white;
+            font-weight: 700;
+        }
+
+        .testimonial-author span {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.65);
+            font-weight: 500;
+        }
+
+        .testimonial-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-gold);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+        }
+
+        /* === CONTACTO REDISEÑADO === */
+        .contact {
+            padding: var(--spacing-3xl) 0;
+            background: linear-gradient(160deg, #f0f6fb 0%, #e8f2f9 50%, #f4f8fc 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -80px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(46,93,127,0.05);
+            pointer-events: none;
+        }
+
+        .contact::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -60px;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: rgba(26,58,82,0.04);
+            pointer-events: none;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 2.5rem;
+            align-items: start;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Panel izquierdo info --- */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .contact-info-card {
+            background: white;
+            border-radius: 20px;
+            padding: 32px 28px;
+            box-shadow: 0 4px 20px rgba(26,58,82,0.07);
+            border: 1px solid rgba(46,93,127,0.08);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info .section-label { text-align: left; }
+        .contact-info-card .section-title { text-align: left; font-size: 2rem; margin-bottom: 0.6rem; }
+
+        .contact-info-card > p {
+            color: var(--text-muted);
+            line-height: 1.75;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* Métodos en grid 2x2 */
+        .contact-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: white;
+            border-radius: 14px;
+            border: 1px solid rgba(46,93,127,0.08);
+            box-shadow: 0 2px 8px rgba(26,58,82,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26,58,82,0.12);
+        }
+
+        .contact-method-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--primary-navy);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover .contact-method-icon {
+            background: var(--primary-light);
+            transform: scale(1.05);
+        }
+
+        .contact-method-icon i {
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        .contact-method-info strong {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 3px;
+        }
+
+        .contact-method-info span {
+            font-size: 0.88rem;
+            color: var(--primary-navy);
+            font-weight: 700;
+            line-height: 1.3;
+            display: block;
+        }
+
+        /* --- Panel derecho formulario --- */
+        .contact-form-side {
+            background: white;
+            padding: 40px 38px;
+            border-radius: 20px;
+            box-shadow: 0 8px 40px rgba(26,58,82,0.1);
+            border: 1px solid rgba(46,93,127,0.08);
+        }
+
+        .contact-form-side h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            color: var(--primary-navy);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .contact-form-side .form-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            font-size: 0.73rem;
+            font-weight: 800;
+            color: var(--primary-navy);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 15px;
+            border: 1.5px solid #dce8f0;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-primary);
+            background: #f8fbfd;
+            transition: all 0.2s ease;
+            outline: none;
+            resize: vertical;
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-light);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(46,93,127,0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #b0c4d4;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--primary-light) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 800;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(26,58,82,0.3);
+            margin-top: 4px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(26,58,82,0.4);
+        }
+
+        .btn-submit svg { flex-shrink: 0; }
+
+        .contact-image-side { display: none; }
+
+        /* === FOOTER === */
+        .footer {
+            background: var(--primary-dark);
+            color: rgba(255,255,255,0.8);
+            padding: 4rem 0 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo-name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .footer-logo-tagline {
+            font-size: 0.72rem;
+            color: rgba(255,255,255,0.5);
+            font-weight: 500;
+        }
+
+        .footer-description {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.75;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+        }
+
+        .footer-social a:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-light);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer-social a i { font-size: 0.9rem; }
+        .footer-social a svg { width: 16px; height: 16px; }
+
+        .footer-col h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: white;
+            margin-bottom: 18px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .footer-col ul li a {
+            font-size: 0.87rem;
+            color: rgba(255,255,255,0.55);
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer-col ul li a::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            transition: all 0.2s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+            transform: translateX(4px);
+        }
+
+        .footer-col ul li a:hover::before {
+            background: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* === BOTONES PRIMARIOS NAVBAR === */
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.65rem 1.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26,58,82,0.35);
+        }
+
+        .btn-nav { padding: 0.6rem 1.3rem; font-size: 0.82rem; }
+
+        /* === NAVBAR TRANSPARENTE === */
+        .navbar {
+            background: transparent !important;
+            box-shadow: none !important;
+            border-bottom: 1px solid transparent !important;
+        }
+        .navbar.scrolled {
+            background: rgba(255,255,255,0.98) !important;
+            box-shadow: 0 4px 20px rgba(26,58,82,0.15) !important;
+            border-bottom: 1px solid var(--border-color) !important;
+        }
+
+        /* === NAV LINKS === */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .nav-link {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: white;
+            padding: 0.45rem 0.85rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            line-height: 1;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-link:hover,
+        .nav-link.active-link {
+            color: white;
+            background: rgba(255,255,255,0.15);
+        }
+
+        .navbar.scrolled .nav-link {
+            color: var(--text-secondary);
+        }
+
+        .navbar.scrolled .nav-link:hover,
+        .navbar.scrolled .nav-link.active-link {
+            color: var(--primary-navy);
+            background: rgba(26,58,82,0.06);
+        }
+
+        /* Dropdown trigger mismo nivel que links */
+        .nav-dropdown {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .nav-dropdown > .nav-link {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            min-width: 220px;
+            padding: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 9px 14px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: var(--off-white);
+            color: var(--primary-navy);
+            padding-left: 18px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* === QUOTE MODAL (sin cambios funcionales) === */
+        .quote-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 10000;
+        }
+
+        .quote-modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .quote-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        .quote-content {
+            position: relative;
+            background: linear-gradient(135deg, #1a3a52 0%, #2e5d7f 100%);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 620px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .quote-close {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .quote-close:hover { background: rgba(255,255,255,0.2); }
+
+        /* === RESPONSIVO === */
+        @media (max-width: 1100px) {
+            .cotizador-form-horizontal {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .destinations-grid,
+            .services-grid,
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .about-content,
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-about {
+                grid-column: 1 / -1;
+            }
+            .cotizador-form-horizontal {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .destinations-grid,
+            .services-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            .hero-stats-bar {
+                display: none;
+            }
+            .cotizador-form-horizontal {
+                grid-template-columns: 1fr 1fr;
+            }
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .nav-links { display: none; }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(20px);
+                padding: 1.5rem;
+                gap: 0.75rem;
+                border-top: 1px solid var(--border-color);
+                box-shadow: var(--shadow-lg);
+                animation: slideDown 0.3s ease;
+            }
+            .mobile-menu-btn { display: flex !important; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#inicio" class="logo">
+                    <img src="1770144302124_image.png" alt="Good Call Travel Logo" class="logo-img">
+                    <div class="logo-text">
+                        <span class="logo-name">GOOD CALL TRAVEL</span>
+                        <span class="logo-tagline">Tu camino hacia tu destino</span>
+                    </div>
+                </a>
+
+                <div class="nav-links" id="navLinks">
+                    <a href="#inicio" class="nav-link active-link">Inicio</a>
+
+                    <div class="nav-dropdown">
+                        <a href="#destinos" class="nav-link">Destinos</a>
+                        <div class="dropdown-menu">
+                            <a href="destinos-nacionales.html" class="dropdown-item">Destinos Nacionales</a>
+                            <a href="destinos-internacionales.html" class="dropdown-item">Destinos Internacionales</a>
+                            <a href="playas-paradisiacas.html" class="dropdown-item">Playas Paradisiacas</a>
+                            <a href="aventura-naturaleza.html" class="dropdown-item">Aventura y Naturaleza</a>
+                            <a href="ciudades-cultura.html" class="dropdown-item">Ciudades y Cultura</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-dropdown">
+                        <a href="#servicios" class="nav-link">Servicios</a>
+                        <div class="dropdown-menu">
+                            <a href="paquetes-turisticos.html" class="dropdown-item">Paquetes Turisticos</a>
+                            <a href="viajes-corporativos.html" class="dropdown-item">Viajes Corporativos</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-dropdown">
+                        <a href="#contacto" class="nav-link">Ayuda</a>
+                        <div class="dropdown-menu">
+                            <a href="centro-ayuda.html" class="dropdown-item">Centro de Ayuda</a>
+                            <a href="preguntas-frecuentes.html" class="dropdown-item">Preguntas Frecuentes</a>
+                        </div>
+                    </div>
+
+                    <a href="#nosotros" class="nav-link">Nosotros</a>
+                    <a href="#testimonios" class="nav-link">Testimonios</a>
+                    <a href="#contacto" class="btn-primary btn-nav">Contactar</a>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú" style="display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer;background:none;border:none;">
+                    <span style="width:26px;height:2.5px;background:var(--primary-navy);border-radius:3px;transition:all 0.3s;display:block;"></span>
+                    <span style="width:26px;height:2.5px;background:var(--primary-navy);border-radius:3px;transition:all 0.3s;display:block;"></span>
+                    <span style="width:26px;height:2.5px;background:var(--primary-navy);border-radius:3px;transition:all 0.3s;display:block;"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section id="inicio" class="hero">
+        <!-- Slideshow 3 imágenes -->
+        <div class="hero-slide hero-slide-1 active" id="heroSlide1"></div>
+        <div class="hero-slide hero-slide-2" id="heroSlide2"></div>
+        <div class="hero-slide hero-slide-3" id="heroSlide3"></div>
+
+        <div class="container">
+            <div class="hero-content horizontal-layout">
+
+                <!-- Cotizador Glass -->
+                <div class="cotizador-wrapper" data-aos="fade-up">
+                    <div class="cotizador-tabs">
+                        <button class="tab-btn active" data-type="roundtrip">Ida y Vuelta</button>
+                        <button class="tab-btn" data-type="oneway">Solo Ida</button>
+                    </div>
+
+                    <form id="searchForm" class="cotizador-form-horizontal">
+                        <!-- Origen -->
+                        <div class="input-field">
+                            <label>Origen</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-plane-departure"></i>
+                                <select id="origin" class="city-select" required>
+                                    <option value="">¿De dónde sales?</option>
+                                    <optgroup label="── Perú ──">
+                                        <option value="lima">Lima</option>
+                                        <option value="cusco">Cusco</option>
+                                        <option value="arequipa">Arequipa</option>
+                                        <option value="trujillo">Trujillo</option>
+                                        <option value="chiclayo">Chiclayo</option>
+                                        <option value="piura">Piura</option>
+                                        <option value="iquitos">Iquitos</option>
+                                        <option value="tarapoto">Tarapoto</option>
+                                        <option value="pucallpa">Pucallpa</option>
+                                        <option value="juliaca">Juliaca</option>
+                                        <option value="tacna">Tacna</option>
+                                        <option value="tumbes">Tumbes</option>
+                                        <option value="puerto maldonado">Puerto Maldonado</option>
+                                    </optgroup>
+                                    <optgroup label="── Sudamérica ──">
+                                        <option value="bogotá">Bogotá, Colombia</option>
+                                        <option value="medellín">Medellín, Colombia</option>
+                                        <option value="cartagena">Cartagena, Colombia</option>
+                                        <option value="buenos aires">Buenos Aires, Argentina</option>
+                                        <option value="santiago">Santiago, Chile</option>
+                                        <option value="quito">Quito, Ecuador</option>
+                                        <option value="guayaquil">Guayaquil, Ecuador</option>
+                                        <option value="são paulo">São Paulo, Brasil</option>
+                                        <option value="río de janeiro">Río de Janeiro, Brasil</option>
+                                    </optgroup>
+                                    <optgroup label="── Norteamérica ──">
+                                        <option value="miami">Miami, USA</option>
+                                        <option value="nueva york">Nueva York, USA</option>
+                                        <option value="los ángeles">Los Ángeles, USA</option>
+                                        <option value="cancún">Cancún, México</option>
+                                        <option value="ciudad de méxico">Ciudad de México</option>
+                                    </optgroup>
+                                    <optgroup label="── Europa ──">
+                                        <option value="madrid">Madrid, España</option>
+                                        <option value="barcelona">Barcelona, España</option>
+                                        <option value="paris">París, Francia</option>
+                                        <option value="roma">Roma, Italia</option>
+                                        <option value="london">Londres, UK</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Destino -->
+                        <div class="input-field">
+                            <label>Destino</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-plane-arrival"></i>
+                                <select id="destination" class="city-select" required>
+                                    <option value="">¿A dónde vas?</option>
+                                    <optgroup label="── Perú ──">
+                                        <option value="lima">Lima</option>
+                                        <option value="cusco">Cusco</option>
+                                        <option value="arequipa">Arequipa</option>
+                                        <option value="trujillo">Trujillo</option>
+                                        <option value="chiclayo">Chiclayo</option>
+                                        <option value="piura">Piura</option>
+                                        <option value="iquitos">Iquitos</option>
+                                        <option value="tarapoto">Tarapoto</option>
+                                        <option value="pucallpa">Pucallpa</option>
+                                        <option value="juliaca">Juliaca</option>
+                                        <option value="tacna">Tacna</option>
+                                        <option value="tumbes">Tumbes</option>
+                                        <option value="puerto maldonado">Puerto Maldonado</option>
+                                    </optgroup>
+                                    <optgroup label="── Sudamérica ──">
+                                        <option value="bogotá">Bogotá, Colombia</option>
+                                        <option value="medellín">Medellín, Colombia</option>
+                                        <option value="cartagena">Cartagena, Colombia</option>
+                                        <option value="san andrés">San Andrés, Colombia</option>
+                                        <option value="buenos aires">Buenos Aires, Argentina</option>
+                                        <option value="santiago">Santiago, Chile</option>
+                                        <option value="quito">Quito, Ecuador</option>
+                                        <option value="guayaquil">Guayaquil, Ecuador</option>
+                                        <option value="são paulo">São Paulo, Brasil</option>
+                                        <option value="río de janeiro">Río de Janeiro, Brasil</option>
+                                    </optgroup>
+                                    <optgroup label="── Norteamérica ──">
+                                        <option value="miami">Miami, USA</option>
+                                        <option value="orlando">Orlando, USA</option>
+                                        <option value="nueva york">Nueva York, USA</option>
+                                        <option value="los ángeles">Los Ángeles, USA</option>
+                                        <option value="cancún">Cancún, México</option>
+                                        <option value="ciudad de méxico">Ciudad de México</option>
+                                        <option value="punta cana">Punta Cana, R. Dominicana</option>
+                                        <option value="aruba">Aruba</option>
+                                    </optgroup>
+                                    <optgroup label="── Europa ──">
+                                        <option value="madrid">Madrid, España</option>
+                                        <option value="barcelona">Barcelona, España</option>
+                                        <option value="paris">París, Francia</option>
+                                        <option value="roma">Roma, Italia</option>
+                                        <option value="london">Londres, UK</option>
+                                    </optgroup>
+                                    <optgroup label="── Caribe / Asia ──">
+                                        <option value="varadero">Varadero, Cuba</option>
+                                        <option value="phuket">Phuket, Tailandia</option>
+                                        <option value="bali">Bali, Indonesia</option>
+                                        <option value="tokio">Tokio, Japón</option>
+                                        <option value="dubai">Dubai, EAU</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Ida -->
+                        <div class="input-field">
+                            <label>Ida</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-calendar"></i>
+                                <input type="date" id="departureDate" style="padding-left:32px;">
+                            </div>
+                        </div>
+
+                        <!-- Vuelta -->
+                        <div class="input-field" id="returnDateField">
+                            <label>Vuelta</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-calendar-check"></i>
+                                <input type="date" id="returnDate" style="padding-left:32px;">
+                            </div>
+                        </div>
+
+                        <!-- Adultos -->
+                        <div class="input-field">
+                            <label>Adultos</label>
+                            <select id="adults">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+
+                        <!-- Ninos -->
+                        <div class="input-field">
+                            <label>Ninos</label>
+                            <select id="children">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+
+                        <!-- Infantes -->
+                        <div class="input-field">
+                            <label>Infantes</label>
+                            <select id="infants">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+
+                        <!-- Buscar -->
+                        <button type="submit" class="btn-buscar">
+                            <i class="fas fa-search"></i>
+                            Buscar
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Stats bar -->
+                <div class="hero-stats-bar">
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number stat-number">5,000+</span>
+                        <span class="hero-stat-label">Viajeros Felices</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number stat-number">85+</span>
+                        <span class="hero-stat-label">Destinos</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number stat-number">98%</span>
+                        <span class="hero-stat-label">Satisfaccion</span>
+                    </div>
+                    <div class="hero-stat-item">
+                        <span class="hero-stat-number stat-number">4.9</span>
+                        <span class="hero-stat-label">Calificacion</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== DESTINOS ===== -->
+    <section id="destinos" class="destinations">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Destinos Destacados</span>
+                <h2 class="section-title">Lugares que <span class="text-gradient">Inspiran</span></h2>
+                <p class="section-subtitle">
+                    Explora nuestros destinos mas populares, seleccionados cuidadosamente para ti
+                </p>
+            </div>
+
+            <div class="destinations-grid" id="destinations-container">
+                <!-- Destinos cargados dinamicamente por script.js -->
+            </div>
+
+            <div class="view-all-section" data-aos="fade-up">
+                <a href="#contacto" class="btn-view-all">
+                    Ver todos los destinos
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICIOS ===== -->
+    <section id="servicios" class="services">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Servicios Exclusivos</span>
+                <h2 class="section-title">Lo que <span class="text-gradient">Ofrecemos</span></h2>
+                <p class="section-subtitle">
+                    Servicios disenados para hacer de tu viaje una experiencia inolvidable
+                </p>
+            </div>
+
+            <div class="services-grid">
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h3>Paquetes Todo Incluido</h3>
+                    <p>Vuelos, hoteles, traslados y actividades en un solo paquete sin sorpresas.</p>
+                    <ul class="service-features">
+                        <li>Hoteles seleccionados 4 y 5 estrellas</li>
+                        <li>Traslados aeropuerto incluidos</li>
+                        <li>Guia de turismo certificado</li>
+                    </ul>
+                    <a href="#contacto" class="service-link">
+                        Consultar
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+                        </svg>
+                    </div>
+                    <h3>Viajes Corporativos</h3>
+                    <p>Gestion integral de viajes empresariales con facturacion centralizada y soporte.</p>
+                    <ul class="service-features">
+                        <li>Gestion de itinerarios corporativos</li>
+                        <li>Tarifas preferenciales negociadas</li>
+                        <li>Reporte de gastos mensual</li>
+                    </ul>
+                    <a href="viajes-corporativos.html" class="service-link">
+                        Ver mas
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                    <h3>Luna de Miel</h3>
+                    <p>Experiencias romanticas disenadads a medida para la celebracion mas especial.</p>
+                    <ul class="service-features">
+                        <li>Habitaciones premium con detalles</li>
+                        <li>Cenas romanticas y spa incluidos</li>
+                        <li>Actividades exclusivas en pareja</li>
+                    </ul>
+                    <a href="#contacto" class="service-link">
+                        Disenar viaje
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
+                    </div>
+                    <h3>Tours Personalizados</h3>
+                    <p>Itinerarios disenados segun tus intereses, ritmo y estilo de viaje.</p>
+                    <ul class="service-features">
+                        <li>Planificacion 100% personalizada</li>
+                        <li>Guia local experto asignado</li>
+                        <li>Flexibilidad total en el programa</li>
+                    </ul>
+                    <a href="#contacto" class="service-link">
+                        Planificar
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3>Viajes en Grupo</h3>
+                    <p>Tarifas especiales y coordinacion completa para grupos de todos los tamanos.</p>
+                    <ul class="service-features">
+                        <li>Descuentos por volumen</li>
+                        <li>Coordinador de grupo dedicado</li>
+                        <li>Logistica completa incluida</li>
+                    </ul>
+                    <a href="#contacto" class="service-link">
+                        Solicitar cotizacion
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.68 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.26h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.9a16 16 0 0 0 6.09 6.09l1.04-.88a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                        </svg>
+                    </div>
+                    <h3>Asistencia 24/7</h3>
+                    <p>Soporte continuo antes, durante y despues de tu viaje. Siempre disponibles.</p>
+                    <ul class="service-features">
+                        <li>Atencion por WhatsApp y telefono</li>
+                        <li>Gestion de emergencias en destino</li>
+                        <li>Cambios y reembolsos facilitados</li>
+                    </ul>
+                    <a href="#contacto" class="service-link">
+                        Contactar
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NOSOTROS ===== -->
+    <section id="nosotros" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text" data-aos="fade-right">
+                    <span class="section-label">Nuestra Historia</span>
+                    <h2 class="section-title">Mas de 6 anos <span class="text-gradient">Creando Suenos</span></h2>
+
+                    <p>Good Call Travel nacio de la pasion por viajar y el deseo de compartir experiencias unicas. Desde 2020, hemos ayudado a miles de viajeros a descubrir destinos increibles y crear recuerdos que duran toda la vida.</p>
+
+                    <p>Nuestro equipo de expertos trabaja incansablemente para ofrecerte las mejores opciones, precios competitivos y un servicio personalizado que supera todas tus expectativas.</p>
+
+                    <!-- Stats -->
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">5,000+</span>
+                            <span class="stat-label">Viajeros Felices</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">85+</span>
+                            <span class="stat-label">Destinos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">98%</span>
+                            <span class="stat-label">Satisfaccion</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">4.9</span>
+                            <span class="stat-label">Calificacion</span>
+                        </div>
+                    </div>
+
+                    <!-- Features -->
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Certificados IATA</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Mejor Precio Garantizado</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Soporte 24/7</span>
+                        </div>
+                        <div class="feature-item">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>6 Anos de Experiencia</span>
+                        </div>
+                    </div>
+
+                    <a href="Nosotros.html" class="btn-about">
+                        Conoce nuestro equipo
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="about-image" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=700&q=85"
+                        alt="Equipo Good Call Travel">
+                    <div class="about-image-overlay">
+                        <div class="about-badge">
+                            <i class="fas fa-medal"></i>
+                            <div>
+                                <strong>+6 anos</strong>
+                                <span>de trayectoria</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TESTIMONIOS ===== -->
+    <section id="testimonios" class="testimonials">
+        <div class="container">
+
+            <!-- Banner imagen full-width -->
+            <div class="testimonials-banner" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=1400&q=85" alt="Viajeros felices Good Call Travel">
+                <div class="testimonials-banner-overlay">
+                    <div class="testimonials-banner-text">
+                        <h3>Miles de viajeros<br><em>ya confiaron en nosotros</em></h3>
+                        <p><i class="fas fa-star" style="color:var(--accent-gold);font-size:0.75rem;"></i>&nbsp; +5,000 experiencias reales que lo respaldan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header texto -->
+            <div class="testimonials-header-row" data-aos="fade-up">
+                <div class="testimonials-header-text">
+                    <span class="section-label">Testimonios</span>
+                    <h2 class="section-title">Lo que dicen <span style="color:rgba(255,255,255,0.95);">Nuestros Clientes</span></h2>
+                    <p class="section-subtitle">
+                        Miles de viajeros satisfechos respaldan nuestro compromiso con la excelencia
+                    </p>
+                </div>
+            </div>
+
+            <div class="testimonials-grid">
+
+                <div class="testimonial-card featured-testimonial" data-aos="fade-up">
+                    <span class="testimonial-badge">Destacado</span>
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">
+                        "Increible experiencia. El equipo de Good Call Travel organizo cada detalle de nuestro viaje a Cusco. Todo perfecto desde el inicio hasta el regreso."
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/150?img=1" alt="Maria Gonzalez">
+                        <div>
+                            <strong>Maria Gonzalez</strong>
+                            <span>Lima, Peru</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">
+                        "Profesionalismo de primer nivel. Nos ayudaron en todo momento y el precio fue muy competitivo. Totalmente recomendados."
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/150?img=33" alt="Carlos Ramos">
+                        <div>
+                            <strong>Carlos Ramos</strong>
+                            <span>Arequipa, Peru</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">
+                        "Nuestra luna de miel fue un sueno hecho realidad gracias a Good Call. Atencion personalizada y destinos espectaculares."
+                    </p>
+                    <div class="testimonial-author">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="Ana y Roberto">
+                        <div>
+                            <strong>Ana & Roberto</strong>
+                            <span>Trujillo, Peru</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACTO ===== -->
+    <section id="contacto" class="contact">
+        <div class="container">
+
+            <!-- Header centrado -->
+            <div class="contact-header section-header" data-aos="fade-up">
+                <span class="section-label">Contactanos</span>
+                <h2 class="section-title">Hablemos de tu <span class="text-gradient">Proximo Viaje</span></h2>
+                <p class="section-subtitle">
+                    Nuestro equipo esta listo para ayudarte a planificar la experiencia perfecta
+                </p>
+            </div>
+
+            <div class="contact-wrapper">
+
+                <!-- Panel izquierdo: info + métodos -->
+                <div class="contact-info" data-aos="fade-right">
+
+                    <!-- Texto intro -->
+                    <div class="contact-info-card">
+                        <p style="color:var(--text-muted);line-height:1.8;font-size:0.95rem;">
+                            Listo para vivir una aventura inolvidable? Cuéntanos qué tienes en mente y nuestros asesores te responderán a la brevedad con las mejores opciones.
+                        </p>
+                    </div>
+
+                    <!-- Métodos en grid 2x2 -->
+                    <div class="contact-methods">
+                        <div class="contact-method" data-aos="fade-up" data-aos-delay="50">
+                            <div class="contact-method-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-method-info">
+                                <strong>WhatsApp</strong>
+                                <span>+51 999 999 999</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-method" data-aos="fade-up" data-aos-delay="100">
+                            <div class="contact-method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-method-info">
+                                <strong>Email</strong>
+                                <span>info@goodcalltravel.com</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-method" data-aos="fade-up" data-aos-delay="150">
+                            <div class="contact-method-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-method-info">
+                                <strong>Oficina</strong>
+                                <span>Miraflores, Lima</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-method" data-aos="fade-up" data-aos-delay="200">
+                            <div class="contact-method-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-method-info">
+                                <strong>Horario</strong>
+                                <span>Lun–Vie 9:00–19:00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Panel derecho: formulario -->
+                <div class="contact-form-side" data-aos="fade-left">
+                    <h3>Enviar Mensaje</h3>
+                    <p class="form-subtitle">Completa el formulario y te responderemos en menos de 24 horas.</p>
+
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" id="contact-name" name="name"
+                                    placeholder="Tu nombre completo" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="contact-email" name="email"
+                                    placeholder="tu@email.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Telefono</label>
+                                <input type="tel" id="contact-phone" name="phone"
+                                    placeholder="+51 999 999 999">
+                            </div>
+                            <div class="form-group">
+                                <label>Tipo de Viaje</label>
+                                <select id="contact-type" name="travel_type">
+                                    <option value="">Selecciona...</option>
+                                    <option value="vacaciones">Vacaciones</option>
+                                    <option value="corporativo">Corporativo</option>
+                                    <option value="luna-miel">Luna de Miel</option>
+                                    <option value="grupo">Grupo</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Mensaje</label>
+                            <textarea name="message" id="contact-message"
+                                placeholder="Cuentanos sobre el viaje que tienes en mente..." rows="4"
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <span>Enviar Mensaje</span>
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <img src="1770144302124_image.png" alt="Good Call Travel Logo" class="logo-img" style="height:50px;width:auto;">
+                        <div>
+                            <div class="footer-logo-name">GOOD CALL TRAVEL</div>
+                            <div class="footer-logo-tagline">Tu camino hacia tu destino</div>
+                        </div>
+                    </div>
+                    <p class="footer-description">
+                        Creamos experiencias de viaje excepcionales desde 2020. Nuestro compromiso es hacer realidad los suenos de viaje de nuestros clientes con profesionalismo y dedicacion.
+                    </p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#destinos">Destinos</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#nosotros">Sobre Nosotros</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="paquetes-turisticos.html">Paquetes Turisticos</a></li>
+                        <li><a href="viajes-corporativos.html">Viajes Corporativos</a></li>
+                        <li><a href="#servicios">Luna de Miel</a></li>
+                        <li><a href="#servicios">Viajes en Grupo</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Terminos y Condiciones</a></li>
+                        <li><a href="#">Politica de Privacidad</a></li>
+                        <li><a href="#">Politica de Cancelacion</a></li>
+                        <li><a href="centro-ayuda.html">Centro de Ayuda</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Good Call Travel. Todos los derechos reservados.</p>
+                <p style="font-size:0.78rem;color:rgba(255,255,255,0.3);">Agencia certificada IATA</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== MODAL COTIZACION (estructura preservada) ===== -->
+    <div class="quote-modal" id="quoteModal">
+        <div class="quote-modal-overlay" onclick="closeQuoteModal()"></div>
+        <div class="quote-content">
+            <button class="quote-close" onclick="closeQuoteModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="quoteModalContent"></div>
+        </div>
+    </div>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script src="script-integrado.js"></script>
+    <script src="fix-bugs.js"></script>
+
+    <script>
+        // === AOS INIT ===
+        AOS.init({
+            duration: 700,
+            once: true,
+            offset: 60,
+            easing: 'ease-out-cubic'
+        });
+
+        // === NAVBAR SCROLL ===
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }, { passive: true });
+
+        // === MOBILE MENU ===
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.navbar')) {
+                navLinks && navLinks.classList.remove('active');
+            }
+        });
+
+        // === TABS COTIZADOR ===
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const returnField = document.getElementById('returnDateField');
+                if (returnField) {
+                    returnField.style.display = this.dataset.type === 'oneway' ? 'none' : '';
+                }
+            });
+        });
+
+        // === SMOOTH SCROLL ===
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || href === '#!') return;
+                const target = document.querySelector(href);
+                if (!target) return;
+                e.preventDefault();
+                const offset = 80;
+                window.scrollTo({
+                    top: target.offsetTop - offset,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // === QUOTE MODAL ===
+        function closeQuoteModal() {
+            const modal = document.getElementById('quoteModal');
+            if (modal) modal.classList.remove('active');
+        }
+
+        function openQuoteModal(content) {
+            const modal = document.getElementById('quoteModal');
+            const contentEl = document.getElementById('quoteModalContent');
+            if (modal && contentEl) {
+                contentEl.innerHTML = content || '';
+                modal.classList.add('active');
+            }
+        }
+
+        // Cerrar modal con ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeQuoteModal();
+        });
+        // === HERO SLIDER (2 imágenes, transición cada 6s) ===
+        (function() {
+            const slides = document.querySelectorAll('.hero-slide');
+            if (!slides.length) return;
+            let current = 0;
+            setInterval(function() {
+                slides[current].classList.remove('active');
+                current = (current + 1) % slides.length;
+                slides[current].classList.add('active');
+            }, 6000);
+        })();
+
+    </script>    <!-- ===== CHAT BOT (Good Call Travel - Railway API) ===== -->
+    <div id="gct-chat-widget"></div>
+    <script data-cfasync="false" src="https://botdepaginaweb-production.up.railway.app/widget.js"></script>
+
+</body>
+</html>

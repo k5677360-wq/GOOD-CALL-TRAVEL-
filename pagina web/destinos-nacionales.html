@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destinos Nacionales - Good Call Travel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .dest-header {
+            height: 65vh;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.9) 0%, rgba(192, 57, 43, 0.9) 100%),
+                        url('https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?w=1200') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            margin-top: 80px;
+        }
+        .dest-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+        }
+        .destinations-grid {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        .destination-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            margin-bottom: 40px;
+            height: 100%;
+        }
+        .destination-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 60px rgba(231, 76, 60, 0.2);
+        }
+        .dest-image {
+            height: 280px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .dest-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #e74c3c;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+        .dest-content {
+            padding: 30px;
+        }
+        .dest-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        .dest-location {
+            color: #e74c3c;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dest-description {
+            color: #7f8c8d;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .dest-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .feature-tag {
+            background: #ffe6e6;
+            color: #e74c3c;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .dest-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+        }
+        .price-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #e74c3c;
+        }
+        .btn-dest {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .btn-dest:hover {
+            transform: scale(1.08);
+            box-shadow: 0 10px 30px rgba(231, 76, 60, 0.4);
+        }
+        @media (max-width: 768px) {
+            .dest-header h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <img src="1770144302124_image.png" alt="Good Call Travel Logo" class="logo-img">
+                    <div class="logo-text">
+                        <span class="logo-name">GOOD CALL TRAVEL</span>
+                        <span class="logo-tagline">Tu camino hacia tu destino</span>
+                    </div>
+                </a>
+                <div class="nav-links" id="navLinks">
+                    <a href="index.html" class="nav-link">Inicio</a>
+                    <div class="nav-dropdown">
+                        <a href="index.html#destinos" class="nav-link active-link">Destinos</a>
+                        <div class="dropdown-menu">
+                            <a href="destinos-nacionales.html" class="dropdown-item">Destinos Nacionales</a>
+                            <a href="destinos-internacionales.html" class="dropdown-item">Destinos Internacionales</a>
+                            <a href="playas-paradisiacas.html" class="dropdown-item">Playas Paradisíacas</a>
+                            <a href="aventura-naturaleza.html" class="dropdown-item">Aventura y Naturaleza</a>
+                            <a href="ciudades-cultura.html" class="dropdown-item">Ciudades y Cultura</a>
+                        </div>
+                    </div>
+                    <div class="nav-dropdown">
+                        <a href="index.html#servicios" class="nav-link">Servicios</a>
+                        <div class="dropdown-menu">
+                            <a href="paquetes-turisticos.html" class="dropdown-item">Paquetes Turísticos</a>
+                            <a href="viajes-corporativos.html" class="dropdown-item">Viajes Corporativos</a>
+                            <a href="luna-de-miel.html" class="dropdown-item">Luna de Miel</a>
+                            <a href="seguros-viaje.html" class="dropdown-item">Seguros de Viaje</a>
+                            <a href="asesoria-visas.html" class="dropdown-item">Asesoría de Visas</a>
+                        </div>
+                    </div>
+                    <a href="index.html#nosotros" class="nav-link">Nosotros</a>
+                    <a href="index.html#contacto" class="btn-primary btn-nav">Contactar</a>
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="dest-header">
+        <div data-aos="fade-up" style="position: relative; z-index: 1;">
+            <h1>🇵🇪 Destinos Nacionales</h1>
+            <p style="font-size: 1.4rem; opacity: 0.95;">Descubre la riqueza y belleza de Perú</p>
+        </div>
+    </header>
+
+    <section class="destinations-grid">
+        <div class="container">
+            <div class="section-header text-center" data-aos="fade-up" style="margin-bottom: 60px;">
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #2c3e50;">
+                    Lo Mejor del Perú
+                </h2>
+                <p style="max-width: 700px; margin: 20px auto; color: #7f8c8d; font-size: 1.1rem;">
+                    Explora destinos únicos sin salir del país
+                </p>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="destination-card">
+                        <div class="dest-image" style="background-image: url('https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=800');">
+                            <span class="dest-badge">⭐ Imperdible</span>
+                        </div>
+                        <div class="dest-content">
+                            <div class="dest-location">📍 Cusco</div>
+                            <h3 class="dest-title">Cusco y Valle Sagrado</h3>
+                            <p class="dest-description">
+                                La antigua capital del Imperio Inca te espera con su magia, historia y cultura milenaria.
+                            </p>
+                            <div class="dest-features">
+                                <span class="feature-tag">🏔️ Montañas</span>
+                                <span class="feature-tag">🏛️ Historia</span>
+                                <span class="feature-tag">🎭 Cultura</span>
+                            </div>
+                            <div class="dest-price">
+                                <span class="price-text">Desde $599</span>
+                                <a href="index.html#contacto" class="btn-dest">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="destination-card">
+                        <div class="dest-image" style="background-image: url('https://images.unsplash.com/photo-1531065208531-4036c0dba3ca?w=800');">
+                            <span class="dest-badge">🔥 Popular</span>
+                        </div>
+                        <div class="dest-content">
+                            <div class="dest-location">📍 Arequipa</div>
+                            <h3 class="dest-title">Arequipa y Cañón del Colca</h3>
+                            <p class="dest-description">
+                                La Ciudad Blanca y uno de los cañones más profundos del mundo te sorprenderán.
+                            </p>
+                            <div class="dest-features">
+                                <span class="feature-tag">🏔️ Naturaleza</span>
+                                <span class="feature-tag">🦅 Fauna</span>
+                                <span class="feature-tag">🏛️ Colonial</span>
+                            </div>
+                            <div class="dest-price">
+                                <span class="price-text">Desde $499</span>
+                                <a href="index.html#contacto" class="btn-dest">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="destination-card">
+                        <div class="dest-image" style="background-image: url('https://images.unsplash.com/photo-1518391846015-55a9cc003b25?w=800');">
+                            <span class="dest-badge">🌊 Costa</span>
+                        </div>
+                        <div class="dest-content">
+                            <div class="dest-location">📍 Paracas</div>
+                            <h3 class="dest-title">Paracas e Islas Ballestas</h3>
+                            <p class="dest-description">
+                                Playas, reserva natural y vida marina en uno de los ecosistemas más ricos del Perú.
+                            </p>
+                            <div class="dest-features">
+                                <span class="feature-tag">🏖️ Playas</span>
+                                <span class="feature-tag">🦭 Fauna Marina</span>
+                                <span class="feature-tag">⛵ Paseos</span>
+                            </div>
+                            <div class="dest-price">
+                                <span class="price-text">Desde $299</span>
+                                <a href="index.html#contacto" class="btn-dest">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="destination-card">
+                        <div class="dest-image" style="background-image: url('https://images.unsplash.com/photo-1569165003085-e8a1066f1cb8?w=800');">
+                            <span class="dest-badge">🌴 Selva</span>
+                        </div>
+                        <div class="dest-content">
+                            <div class="dest-location">📍 Iquitos</div>
+                            <h3 class="dest-title">Amazonía Peruana</h3>
+                            <p class="dest-description">
+                                Vive una aventura única en la selva amazónica, la más biodiversa del planeta.
+                            </p>
+                            <div class="dest-features">
+                                <span class="feature-tag">🌳 Selva</span>
+                                <span class="feature-tag">🐒 Vida Salvaje</span>
+                                <span class="feature-tag">⛵ Río Amazonas</span>
+                            </div>
+                            <div class="dest-price">
+                                <span class="price-text">Desde $699</span>
+                                <a href="index.html#contacto" class="btn-dest">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="destination-card">
+                        <div class="dest-image" style="background-image: url('https://images.unsplash.com/photo-1500835556837-99ac94a94552?w=800');">
+                            <span class="dest-badge">🏖️ Playa</span>
+                        </div>
+                        <div class="dest-content">
+                            <div class="dest-location">📍 Máncora</div>
+                            <h3 class="dest-title">Máncora y Playa Norte</h3>
+                            <p class="dest-description">
+                                Sol, playa, surf y vida nocturna en el paraíso tropical del norte peruano.
+                            </p>
+                            <div class="dest-features">
+                                <span class="feature-tag">🏄 Surf</span>
+                                <span class="feature-tag">☀️ Sol</span>
+                                <span class="feature-tag">🎉 Diversión</span>
+                            </div>
+                            <div class="dest-price">
+                                <span class="price-text">Desde $399</span>
+                                <a href="index.html#contacto" class="btn-dest">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="destination-card">
+                        <div class="dest-image" style="background-image: url('https://images.unsplash.com/photo-1580655653885-65763b2597d0?w=800');">
+                            <span class="dest-badge">💎 Exclusivo</span>
+                        </div>
+                        <div class="dest-content">
+                            <div class="dest-location">📍 Puno</div>
+                            <h3 class="dest-title">Lago Titicaca</h3>
+                            <p class="dest-description">
+                                El lago navegable más alto del mundo y las místicas islas flotantes de los Uros.
+                            </p>
+                            <div class="dest-features">
+                                <span class="feature-tag">🏞️ Lago</span>
+                                <span class="feature-tag">🎭 Cultura Viva</span>
+                                <span class="feature-tag">⛰️ Altiplano</span>
+                            </div>
+                            <div class="dest-price">
+                                <span class="price-text">Desde $549</span>
+                                <a href="index.html#contacto" class="btn-dest">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Good Call Travel. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+    <script>AOS.init({duration: 800, once: true});</script>
+</body>
+</html>
