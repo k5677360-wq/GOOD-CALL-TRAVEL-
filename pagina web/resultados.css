@@ -122,8 +122,10 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gris-100)
 .detalle-total .detalle-valor { color: #1a1a1a; font-size: 0.95rem; font-weight: 700; }
 
 /* MALETA ADDON */
-.maleta-addon { flex: 0 0 100%; background: linear-gradient(135deg, #f0f7ff, #e8f2ff); border: 1.5px dashed #1e4d8c; border-radius: 12px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
-.maleta-info { display: flex; align-items: center; gap: 10px; }
+.maleta-addon { flex: 0 0 100%; background: #f0f7ff; border: 1.5px dashed #1e4d8c; border-radius: 12px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 16px; overflow: hidden; }
+.maleta-info { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.maleta-titulo { font-weight: 600; font-size: 0.85rem; color: #1a1a1a; white-space: nowrap; }
+.maleta-desc { font-size: 0.72rem; color: #666; white-space: nowrap; }
 .maleta-icon { font-size: 1.2rem; }
 .maleta-titulo { font-weight: 600; font-size: 0.85rem; color: #1a1a1a; }
 .maleta-desc { font-size: 0.72rem; color: #666; }
