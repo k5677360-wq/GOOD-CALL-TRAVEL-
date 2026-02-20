@@ -473,11 +473,11 @@ function reservar(index) {
     const origen = nombresCiudades[parametrosBusqueda.origen] || parametrosBusqueda.origen;
     const destino = nombresCiudades[parametrosBusqueda.destino] || parametrosBusqueda.destino;
 
-    const mensaje = `✈️ *Hola Good Call Travel!*\n\nQuiero reservar este vuelo:\n\n🗺️ Ruta: ${origen} → ${destino}\n✈️ Aerolínea: ${vuelo.aerolinea}\n🕐 Horario: ${vuelo.hora_salida} → ${vuelo.hora_llegada}\n📅 Fecha: ${parametrosBusqueda.fecha}\n👥 Pasajeros: ${parametrosBusqueda.pasajeros}\n💰 Precio: $${precioUSD.toFixed(2)} por persona\n\n¿Me pueden confirmar disponibilidad?`;
+    const mensaje = `✈️ *Hola Good Call Travel!*\n\nQuiero reservar este vuelo:\n\n🗺️ Ruta: ${origen} → ${destino}\n✈️ Aerolínea: ${vuelo.aerolinea}\n🕐 Horario: ${vuelo.hora_salida} → ${vuelo.hora_llegada}\n📅 Fecha: ${parametrosBusqueda.fecha}\n👥 Pasajeros: ${parametrosBusqueda.pasajeros}\n💰 Precio: $${precioFinalUSD.toFixed(2)} por persona\n\n¿Me pueden confirmar disponibilidad?`;
 
     const linkWA = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent(mensaje)}`;
     
-    document.getElementById('waInfo').textContent = `${vuelo.aerolinea} · ${origen} → ${destino} · $${precioUSD.toFixed(2)} por persona`;
+    document.getElementById('waInfo').textContent = `${vuelo.aerolinea} · ${origen} → ${destino} · $${precioFinalUSD.toFixed(2)} por persona`;
     document.getElementById('waLink').href = linkWA;
     document.getElementById('waModal').style.display = 'flex';
 }
