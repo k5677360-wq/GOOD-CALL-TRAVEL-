@@ -417,8 +417,8 @@ function crearCardVuelo(vuelo, index) {
                             <div class="maleta-desc">23kg · Agregar al momento de reservar</div>
                         </div>
                     </div>
-                    <div>
-                        <div class="maleta-precio">Consultar precio</div>
+                    <div style="display:flex;align-items:center;gap:14px;flex-shrink:0">
+                        <div class="maleta-precio" style="font-size:0.8rem;color:#555;white-space:nowrap">Consultar precio</div>
                         <button class="btn-add-maleta" id="maleta-btn-${index}" onclick="agregarMaleta(${index})">
                             + Agregar
                         </button>
