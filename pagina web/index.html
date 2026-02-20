@@ -2480,7 +2480,12 @@
                     <h3>Enviar Mensaje</h3>
                     <p class="form-subtitle">Completa el formulario y te responderemos en menos de 24 horas.</p>
 
-                    <form id="contactForm">
+                    <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="TU-ACCESS-KEY-AQUI">
+    <input type="hidden" name="subject" value="Nuevo contacto - Good Call Travel">
+    <input type="hidden" name="from_name" value="Good Call Travel Web">
+    <input type="checkbox" name="botcheck" style="display:none">
+    <input type="hidden" name="redirect" value="https://goodcalltravel.com">
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Nombre</label>
