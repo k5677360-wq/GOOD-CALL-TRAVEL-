@@ -3,7 +3,7 @@
 // =====================================================
 
 // TU NÚMERO DE WHATSAPP (cámbialo por el tuyo)
-const WHATSAPP_NUMERO = '51987654321';
+const WHATSAPP_NUMERO = '983 894 837';
 
 let vuelosOriginales = [];
 let parametrosBusqueda = {};
