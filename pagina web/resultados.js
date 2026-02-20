@@ -418,7 +418,9 @@ function crearCardVuelo(vuelo, index) {
                     <span class="maleta-precio">Consultar precio</span>
                     <button class="btn-add-maleta" id="maleta-btn-${index}" onclick="agregarMaleta(${index})">+ Agregar</button>
                 </div>
-            
+                ` : ''}
+            </div>
+                  
             <!-- Desglose precios -->
             <div class="detalle-seccion">
                 <div class="detalle-titulo">Desglose de precios</div>
