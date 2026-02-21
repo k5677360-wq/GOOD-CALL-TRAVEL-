@@ -1,0 +1,200 @@
+/* =====================================================
+   GOOD CALL TRAVEL - RESULTADOS - COMPACTO
+   ===================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+    --azul: #1a3a6c; --azul-medio: #1e4d8c; --azul-claro: #2563eb;
+    --azul-suave: #e8f0fe; --verde: #16a34a; --verde-claro: #dcfce7;
+    --gris-100: #f8fafc; --gris-200: #f1f5f9; --gris-300: #e2e8f0;
+    --gris-400: #94a3b8; --gris-600: #475569; --gris-800: #1e293b;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.08); --shadow-md: 0 4px 16px rgba(0,0,0,.10);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,.14); --radius: 12px; --radius-sm: 8px;
+}
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gris-100); color: var(--gris-800); }
+
+/* HEADER */
+.header { background: #fff; border-bottom: 1px solid #e8e8e8; position: sticky; top: 0; z-index: 100; }
+.header-inner { max-width: 1100px; margin: 0 auto; padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-img { width: 30px; height: 30px; object-fit: contain; border-radius: 6px; }
+.logo-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; color: #1a1a1a; display: block; }
+.logo-tag { font-size: 0.58rem; color: #888; }
+.btn-nueva-busqueda { display: flex; align-items: center; gap: 6px; background: #fff; color: #1a1a1a; border: 1px solid #ccc; padding: 7px 16px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-decoration: none; transition: all .2s; }
+.btn-nueva-busqueda:hover { background: #f5f5f5; }
+
+/* SEARCH BAR */
+.search-bar { background: #f7f7f7; border-bottom: 1px solid #e8e8e8; }
+.search-bar-inner { max-width: 1100px; margin: 0 auto; padding: 10px 20px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.route-pill { display: flex; align-items: center; gap: 8px; background: #fff; border-radius: 50px; padding: 6px 14px; border: 1px solid #ddd; }
+.route-city { font-family: 'Syne', sans-serif; font-weight: 700; color: #1a1a1a; font-size: 0.9rem; }
+.route-arrow { color: #888; }
+.search-meta { display: flex; align-items: center; gap: 8px; flex: 1; }
+.meta-item { display: flex; align-items: center; gap: 4px; color: #555; font-size: 0.8rem; }
+.meta-sep { color: #ccc; }
+.btn-modificar { display: flex; align-items: center; gap: 5px; background: #fff; border: 1px solid #ccc; color: #333; padding: 6px 14px; border-radius: 50px; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: all .2s; }
+.btn-modificar:hover { background: #f5f5f5; }
+
+/* MODIFY PANEL */
+.modify-panel { background: #fff; border-bottom: 1px solid var(--gris-300); box-shadow: var(--shadow-md); }
+.modify-panel-inner { max-width: 1100px; margin: 0 auto; padding: 18px 20px; }
+.modify-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 130px; gap: 12px; margin-bottom: 12px; }
+.modify-group { display: flex; flex-direction: column; gap: 4px; }
+.modify-group label { font-size: 0.7rem; font-weight: 700; color: var(--gris-600); text-transform: uppercase; letter-spacing: .4px; }
+.modify-group input { padding: 9px 11px; border: 1.5px solid var(--gris-300); border-radius: var(--radius-sm); font-size: 0.85rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--gris-800); outline: none; transition: border-color .2s; }
+.modify-group input:focus { border-color: var(--azul-claro); }
+.modify-actions { display: flex; justify-content: flex-end; gap: 8px; }
+.btn-cancel { padding: 9px 18px; border: 1.5px solid var(--gris-300); background: #fff; border-radius: 50px; font-size: 0.82rem; font-weight: 600; cursor: pointer; color: var(--gris-600); font-family: 'Plus Jakarta Sans', sans-serif; }
+.btn-buscar { display: flex; align-items: center; gap: 6px; padding: 9px 22px; background: var(--azul-claro); color: #fff; border: none; border-radius: 50px; font-size: 0.82rem; font-weight: 700; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+/* MAIN */
+.main { padding: 20px 0 50px; background: #f2f4f7; min-height: 100vh; }
+.main-inner { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* TOPBAR */
+.results-topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+.results-count { display: flex; align-items: baseline; gap: 8px; }
+.count-num { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1rem; font-weight: 600; color: #1a1a1a; }
+.count-label { font-size: 1rem; color: #1a1a1a; font-weight: 400; }
+.sort-wrap { display: flex; align-items: center; gap: 8px; }
+.sort-wrap label { font-size: 0.8rem; color: var(--gris-600); font-weight: 600; }
+.sort-select { padding: 7px 12px; border: 1.5px solid var(--gris-300); border-radius: 50px; font-size: 0.8rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--gris-800); font-weight: 600; outline: none; cursor: pointer; background: #fff; }
+
+/* LISTA */
+.vuelos-list { display: flex; flex-direction: column; gap: 10px; }
+
+/* CARD */
+.vuelos-list { display: flex; flex-direction: column; gap: 0; }
+.vuelo-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.06); border: none; overflow: hidden; transition: box-shadow .2s; }
+.vuelo-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.08); }
+.vuelos-list { border: none; border-radius: 0; overflow: visible; background: transparent; display: flex; flex-direction: column; gap: 12px; }
+.best-badge { display: none; }
+
+/* FILA PRINCIPAL */
+.card-main { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 32px; padding: 24px 32px; }
+
+/* AEROLÍNEA - ocultar columna separada, integrar */
+.airline-col { display: none; }
+
+/* HORARIO */
+.horario-col { display: flex; align-items: baseline; gap: 12px; flex: 1; }
+.time-block { display: flex; align-items: baseline; gap: 8px; }
+.hora { font-size: 2.2rem; font-weight: 400; color: #1a1a1a; line-height: 1; letter-spacing: -1px; }
+.iata { font-size: 1.2rem; font-weight: 400; color: #1a1a1a; }
+.duracion-line { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; margin: 0 24px; }
+.duracion-texto { font-size: 0.78rem; color: #666; font-weight: 400; }
+.linea-vuelo { width: 100%; height: 1px; background: #ccc; position: relative; display: flex; align-items: center; justify-content: center; }
+.avion-icon { position: absolute; background: #fff; padding: 0 4px; }
+.tipo-directo { font-size: 0.75rem; color: #555; font-weight: 400; background: none; padding: 0; border-radius: 0; text-decoration: underline; }
+.tipo-escala { font-size: 0.75rem; color: #555; font-weight: 400; background: none; padding: 0; border-radius: 0; }
+
+/* PRECIO */
+.precio-col { display: flex; flex-direction: column; align-items: flex-end; min-width: 180px; }
+.precio-moneda { font-size: 0.78rem; color: #666; font-weight: 400; }
+.precio-valor { font-size: 1.6rem; font-weight: 400; color: #1a1a1a; letter-spacing: -0.5px; line-height: 1.1; }
+.precio-persona { font-size: 0.72rem; color: #888; font-weight: 400; }
+.btn-reservar { display: inline-block; margin-top: 12px; padding: 10px 22px; background: #1a1a1a; color: #fff; border: none; border-radius: 50px; font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: background .2s; white-space: nowrap; }
+.btn-reservar:hover { background: #333; }
+
+/* AEROLÍNEA DEBAJO */
+.card-equipaje { display: flex; align-items: center; gap: 16px; padding: 0 32px 16px; }
+.equip-item { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; font-weight: 400; color: #555; background: none; padding: 0; border-radius: 0; }
+.equip-item .equip-icon { color: #888; font-size: 0.7rem; }
+.equip-incluido { color: #555; }
+.equip-no { color: #888; }
+
+/* TOGGLE */
+.card-toggle { border-top: 1px solid #f0f0f0; padding: 10px 32px; display: flex; align-items: center; justify-content: space-between; }
+.btn-toggle-detalle { display: flex; align-items: center; gap: 5px; padding: 0; background: none; border: none; color: #6b4dc4; font-size: 0.8rem; font-weight: 500; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; text-decoration: underline; }
+.toggle-icon { transition: transform .3s; display: inline-flex; }
+.toggle-icon.open { transform: rotate(180deg); }
+
+/* DETALLES */
+.card-detalles { display: none; padding: 18px 32px; background: #f8f8f8; border-top: 1px solid #eee; gap: 18px; flex-wrap: wrap; }
+.card-detalles.open { display: flex; }
+.detalle-seccion { flex: 1; min-width: 170px; }
+.detalle-titulo { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #888; margin-bottom: 9px; }
+.detalle-fila { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #eee; font-size: 0.8rem; }
+.detalle-fila:last-child { border-bottom: none; }
+.detalle-label { color: #666; }
+.detalle-valor { font-weight: 600; color: #1a1a1a; }
+.detalle-total { display: flex; justify-content: space-between; align-items: center; padding: 9px 12px; background: #f0f0f0; border-radius: 8px; margin-top: 5px; }
+.detalle-total .detalle-label { color: #333; font-weight: 600; }
+.detalle-total .detalle-valor { color: #1a1a1a; font-size: 0.95rem; font-weight: 700; }
+
+/* MALETA ADDON */
+.maleta-addon { flex: 0 0 100%; background: #fff; border: 1px dashed #ccc; border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.maleta-info { display: flex; align-items: center; gap: 10px; }
+.maleta-icon { font-size: 1.2rem; }
+.maleta-titulo { font-weight: 600; font-size: 0.85rem; color: #1a1a1a; }
+.maleta-desc { font-size: 0.72rem; color: #666; }
+.maleta-precio { font-weight: 700; color: #1a1a1a; font-size: 0.85rem; margin-bottom: 3px; }
+.btn-add-maleta { padding: 7px 16px; border: 1px solid #ccc; background: #fff; color: #333; border-radius: 50px; font-size: 0.78rem; font-weight: 600; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; }
+.btn-add-maleta:hover { background: #f0f0f0; }
+
+/* SELECTOR DE FECHAS - ESTILO LATAM */
+.fecha-selector-wrap { display: flex; align-items: center; background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 0 8px; margin-bottom: 16px; overflow: hidden; }
+.fecha-nav { background: none; border: none; width: 36px; height: 60px; font-size: 1.4rem; cursor: pointer; color: #333; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.fecha-nav:hover { background: #f5f5f5; }
+.fecha-lista { display: flex; flex: 1; }
+.fecha-btn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 14px 0; border: none; border-left: 1px solid #e8e8e8; background: none; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; flex: 1; transition: background .15s; }
+.fecha-btn:first-child { border-left: none; }
+.fecha-btn:hover { background: #f5f5f5; }
+.fecha-btn.fecha-activa { background: #3b3be8; }
+.fecha-btn.fecha-activa .fecha-diasem,
+.fecha-btn.fecha-activa .fecha-num { color: #fff; }
+.fecha-diasem { font-size: 0.7rem; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: .5px; }
+.fecha-num { font-size: 0.9rem; font-weight: 600; color: #1a1a1a; }
+
+/* ESTADOS */
+.state-box { text-align: center; padding: 60px 20px; }
+.state-icon { font-size: 3rem; margin-bottom: 14px; }
+.state-box h2 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: #1a1a1a; margin-bottom: 6px; }
+.state-box p { color: #666; font-size: 0.9rem; margin-bottom: 18px; }
+.btn-primary { display: inline-flex; align-items: center; gap: 7px; padding: 11px 26px; background: #1a1a1a; color: #fff; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.88rem; }
+.loading-plane { margin-bottom: 18px; animation: fly 1.4s ease-in-out infinite alternate; display: inline-block; }
+@keyframes fly { from { transform: translateX(-14px) rotate(-5deg); } to { transform: translateX(14px) rotate(5deg); } }
+.skeleton-list { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+.skeleton-card { height: 100px; background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; border-radius: 12px; animation: shimmer 1.5s infinite; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+/* MODAL WA */
+.wa-modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.wa-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.55); backdrop-filter: blur(4px); }
+.wa-content { position: relative; background: #fff; border-radius: 16px; padding: 32px 26px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,.14); animation: popIn .3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes popIn { from { opacity: 0; transform: scale(.88); } to { opacity: 1; transform: scale(1); } }
+.wa-close { position: absolute; top: 12px; right: 14px; background: #f0f0f0; border: none; width: 28px; height: 28px; border-radius: 50%; font-size: 1rem; cursor: pointer; color: #666; display: flex; align-items: center; justify-content: center; }
+.wa-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.wa-content h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; }
+.wa-content p { color: #666; font-size: 0.82rem; margin-bottom: 18px; }
+.wa-options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 12px; }
+.btn-wa { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 18px; background: #25D366; color: #fff; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+.btn-form { display: flex; align-items: center; justify-content: center; padding: 12px 18px; border: 1px solid #ccc; color: #1a1a1a; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.86rem; }
+.wa-note { font-size: 0.7rem; color: #aaa; }
+#waInfo { font-weight: 700; color: #1a1a1a !important; margin-bottom: 18px; }
+
+/* FOOTER */
+.footer { background: #1a1a1a; padding: 18px 20px; margin-top: 40px; }
+.footer-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+.footer p { color: rgba(255,255,255,.55); font-size: 0.78rem; margin-bottom: 3px; }
+.footer a { color: rgba(255,255,255,.75); text-decoration: none; }
+.footer-legal { font-size: 0.68rem !important; color: rgba(255,255,255,.3) !important; }
+
+/* RESPONSIVE */
+@media (max-width: 650px) {
+    .card-main { grid-template-columns: 1fr; gap: 12px; padding: 16px; }
+    .precio-col { align-items: flex-start; }
+    .card-equipaje { padding: 0 16px 16px; }
+    .card-toggle { padding: 10px 16px; }
+    .fecha-btn { padding: 10px 0; }
+}
+/* BADGES ESTILO LATAM */
+.best-badge { display: none; }
+.best-badge-wrap { display: flex; gap: 0; padding: 12px 32px 0; }
+.badge-recomendado { background: #f5c518; color: #1a1a1a; font-size: 0.72rem; font-weight: 700; padding: 4px 14px; border-radius: 4px 0 0 4px; }
+.badge-economico { background: #155ab4; color: #fff; font-size: 0.72rem; font-weight: 700; padding: 4px 14px; border-radius: 0 4px 4px 0; }
+/* DETALLES - COLORES NEUTROS */
+.detalle-valor[style*="color:#16a34a"],
+.detalle-valor[style*="color: #16a34a"],
+.detalle-valor[style*="color:rgb(22"] { color: #1a1a1a !important; }
+.detalle-valor[style*="color:#dc2626"],
+.detalle-valor[style*="color: #dc2626"] { color: #888 !important; }
