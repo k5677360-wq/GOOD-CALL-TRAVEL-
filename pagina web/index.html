@@ -303,11 +303,11 @@
         /* Form grid horizontal */
         .cotizador-form-horizontal {
             display: grid;
-            grid-template-columns: 2fr 2fr 1.8fr 1.8fr 0.9fr 0.9fr 0.9fr 1.2fr;
-            gap: 10px;
+            grid-template-columns: 4fr 4fr 1.5fr 1.5fr 0.2fr 0.2fr 0.2fr 1fr;
+            gap: 10px;  
             align-items: flex-end;
         }
-
+        
         .input-field {
             display: flex;
             flex-direction: column;
@@ -1699,9 +1699,13 @@
         /* === RESPONSIVO === */
         @media (max-width: 1100px) {
             .cotizador-form-horizontal {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: 4fr 4fr 1.5fr 1.5fr 0.2fr 0.2fr 0.2fr 1fr;
             }
         }
+        .cotizador-form-horizontal.oneway {
+    grid-template-columns: 4fr 4fr 1.5fr 0.2fr 0.2fr 0.2fr 1fr;
+}
+        
 
         @media (max-width: 900px) {
             .destinations-grid,
@@ -1721,7 +1725,7 @@
                 grid-column: 1 / -1;
             }
             .cotizador-form-horizontal {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 4fr 4fr 1.5fr 0.2fr 0.2fr 0.2fr 1fr;
             }
         }
 
@@ -2674,6 +2678,12 @@
                 const returnField = document.getElementById('returnDateField');
                 if (returnField) {
                     returnField.style.display = this.dataset.type === 'oneway' ? 'none' : '';
+const form = document.getElementById('searchForm');
+if (this.dataset.type === 'oneway') {
+    form.classList.add('oneway');
+} else {
+    form.classList.remove('oneway');
+}
                 }
             });
         });
