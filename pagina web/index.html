@@ -1870,45 +1870,91 @@
                                 <input type="text" id="origin" class="city-select" placeholder="¿De dónde sales?" required list="listOrigen">
 <datalist id="listOrigen">
                                     <option value="">¿De dónde sales?</option>
-                                    <optgroup label="── Perú ──">
-                                        <option value="lima">Lima</option>
-                                        <option value="cusco">Cusco</option>
-                                        <option value="arequipa">Arequipa</option>
-                                        <option value="trujillo">Trujillo</option>
-                                        <option value="chiclayo">Chiclayo</option>
-                                        <option value="piura">Piura</option>
-                                        <option value="iquitos">Iquitos</option>
-                                        <option value="tarapoto">Tarapoto</option>
-                                        <option value="pucallpa">Pucallpa</option>
-                                        <option value="juliaca">Juliaca</option>
-                                        <option value="tacna">Tacna</option>
-                                        <option value="tumbes">Tumbes</option>
-                                        <option value="puerto maldonado">Puerto Maldonado</option>
-                                    </optgroup>
-                                    <optgroup label="── Sudamérica ──">
-                                        <option value="bogotá">Bogotá, Colombia</option>
-                                        <option value="medellín">Medellín, Colombia</option>
-                                        <option value="cartagena">Cartagena, Colombia</option>
-                                        <option value="buenos aires">Buenos Aires, Argentina</option>
-                                        <option value="santiago">Santiago, Chile</option>
-                                        <option value="quito">Quito, Ecuador</option>
-                                        <option value="guayaquil">Guayaquil, Ecuador</option>
-                                        <option value="são paulo">São Paulo, Brasil</option>
-                                        <option value="río de janeiro">Río de Janeiro, Brasil</option>
-                                    </optgroup>
-                                    <optgroup label="── Norteamérica ──">
-                                        <option value="miami">Miami, USA</option>
-                                        <option value="nueva york">Nueva York, USA</option>
-                                        <option value="los ángeles">Los Ángeles, USA</option>
-                                        <option value="cancún">Cancún, México</option>
-                                        <option value="ciudad de méxico">Ciudad de México</option>
-                                    </optgroup>
-                                    <optgroup label="── Europa ──">
-                                        <option value="madrid">Madrid, España</option>
-                                        <option value="barcelona">Barcelona, España</option>
-                                        <option value="paris">París, Francia</option>
-                                        <option value="roma">Roma, Italia</option>
-                                        <option value="london">Londres, UK</option>
+                                    <!-- Perú -->
+<option value="lima">Lima, Perú</option>
+<option value="cusco">Cusco, Perú</option>
+<option value="arequipa">Arequipa, Perú</option>
+<option value="piura">Piura, Perú</option>
+<option value="trujillo">Trujillo, Perú</option>
+<option value="iquitos">Iquitos, Perú</option>
+<option value="chiclayo">Chiclayo, Perú</option>
+<option value="tacna">Tacna, Perú</option>
+<option value="juliaca">Juliaca, Perú</option>
+<option value="tarapoto">Tarapoto, Perú</option>
+<option value="pucallpa">Pucallpa, Perú</option>
+<option value="tumbes">Tumbes, Perú</option>
+<option value="puerto maldonado">Puerto Maldonado, Perú</option>
+<option value="cajamarca">Cajamarca, Perú</option>
+<option value="ayacucho">Ayacucho, Perú</option>
+<option value="jaén">Jaén, Perú</option>
+<option value="talara">Talara, Perú</option>
+<!-- Argentina -->
+<option value="buenos aires">Buenos Aires, Argentina</option>
+<option value="córdoba">Córdoba, Argentina</option>
+<option value="mendoza">Mendoza, Argentina</option>
+<option value="rosario">Rosario, Argentina</option>
+<option value="salta">Salta, Argentina</option>
+<option value="tucumán">Tucumán, Argentina</option>
+<option value="bariloche">Bariloche, Argentina</option>
+<option value="ushuaia">Ushuaia, Argentina</option>
+<!-- Brasil -->
+<option value="são paulo">São Paulo, Brasil</option>
+<option value="rio de janeiro">Río de Janeiro, Brasil</option>
+<option value="brasilia">Brasilia, Brasil</option>
+<option value="porto alegre">Porto Alegre, Brasil</option>
+<option value="belo horizonte">Belo Horizonte, Brasil</option>
+<option value="salvador">Salvador, Brasil</option>
+<option value="recife">Recife, Brasil</option>
+<option value="fortaleza">Fortaleza, Brasil</option>
+<option value="manaos">Manaos, Brasil</option>
+<!-- Chile -->
+<option value="santiago">Santiago, Chile</option>
+<option value="antofagasta">Antofagasta, Chile</option>
+<option value="concepción">Concepción, Chile</option>
+<option value="puerto montt">Puerto Montt, Chile</option>
+<option value="iquique">Iquique, Chile</option>
+<!-- Colombia -->
+<option value="bogotá">Bogotá, Colombia</option>
+<option value="medellín">Medellín, Colombia</option>
+<option value="cali">Cali, Colombia</option>
+<option value="cartagena">Cartagena, Colombia</option>
+<option value="barranquilla">Barranquilla, Colombia</option>
+<!-- Ecuador -->
+<option value="quito">Quito, Ecuador</option>
+<option value="guayaquil">Guayaquil, Ecuador</option>
+<!-- Otros Sudamérica -->
+<option value="montevideo">Montevideo, Uruguay</option>
+<option value="asunción">Asunción, Paraguay</option>
+<option value="santa cruz">Santa Cruz, Bolivia</option>
+<option value="la paz">La Paz, Bolivia</option>
+<option value="caracas">Caracas, Venezuela</option>
+<!-- Centroamérica y Caribe -->
+<option value="panamá">Panamá, Panamá</option>
+<option value="san josé">San José, Costa Rica</option>
+<option value="san salvador">San Salvador, El Salvador</option>
+<option value="punta cana">Punta Cana, R. Dominicana</option>
+<option value="la habana">La Habana, Cuba</option>
+<option value="curazao">Curazao</option>
+<!-- Norteamérica -->
+<option value="miami">Miami, USA</option>
+<option value="nueva york">Nueva York, USA</option>
+<option value="los ángeles">Los Ángeles, USA</option>
+<option value="orlando">Orlando, USA</option>
+<option value="atlanta">Atlanta, USA</option>
+<option value="houston">Houston, USA</option>
+<option value="fort lauderdale">Fort Lauderdale, USA</option>
+<option value="newark">Newark, USA</option>
+<option value="ciudad de méxico">Ciudad de México</option>
+<option value="cancún">Cancún, México</option>
+<!-- Europa -->
+<option value="madrid">Madrid, España</option>
+<option value="barcelona">Barcelona, España</option>
+<option value="paris">París, Francia</option>
+<option value="frankfurt">Frankfurt, Alemania</option>
+<option value="amsterdam">Amsterdam, Holanda</option>
+<option value="roma">Roma, Italia</option>
+<option value="milan">Milán, Italia</option>
+<option value="london">Londres, UK</option>
                                     </optgroup>
                                 </datalist>
                             </div>
