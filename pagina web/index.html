@@ -1846,7 +1846,8 @@
                             <label>Origen</label>
                             <div class="input-with-icon">
                                 <i class="fas fa-plane-departure"></i>
-                                <select id="origin" class="city-select" required>
+                                <input type="text" id="origin" class="city-select" placeholder="¿De dónde sales?" required list="listOrigen">
+<datalist id="listOrigen">
                                     <option value="">¿De dónde sales?</option>
                                     <optgroup label="── Perú ──">
                                         <option value="lima">Lima</option>
@@ -1888,7 +1889,7 @@
                                         <option value="roma">Roma, Italia</option>
                                         <option value="london">Londres, UK</option>
                                     </optgroup>
-                                </select>
+                                </datalist>
                             </div>
                         </div>
 
@@ -1897,7 +1898,8 @@
                             <label>Destino</label>
                             <div class="input-with-icon">
                                 <i class="fas fa-plane-arrival"></i>
-                                <select id="destination" class="city-select" required>
+                                <input type="text" id="destination" class="city-select" placeholder="¿A dónde vas?" required list="listDestino">
+<datalist id="listDestino">
                                     <option value="">¿A dónde vas?</option>
                                     <optgroup label="── Perú ──">
                                         <option value="lima">Lima</option>
@@ -1950,7 +1952,7 @@
                                         <option value="tokio">Tokio, Japón</option>
                                         <option value="dubai">Dubai, EAU</option>
                                     </optgroup>
-                                </select>
+                                </datalist>
                             </div>
                         </div>
 
@@ -2078,145 +2080,105 @@
                 </p>
             </div>
 
-            <div class="services-grid">
+           <!-- FILA 1: HORIZONTALES -->
+            <div class="services-row-h">
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                            <line x1="12" y1="22.08" x2="12" y2="12"/>
-                        </svg>
+                <div class="svc-h" data-aos="fade-up" data-aos-delay="0">
+                    <div class="svc-h-img">
+                        <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80" alt="Paquetes Todo Incluido">
                     </div>
-                    <h3>Paquetes Todo Incluido</h3>
-                    <p>Vuelos, hoteles, traslados y actividades en un solo paquete sin sorpresas.</p>
-                    <ul class="service-features">
-                        <li>Hoteles seleccionados 4 y 5 estrellas</li>
-                        <li>Traslados aeropuerto incluidos</li>
-                        <li>Guia de turismo certificado</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Consultar
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </a>
+                    <div class="svc-h-gold"></div>
+                    <div class="svc-h-body">
+                        <span class="svc-tag">⭐ Más Popular</span>
+                        <h3>Paquetes Todo Incluido</h3>
+                        <p>Vuelos, hoteles, traslados y actividades en un solo paquete sin sorpresas.</p>
+                        <ul class="svc-features">
+                            <li>Hoteles seleccionados 4 y 5 estrellas</li>
+                            <li>Traslados aeropuerto incluidos</li>
+                            <li>Guía de turismo certificado</li>
+                        </ul>
+                        <a href="#contacto" class="svc-cta">Consultar →</a>
+                    </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-                        </svg>
+                <div class="svc-h" data-aos="fade-up" data-aos-delay="100">
+                    <div class="svc-h-img">
+                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80" alt="Luna de Miel">
                     </div>
-                    <h3>Viajes Corporativos</h3>
-                    <p>Gestion integral de viajes empresariales con facturacion centralizada y soporte.</p>
-                    <ul class="service-features">
-                        <li>Gestion de itinerarios corporativos</li>
-                        <li>Tarifas preferenciales negociadas</li>
-                        <li>Reporte de gastos mensual</li>
-                    </ul>
-                    <a href="viajes-corporativos.html" class="service-link">
-                        Ver mas
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </a>
+                    <div class="svc-h-gold"></div>
+                    <div class="svc-h-body">
+                        <span class="svc-tag">💍 Romance</span>
+                        <h3>Luna de Miel</h3>
+                        <p>Experiencias románticas diseñadas a medida para la celebración más especial de tu vida.</p>
+                        <ul class="svc-features">
+                            <li>Habitaciones premium con detalles</li>
+                            <li>Cenas románticas y spa incluidos</li>
+                            <li>Actividades exclusivas en pareja</li>
+                        </ul>
+                        <a href="#contacto" class="svc-cta">Diseñar viaje →</a>
+                    </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-                        </svg>
+            </div>
+
+            <!-- FILA 2: VERTICALES -->
+            <div class="services-row-v">
+
+                <div class="svc-v" data-aos="fade-up" data-aos-delay="0">
+                    <div class="svc-v-img">
+                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=600&q=80" alt="Viajes Corporativos">
                     </div>
-                    <h3>Luna de Miel</h3>
-                    <p>Experiencias romanticas disenadads a medida para la celebracion mas especial.</p>
-                    <ul class="service-features">
-                        <li>Habitaciones premium con detalles</li>
-                        <li>Cenas romanticas y spa incluidos</li>
-                        <li>Actividades exclusivas en pareja</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Disenar viaje
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </a>
+                    <div class="svc-v-gold"></div>
+                    <div class="svc-v-body">
+                        <span class="svc-tag">💼 Empresarial</span>
+                        <h3>Viajes Corporativos</h3>
+                        <p>Gestión integral con facturación centralizada y soporte 24/7.</p>
+                        <a href="viajes-corporativos.html" class="svc-cta">Ver más →</a>
+                    </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
-                            <circle cx="12" cy="10" r="3"/>
-                        </svg>
+                <div class="svc-v" data-aos="fade-up" data-aos-delay="100">
+                    <div class="svc-v-img">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80" alt="Tours Personalizados">
                     </div>
-                    <h3>Tours Personalizados</h3>
-                    <p>Itinerarios disenados segun tus intereses, ritmo y estilo de viaje.</p>
-                    <ul class="service-features">
-                        <li>Planificacion 100% personalizada</li>
-                        <li>Guia local experto asignado</li>
-                        <li>Flexibilidad total en el programa</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Planificar
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </a>
+                    <div class="svc-v-gold"></div>
+                    <div class="svc-v-body">
+                        <span class="svc-tag">🗺️ A tu medida</span>
+                        <h3>Tours Personalizados</h3>
+                        <p>Itinerarios diseñados según tus intereses, ritmo y estilo de viaje.</p>
+                        <a href="#contacto" class="svc-cta">Planificar →</a>
+                    </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
+                <div class="svc-v" data-aos="fade-up" data-aos-delay="200">
+                    <div class="svc-v-img">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80" alt="Viajes en Grupo">
                     </div>
-                    <h3>Viajes en Grupo</h3>
-                    <p>Tarifas especiales y coordinacion completa para grupos de todos los tamanos.</p>
-                    <ul class="service-features">
-                        <li>Descuentos por volumen</li>
-                        <li>Coordinador de grupo dedicado</li>
-                        <li>Logistica completa incluida</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Solicitar cotizacion
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </a>
+                    <div class="svc-v-gold"></div>
+                    <div class="svc-v-body">
+                        <span class="svc-tag">👥 Grupos</span>
+                        <h3>Viajes en Grupo</h3>
+                        <p>Tarifas especiales y coordinación completa para todos los tamaños.</p>
+                        <a href="#contacto" class="svc-cta">Cotizar →</a>
+                    </div>
                 </div>
 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.68 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.26h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.9a16 16 0 0 0 6.09 6.09l1.04-.88a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                        </svg>
+                <div class="svc-v" data-aos="fade-up" data-aos-delay="300">
+                    <div class="svc-v-img">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="Asistencia 24/7">
                     </div>
-                    <h3>Asistencia 24/7</h3>
-                    <p>Soporte continuo antes, durante y despues de tu viaje. Siempre disponibles.</p>
-                    <ul class="service-features">
-                        <li>Atencion por WhatsApp y telefono</li>
-                        <li>Gestion de emergencias en destino</li>
-                        <li>Cambios y reembolsos facilitados</li>
-                    </ul>
-                    <a href="#contacto" class="service-link">
-                        Contactar
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </a>
+                    <div class="svc-v-gold"></div>
+                    <div class="svc-v-body">
+                        <span class="svc-tag">🛟 Siempre</span>
+                        <h3>Asistencia 24/7</h3>
+                        <p>Soporte continuo antes, durante y después de tu viaje.</p>
+                        <a href="#contacto" class="svc-cta">Contactar →</a>
+                    </div>
                 </div>
 
             </div>
         </div>
     </section>
-
     <!-- ===== NOSOTROS ===== -->
     <section id="nosotros" class="about">
         <div class="container">
