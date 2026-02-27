@@ -181,11 +181,74 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gris-100)
 
 /* RESPONSIVE */
 @media (max-width: 650px) {
-    .card-main { grid-template-columns: 1fr; gap: 12px; padding: 16px; }
-    .precio-col { align-items: flex-start; }
-    .card-equipaje { padding: 0 16px 16px; }
-    .card-toggle { padding: 10px 16px; }
-    .fecha-btn { padding: 10px 0; }
+    /* HEADER */
+    .header-inner { padding: 0 16px; height: 56px; }
+    .logo-name { font-size: 0.78rem; }
+
+    /* SEARCH BAR */
+    .search-bar-inner { padding: 8px 16px; gap: 8px; }
+    .route-pill { padding: 5px 10px; }
+    .route-city { font-size: 0.8rem; }
+    .meta-item { font-size: 0.72rem; }
+    .btn-modificar { padding: 5px 10px; font-size: 0.72rem; }
+
+    /* MODIFY PANEL */
+    .modify-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+    .modify-actions { justify-content: stretch; }
+    .btn-cancel, .btn-buscar { flex: 1; justify-content: center; }
+
+    /* TOPBAR */
+    .results-topbar { flex-direction: column; align-items: flex-start; }
+
+    /* CARD */
+    .card-main { 
+        grid-template-columns: 1fr; 
+        gap: 12px; 
+        padding: 16px; 
+    }
+    .best-badge-wrap { padding: 12px 16px 0; }
+
+    /* HORARIO */
+    .hora { font-size: 1.6rem; }
+    .iata { font-size: 0.95rem; }
+    .duracion-line { margin: 0 12px; }
+    .duracion-texto { font-size: 0.72rem; }
+
+    /* PRECIO */
+    .precio-col { 
+        align-items: flex-start; 
+        min-width: unset;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .precio-valor { font-size: 1.4rem; }
+    .btn-reservar { 
+        width: 100%; 
+        text-align: center; 
+        margin-top: 8px;
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    /* EQUIPAJE */
+    .card-equipaje { 
+        padding: 0 16px 16px; 
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .equip-item { font-size: 0.72rem; }
+
+    /* TOGGLE */
+    .card-toggle { padding: 10px 16px; font-size: 0.78rem; }
+
+    /* FECHA SELECTOR */
+    .fecha-btn { padding: 10px 0; font-size: 0.78rem; }
+    .fecha-selector-wrap { margin: 0 0 12px; }
+
+    /* MODAL WSP */
+    .wa-content { padding: 24px 18px; }
 }
 /* BADGES ESTILO LATAM */
 .best-badge { display: none; }
