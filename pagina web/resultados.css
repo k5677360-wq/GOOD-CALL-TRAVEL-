@@ -181,6 +181,9 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gris-100)
 
 /* RESPONSIVE */
 @media (max-width: 650px) {
+    .btn-nueva-busqueda { font-size: 0.72rem; padding: 6px 10px; }
+.fecha-selector-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.fecha-btn { padding: 10px 0; font-size: 0.78rem; }
     /* HEADER */
     .header-inner { padding: 0 16px; height: 56px; }
     .logo-name { font-size: 0.78rem; }
