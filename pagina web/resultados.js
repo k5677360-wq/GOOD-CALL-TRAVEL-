@@ -65,7 +65,7 @@ function renderizarSelectorFechas() {
 
     // Generar 7 días: 3 antes, el seleccionado, 3 después
     const dias = [];
-    for (let i = -3; i <= 3; i++) {
+    for (let i = -3; i <= 10; i++) {
         const d = new Date(fechaBase);
         d.setDate(d.getDate() + i);
         dias.push(d);
