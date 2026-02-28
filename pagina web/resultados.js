@@ -24,7 +24,9 @@ const nombresCiudades = {
 const CODIGOS_AEROLINEA = {
     'LATAM Airlines': 'LA',
     'Sky Airline': 'H2',
-    'JetSmart': 'JA',
+    'JetSmart': 'JF',
+    'JetSmart Airlines': 'JF',
+    'Jetsmart': 'JF',
     'Viva Air': 'VV',
     'Avianca': 'AV',
     'American Airlines': 'AA',
