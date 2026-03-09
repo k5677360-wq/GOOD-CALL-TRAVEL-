@@ -3,7 +3,7 @@
 // =====================================================
 
 // TU NÚMERO DE WHATSAPP (cámbialo por el tuyo)
-const WHATSAPP_NUMERO = '51987654321';
+const WHATSAPP_NUMERO = '51983894837';
 
 let vuelosOriginales = [];
 let parametrosBusqueda = {};
@@ -438,7 +438,7 @@ function crearCardVuelo(vuelo, index) {
                 </div>
                 ${feeUSD > 0 ? `
                 <div class="detalle-fila">
-                    <span class="detalle-label">Fee de servicio (15%)</span>
+                    <span class="detalle-label">Fee de servicio</span>
                     <span class="detalle-valor">+$${feeUSD.toFixed(2)}</span>
                 </div>
                 ` : ''}
