@@ -17,6 +17,49 @@ window.CotizadorCostamar = {
         'chiclayo': 'CIX'
     },
     
+    // =======================================
+    // LÓGICA DE FEES POR DESTINO (USD por pasajero)
+    // =======================================
+    // Perú → Perú = $20 | Sudamérica = $50 | Internacional/Exótico = $100
+    
+    IATA_PERU: [
+        'LIM','CUZ','AQP','IQT','PIU','TRU','CIX','TCQ',
+        'JUL','PCL','TPP','TBP','PEM','AYP','CJA','HUU','JAE','TYL'
+    ],
+    
+    IATA_SUDAMERICA: [
+        // Colombia continental (sin San Andrés)
+        'BOG','MDE','CLO','CTG','BAQ',
+        // Chile
+        'SCL','ANF','CCP','PMC','IQQ',
+        // Argentina
+        'EZE','COR','MDZ','ROS','SLA','TUC','BRC','USH',
+        // Ecuador
+        'UIO','GYE',
+        // Brasil
+        'GRU','GIG','BSB','CNF','FLN','POA','SSA','REC','FOR','MAO',
+        // Uruguay, Paraguay, Bolivia, Venezuela
+        'MVD','ASU','CCS','VVI','LPB'
+    ],
+    
+    // Todo lo que NO sea Perú ni Sudamérica continental = $100
+    // Incluye: EEUU, Europa, México, Caribe, San Andrés (ADZ), etc.
+    
+    calcularFee(codigoOrigen, codigoDestino) {
+        const origenEsPeru = this.IATA_PERU.includes(codigoOrigen);
+        const destinoEsPeru = this.IATA_PERU.includes(codigoDestino);
+        const destinoEsSudamerica = this.IATA_SUDAMERICA.includes(codigoDestino);
+        
+        // Vuelo local: ambos en Perú
+        if (origenEsPeru && destinoEsPeru) return 20;
+        
+        // Vuelo a Sudamérica continental
+        if (destinoEsSudamerica) return 50;
+        
+        // Todo lo demás: Europa, EEUU, Caribe, exóticos (San Andrés, etc.)
+        return 100;
+    },
+    
     obtenerCodigoIATA(ciudad) {
         const ciudadLimpia = ciudad.split(',')[0].trim().toLowerCase();
         return this.CIUDADES_IATA[ciudadLimpia] || null;
@@ -73,6 +116,10 @@ async cotizarConFees(datos) {
             
             console.log('✅ Vuelos recibidos:', resultado);
             
+            // Calcular fee según ruta
+            const fee = this.calcularFee(datos.origen, datos.destino);
+            console.log(`💰 Fee aplicado: $${fee} USD por pasajero (${datos.origen} → ${datos.destino})`);
+            
             return {
                 success: true,
                 vuelos: resultado.vuelos.map(v => ({
@@ -83,8 +130,8 @@ async cotizarConFees(datos) {
                     escalas: v.escalas_texto || 'N/A',
                     equipaje: v.equipaje_bodega || 'No incluido',
                     precio_base: v.precio,
-                    fee_por_persona: 0,
-                    precio_final: v.precio,
+                    fee_por_persona: fee,
+                    precio_final: v.precio + fee,
                     moneda_final: v.moneda || 'USD'
                 })),
                 moneda: resultado.vuelos[0]?.moneda || 'USD'
