@@ -91,6 +91,49 @@
 .cotizador-form-horizontal.oneway .search-btn {
     align-self: flex-end !important; /* Alinear el botón en la parte inferior */
 }
+/* ===========================================
+   CORRECCIÓN BUSCADOR - ESTRUCTURA SOLO IDA
+   =========================================== */
+
+/* 1. Definir la estructura base del formulario en Solo Ida */
+.cotizador-form-horizontal.oneway {
+    display: flex !important;
+    flex-wrap: wrap !important; /* Permitir que los elementos se muevan a una nueva línea */
+    gap: 15px !important; /* Espacio entre los elementos */
+}
+
+/* 2. Origen y Destino arriba, lado a lado */
+.cotizador-form-horizontal.oneway .search-group:nth-child(1), /* Origen */
+.cotizador-form-horizontal.oneway .search-group:nth-child(2)  /* Destino */ {
+    flex: 1 1 45% !important; /* Ocupan casi la mitad del ancho cada uno */
+    width: 45% !important;
+    min-width: 250px !important; /* Ancho mínimo para mantener la legibilidad */
+}
+
+/* 3. Ida, Pasajeros y Botón abajo, en la misma línea */
+.cotizador-form-horizontal.oneway .search-group:nth-child(3), /* Ida */
+.cotizador-form-horizontal.oneway .search-group:nth-child(4), /* Adultos */
+.cotizador-form-horizontal.oneway .search-group:nth-child(5), /* Niños */
+.cotizador-form-horizontal.oneway .search-group:nth-child(6), /* Infantes */
+.cotizador-form-horizontal.oneway .search-btn /* Botón */ {
+    flex: 1 1 auto !important; /* Se ajustan automáticamente al ancho disponible */
+}
+
+/* 4. Ajustar el ancho de los selectores de pasajeros */
+.cotizador-form-horizontal.oneway .search-group:nth-child(4), /* Adultos */
+.cotizador-form-horizontal.oneway .search-group:nth-child(5), /* Niños */
+.cotizador-form-horizontal.oneway .search-group:nth-child(6)  /* Infantes */ {
+    max-width: 80px !important; /* Ancho máximo para los selectores de pasajeros */
+}
+
+/* 5. Asegurar que el botón de búsqueda se alinee correctamente */
+.cotizador-form-horizontal.oneway .search-btn {
+    align-self: flex-end !important; /* Alinear el botón en la parte inferior */
+}
+
+/* ===========================================
+   FIN CORRECCIÓN - ABAJO SIGUE TU DISEÑO
+   =========================================== */
 
 /* ===========================================
    FIN CORRECCIÓN - ABAJO SIGUE TU DISEÑO
