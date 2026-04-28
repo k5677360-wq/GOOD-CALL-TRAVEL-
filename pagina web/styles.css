@@ -1,11 +1,12 @@
 /* ===========================================
-   GOOD CALL TRAVEL - DISEÑO PREMIUM 2026
+   GOOD CALL TRAVEL - BUSCADOR CORREGIDO
+   Dos niveles en IDA Y VUELTA / fila simple en SOLO IDA
    =========================================== */
 
-/* 1. CONFIGURACIÓN GLOBAL DEL BUSCADOR */
+/* --- Wrapper general --- */
 .cotizador-wrapper {
     width: 98% !important;
-    max-width: 1300px !important; 
+    max-width: 1300px !important;
     margin: 0 auto !important;
     position: relative !important;
     z-index: 200 !important;
@@ -16,42 +17,71 @@
     padding: 25px 30px !important;
 }
 
-/* 2. DISEÑO PARA IDA Y VUELTA (Todo en una fila) */
+/* ─────────────────────────────────────────
+   IDA Y VUELTA — Dos niveles con flex wrap
+   Nivel 1: Origen + Destino (ancho completo)
+   Nivel 2: Ida, Vuelta, Pasajeros y Botón
+───────────────────────────────────────── */
 .cotizador-form-horizontal {
-    display: grid !important;
-    grid-template-columns: 3fr 3fr 1.8fr 1.8fr 0.6fr 0.6fr 0.6fr 150px !important;
-    gap: 12px !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 15px !important;
     align-items: flex-end !important;
 }
 
-/* 3. DISEÑO PARA SOLO IDA (Dos niveles) */
-.cotizador-form-horizontal.oneway {
-    display: flex !important;
-    flex-wrap: wrap !important; 
-    gap: 15px !important;
-}
-
-/* NIVEL 1: Origen y Destino arriba al 48% */
-.cotizador-form-horizontal.oneway > .input-field:nth-child(1),
-.cotizador-form-horizontal.oneway > .input-field:nth-child(2) {
+/* Nivel 1 — Origen y Destino, lado a lado */
+.cotizador-form-horizontal > .input-field:nth-child(1),
+.cotizador-form-horizontal > .input-field:nth-child(2) {
     flex: 1 1 48% !important;
     min-width: 300px !important;
 }
 
-/* NIVEL 2: Fecha y Pasajeros abajo alineados */
-.cotizador-form-horizontal.oneway > .input-field:nth-child(3) { flex: 2 !important; }
-.cotizador-form-horizontal.oneway > .input-field:nth-child(5),
-.cotizador-form-horizontal.oneway > .input-field:nth-child(6),
-.cotizador-form-horizontal.oneway > .input-field:nth-child(7) {
-    flex: 0 1 80px !important;
-}
-.cotizador-form-horizontal.oneway .btn-buscar {
-    flex: 1 !important;
-    min-width: 140px !important;
+/* Nivel 2 — Fecha Ida */
+.cotizador-form-horizontal > .input-field:nth-child(3) {
+    flex: 2 !important;
 }
 
-/* 4. AJUSTE DE INPUTS */
-.input-with-icon input, 
+/* Nivel 2 — Fecha Vuelta */
+.cotizador-form-horizontal > .input-field:nth-child(4) {
+    flex: 2 !important;
+}
+
+/* Nivel 2 — Pasajeros (cuadros compactos) */
+.cotizador-form-horizontal > .input-field:nth-child(5),
+.cotizador-form-horizontal > .input-field:nth-child(6),
+.cotizador-form-horizontal > .input-field:nth-child(7) {
+    flex: 0 1 80px !important;
+}
+
+/* Nivel 2 — Botón buscar */
+.cotizador-form-horizontal .btn-buscar {
+    flex: 1 !important;
+    min-width: 140px !important;
+    align-self: flex-end !important;
+}
+
+/* ─────────────────────────────────────────
+   SOLO IDA — Todo en una sola fila (grid)
+───────────────────────────────────────── */
+.cotizador-form-horizontal.oneway {
+    display: grid !important;
+    grid-template-columns: 3fr 3fr 1.8fr 0.6fr 0.6fr 0.6fr 150px !important;
+    gap: 12px !important;
+    align-items: flex-end !important;
+    flex-wrap: unset !important;
+}
+
+/* Cancelar los overrides de flex para Solo Ida */
+.cotizador-form-horizontal.oneway > .input-field {
+    flex: unset !important;
+    min-width: unset !important;
+    max-width: unset !important;
+}
+
+/* ─────────────────────────────────────────
+   INPUTS — Altura, icono y texto
+───────────────────────────────────────── */
+.input-with-icon input,
 .input-field select,
 .input-field input[type="date"] {
     height: 45px !important;
@@ -73,7 +103,9 @@
     color: #2e5d7f !important;
 }
 
-/* 5. AUTOCOMPLETADO Y CAPAS */
+/* ─────────────────────────────────────────
+   AUTOCOMPLETE — Siempre sobre el resto
+───────────────────────────────────────── */
 .autocomplete-list {
     position: absolute !important;
     z-index: 9999 !important;
@@ -84,9 +116,28 @@
     top: 100% !important;
 }
 
-/* ===========================
-   VARIABLES - SISTEMA DE DISEÑO
-   =========================== */
+/* ─────────────────────────────────────────
+   MÓVIL — Todo apilado en columna
+───────────────────────────────────────── */
+@media (max-width: 768px) {
+    .cotizador-form-horizontal,
+    .cotizador-form-horizontal.oneway {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .cotizador-form-horizontal > .input-field,
+    .cotizador-form-horizontal.oneway > .input-field {
+        flex: 1 1 100% !important;
+        min-width: unset !important;
+        max-width: unset !important;
+    }
+}
+
+/* ===========================================
+   A PARTIR DE AQUÍ SIGUE TU :root { ... }
+   =========================================== */
 :root {
     --primary-navy: #1a3a52;
     --primary-light: #2e5d7f;
