@@ -19,17 +19,17 @@
     z-index: 200 !important;
     background: rgba(255, 255, 255, 0.14);
     backdrop-filter: blur(18px);
-    border-radius: 20px;
+    border-radius: 20px;   
     border: 1px solid rgba(255, 255, 255, 0.28);
     padding: 25px 30px !important;
 }
 
-/* 2. Configurar las 8 columnas de Ida y Vuelta */
+/* 2. Configurar las 8 columnas de Ida y Vuelta - AJUSTADO */
 .cotizador-form-horizontal {
     display: grid !important;
-    /* Explicación: 2.5fr para Origen/Destino (más espacio), 1.5fr para fechas, y 0.5fr para pasajeros */
-    grid-template-columns: 2.5fr 2.5fr 1.5fr 1.5fr 0.6fr 0.6fr 0.6fr 140px !important;
-    gap: 12px !important;
+    /* Explicación: Damos 3fr (mucho más espacio) a Origen y Destino, y bajamos Adultos/Ninos a 0.5fr */
+    grid-template-columns: 3fr 3fr 1.8fr 1.8fr 0.6fr 0.6fr 0.6fr 150px !important;
+    gap: 10px !important;
     align-items: flex-end !important;
 }
 
@@ -47,9 +47,9 @@
     box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
 }
 
-/* 5. Asegurar que el texto se lea completo */
+/* 5. Asegurar que el texto se lea completo y tenga margen del icono */
 .input-with-icon input {
-    padding-left: 35px !important;
+    padding-left: 40px !important; /* Aumentamos a 40px */
     text-overflow: ellipsis !important;
 }
 
