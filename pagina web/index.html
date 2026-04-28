@@ -264,21 +264,21 @@
         }
 
         /* === COTIZADOR GLASS REFINADO === */
-       .cotizador-wrapper {
-            width: 100%;
-            max-width: 1100px; /* AGREGADO: Permite que el formulario se estire */
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.14);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 255, 255, 0.28);
-            border-radius: 20px;
-            padding: 32px 48px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.2);
-            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-            position: relative; 
-            z-index: 50;        
-        }
+.cotizador-wrapper {
+    width: 95%;
+    max-width: 1250px; 
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 20px;
+    padding: 25px 35px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.2);
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+    position: relative;
+    z-index: 100; /* Esto hace que la lista de aeropuertos pase por encima de los 5000 viajeros */
+}
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -318,12 +318,12 @@
         }
 
         /* Form grid horizontal */
-        .cotizador-form-horizontal {
-            display: grid;
-            grid-template-columns: 2.2fr 2.2fr 1.5fr 1.5fr 0.6fr 0.6fr 0.6fr 130px;
-            gap: 12px;  
-            align-items: flex-end;
-        }
+.cotizador-form-horizontal {
+    display: grid;
+    grid-template-columns: 2.2fr 2.2fr 1.4fr 1.4fr 0.7fr 0.7fr 0.7fr 140px;
+    gap: 15px; 
+    align-items: flex-end;
+}
         
         .input-field {
             display: flex;
@@ -355,21 +355,22 @@
         }
 
         .input-with-icon input,
-        .input-field select,
-        .input-field input[type="date"],
-        .input-field input[type="number"] {
-            width: 100%;
-            padding: 10px 12px 10px 32px;
-            background: rgba(255,255,255,0.92);
-            border: 1.5px solid rgba(255,255,255,0.4);
-            border-radius: 10px;
-            font-size: 0.88rem;
-            font-family: 'Montserrat', sans-serif;
-            color: var(--primary-dark);
-            transition: all 0.2s ease;
-            outline: none;
-            -webkit-appearance: none;
-        }
+.input-field select,
+.input-field input[type="date"],
+.input-field input[type="number"] {
+    width: 100%;
+    padding: 12px 10px 12px 35px;
+    background: rgba(255,255,255,0.92);
+    border: 1.5px solid rgba(255,255,255,0.4);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-dark);
+    transition: all 0.2s ease;
+    outline: none;
+    -webkit-appearance: none;
+    text-overflow: ellipsis; /* Pone puntos suspensivos si el texto es muy largo */
+}
 
         .input-field select,
         .input-field input[type="date"],
@@ -1720,8 +1721,9 @@
             }
         }
         .cotizador-form-horizontal.oneway {
-            grid-template-columns: 2.5fr 2.5fr 1.5fr 0.8fr 0.8fr 0.8fr 130px;
-        }
+    grid-template-columns: 2.5fr 2.5fr 1.6fr 0.8fr 0.8fr 0.8fr 150px;
+    gap: 15px;
+}
         
 
         @media (max-width: 900px) {
