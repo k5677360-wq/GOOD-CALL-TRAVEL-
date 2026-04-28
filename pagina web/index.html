@@ -266,7 +266,7 @@
         /* === COTIZADOR GLASS REFINADO === */
 .cotizador-wrapper {
     width: 95%;
-    max-width: 1250px; 
+    max-width: 1250px; /* Aumentamos el ancho para que los campos no se aplasten */
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.14);
     backdrop-filter: blur(18px);
@@ -277,9 +277,8 @@
     box-shadow: 0 8px 32px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.2);
     animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
     position: relative;
-    z-index: 100; /* Esto hace que la lista de aeropuertos pase por encima de los 5000 viajeros */
+    z-index: 100; /* Para que el autocompletado flote sobre los 5000 viajeros */
 }
-
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to   { opacity: 1; transform: translateY(0); }
@@ -317,11 +316,12 @@
             border-color: transparent;
         }
 
-        /* Form grid horizontal */
+        /* Form grid horizontal - 8 columnas bien balanceadas */
 .cotizador-form-horizontal {
     display: grid;
-    grid-template-columns: 2.2fr 2.2fr 1.4fr 1.4fr 0.7fr 0.7fr 0.7fr 140px;
-    gap: 15px; 
+    /* Damos más espacio a Origen/Destino y el mínimo necesario a Pasajeros */
+    grid-template-columns: 2.2fr 2.2fr 1.4fr 1.4fr 0.6fr 0.6fr 0.6fr 140px;
+    gap: 12px;  
     align-items: flex-end;
 }
         
@@ -1721,8 +1721,8 @@
             }
         }
         .cotizador-form-horizontal.oneway {
-    grid-template-columns: 2.5fr 2.5fr 1.6fr 0.8fr 0.8fr 0.8fr 150px;
-    gap: 15px;
+    grid-template-columns: 2.5fr 2.5fr 1.6fr 0.7fr 0.7fr 0.7fr 140px;
+    gap: 12px;
 }
         
 
