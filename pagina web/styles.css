@@ -198,3 +198,41 @@ body {
     .cotizador-form-horizontal { grid-template-columns: 1fr !important; }
     .btn-buscar { grid-column: span 1; }
 }
+/* ===========================================
+   CORRECCIÓN DE FUERZA - ANCHO Y CAPAS
+   =========================================== */
+
+/* Forzar que el buscador ocupe todo el ancho disponible */
+.cotizador-wrapper {
+    width: 98% !important;
+    max-width: 1260px !important;
+    margin: 0 auto !important;
+    padding: 25px 35px !important;
+    position: relative !important;
+    z-index: 100 !important;
+}
+
+/* Forzar que las 8 columnas tengan espacio para el texto */
+.cotizador-form-horizontal {
+    display: grid !important;
+    grid-template-columns: 2.2fr 2.2fr 1.4fr 1.4fr 0.6fr 0.6fr 0.6fr 140px !important;
+    gap: 12px !important;
+    align-items: flex-end !important;
+}
+
+/* Forzar espacio en modo Solo Ida */
+.cotizador-form-horizontal.oneway {
+    grid-template-columns: 2.5fr 2.5fr 1.6fr 0.8fr 0.8fr 0.8fr 150px !important;
+}
+
+/* Forzar que el autocompletado flote sobre los 5000 viajeros */
+.autocomplete-list {
+    z-index: 9999 !important;
+    position: absolute !important;
+}
+
+/* Evitar que el texto se corte */
+.input-with-icon input {
+    padding-left: 35px !important;
+    text-overflow: ellipsis !important;
+}
