@@ -1,9 +1,8 @@
 /* ===========================================
-   GOOD CALL TRAVEL - BUSCADOR CORREGIDO
-   Dos niveles en IDA Y VUELTA / fila simple en SOLO IDA
+   GOOD CALL TRAVEL - DISEÑO PREMIUM 2026
    =========================================== */
 
-/* --- Wrapper general --- */
+/* 1. CONFIGURACIÓN GLOBAL DEL BUSCADOR */
 .cotizador-wrapper {
     width: 98% !important;
     max-width: 1300px !important;
@@ -37,14 +36,10 @@
 }
 
 /* Nivel 2 — Fecha Ida */
-.cotizador-form-horizontal > .input-field:nth-child(3) {
-    flex: 2 !important;
-}
+.cotizador-form-horizontal > .input-field:nth-child(3) { flex: 2 !important; }
 
 /* Nivel 2 — Fecha Vuelta */
-.cotizador-form-horizontal > .input-field:nth-child(4) {
-    flex: 2 !important;
-}
+.cotizador-form-horizontal > .input-field:nth-child(4) { flex: 2 !important; }
 
 /* Nivel 2 — Pasajeros (cuadros compactos) */
 .cotizador-form-horizontal > .input-field:nth-child(5),
@@ -78,9 +73,7 @@
     max-width: unset !important;
 }
 
-/* ─────────────────────────────────────────
-   INPUTS — Altura, icono y texto
-───────────────────────────────────────── */
+/* 4. AJUSTE DE INPUTS */
 .input-with-icon input,
 .input-field select,
 .input-field input[type="date"] {
@@ -103,9 +96,7 @@
     color: #2e5d7f !important;
 }
 
-/* ─────────────────────────────────────────
-   AUTOCOMPLETE — Siempre sobre el resto
-───────────────────────────────────────── */
+/* 5. AUTOCOMPLETADO Y CAPAS */
 .autocomplete-list {
     position: absolute !important;
     z-index: 9999 !important;
@@ -116,28 +107,9 @@
     top: 100% !important;
 }
 
-/* ─────────────────────────────────────────
-   MÓVIL — Todo apilado en columna
-───────────────────────────────────────── */
-@media (max-width: 768px) {
-    .cotizador-form-horizontal,
-    .cotizador-form-horizontal.oneway {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
-    }
-
-    .cotizador-form-horizontal > .input-field,
-    .cotizador-form-horizontal.oneway > .input-field {
-        flex: 1 1 100% !important;
-        min-width: unset !important;
-        max-width: unset !important;
-    }
-}
-
-/* ===========================================
-   A PARTIR DE AQUÍ SIGUE TU :root { ... }
-   =========================================== */
+/* ===========================
+   VARIABLES - SISTEMA DE DISEÑO
+   =========================== */
 :root {
     --primary-navy: #1a3a52;
     --primary-light: #2e5d7f;
