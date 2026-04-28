@@ -265,19 +265,18 @@
 
         /* === COTIZADOR GLASS REFINADO === */
 .cotizador-wrapper {
-    width: 95%;
-    max-width: 1250px; /* Aumentamos el ancho para que los campos no se aplasten */
-    margin: 0 auto;
+    width: 98% !important; /* Casi todo el ancho */
+    max-width: 1280px !important; /* Se estira mucho más */
+    margin: 0 auto !important;
     background: rgba(255, 255, 255, 0.14);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 20px;
-    padding: 25px 35px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.2);
+    padding: 25px 30px !important;
+    position: relative !important;
+    z-index: 100 !important;
     animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
-    position: relative;
-    z-index: 100; /* Para que el autocompletado flote sobre los 5000 viajeros */
 }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
@@ -316,14 +315,14 @@
             border-color: transparent;
         }
 
-        /* Form grid horizontal - 8 columnas bien balanceadas */
+        /* Form grid horizontal */
 .cotizador-form-horizontal {
-    display: grid;
-    /* Damos más espacio a Origen/Destino y el mínimo necesario a Pasajeros */
-    grid-template-columns: 2.2fr 2.2fr 1.4fr 1.4fr 0.6fr 0.6fr 0.6fr 140px;
-    gap: 12px;  
-    align-items: flex-end;
-}
+    display: grid !important;
+    /* Reducimos Origen/Destino a 1.8fr para que los demás respiren */
+    grid-template-columns: 1.8fr 1.8fr 1.3fr 1.3fr 0.6fr 0.6fr 0.6fr 130px !important;
+    gap: 10px !important;  
+    align-items: flex-end !important;
+}}
         
         .input-field {
             display: flex;
@@ -1721,8 +1720,7 @@
             }
         }
         .cotizador-form-horizontal.oneway {
-    grid-template-columns: 2.5fr 2.5fr 1.6fr 0.7fr 0.7fr 0.7fr 140px;
-    gap: 12px;
+    grid-template-columns: 2.2fr 2.2fr 1.5fr 0.7fr 0.7fr 0.7fr 130px !important;
 }
         
 
@@ -1819,6 +1817,11 @@
     transform: scale(1.12);
     box-shadow: 0 8px 30px rgba(37,211,102,0.7);
 }
+.input-with-icon input {
+    min-width: 0 !important;
+    padding-left: 35px !important;
+}
+        
     </style>
     
 </head>
