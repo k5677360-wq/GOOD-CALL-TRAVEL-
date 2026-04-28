@@ -263,8 +263,7 @@
             line-height: 1.6;
         }
 
-        /* === COTIZADOR GLASS REFINADO === */
-       .cotizador-wrapper {
+        .cotizador-wrapper {
             width: 100%;
             max-width: 100%;
             margin: 0 auto;
@@ -274,10 +273,10 @@
             border: 1px solid rgba(255, 255, 255, 0.28);
             border-radius: 20px;
             padding: 32px 48px;
-            box-shadow:
-                0 8px 32px rgba(0,0,0,0.22),
-                inset 0 1px 0 rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.2);
             animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+            position: relative; /* AGREGADO */
+            z-index: 50;        /* AGREGADO: Obliga al formulario a estar al frente */
         }
 
         @keyframes fadeInUp {
@@ -320,8 +319,9 @@
         /* Form grid horizontal */
         .cotizador-form-horizontal {
             display: grid;
-            grid-template-columns: 4fr 4fr 1.5fr 1.5fr 0.2fr 0.2fr 0.2fr 1fr;
-            gap: 10px;  
+            /* Balanceamos el espacio para que Origen/Destino no aplasten al resto */
+            grid-template-columns: 2fr 2fr 1.2fr 1.2fr 0.7fr 0.7fr 0.7fr minmax(110px, auto);
+            gap: 12px;  
             align-items: flex-end;
         }
         
@@ -1720,8 +1720,8 @@
             }
         }
         .cotizador-form-horizontal.oneway {
-    grid-template-columns: 4fr 4fr 1.5fr 0.2fr 0.2fr 0.2fr 1fr;
-}
+            grid-template-columns: 2.5fr 2.5fr 1.5fr 0.8fr 0.8fr 0.8fr minmax(110px, auto);
+        }
         
 
         @media (max-width: 900px) {
