@@ -49,6 +49,29 @@
             opacity: 1 !important;
         }
 
+        /* === AUTOCOMPLETADO BUSCADOR === */
+.autocomplete-container { position: relative; }
+.autocomplete-list {
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: white; border: 1px solid rgba(0,0,0,0.1); 
+    border-radius: 10px; max-height: 250px; overflow-y: auto; 
+    z-index: 9999; list-style: none; padding: 0; margin: 5px 0 0 0; 
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15); display: none;
+}
+.autocomplete-list li { 
+    padding: 12px 16px; cursor: pointer; border-bottom: 1px solid #f0f0f0; 
+    color: var(--primary-dark); font-size: 0.85rem; font-family: 'Montserrat', sans-serif;
+    display: flex; align-items: center; transition: background 0.2s;
+}
+.autocomplete-list li:hover { background-color: #f4f8fc; }
+.autocomplete-list li:last-child { border-bottom: none; }
+.iata-badge { 
+    font-weight: 800; color: white; background: var(--primary-light); 
+    padding: 3px 8px; border-radius: 4px; margin-right: 12px; font-size: 0.75rem;
+}
+.city-name { font-weight: 600; margin-right: 6px; }
+.country-name { color: #888; font-size: 0.8rem; }
+
         /* === HERO SLIDER 2 IMÁGENES === */
         .hero {
             position: relative;
@@ -1881,164 +1904,25 @@
 
                     <form id="searchForm" class="cotizador-form-horizontal">
                         <!-- Origen -->
-                        <div class="input-field">
-                            <label>Origen</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-plane-departure"></i>
-                                <input type="text" id="origin" class="city-select" placeholder="¿De dónde sales?" required list="listOrigen">
-<datalist id="listOrigen">
-                                    <option value="">¿De dónde sales?</option>
-                                    <!-- Perú -->
-<option value="lima">Lima, Perú</option>
-<option value="cusco">Cusco, Perú</option>
-<option value="arequipa">Arequipa, Perú</option>
-<option value="piura">Piura, Perú</option>
-<option value="trujillo">Trujillo, Perú</option>
-<option value="iquitos">Iquitos, Perú</option>
-<option value="chiclayo">Chiclayo, Perú</option>
-<option value="tacna">Tacna, Perú</option>
-<option value="juliaca">Juliaca, Perú</option>
-<option value="tarapoto">Tarapoto, Perú</option>
-<option value="pucallpa">Pucallpa, Perú</option>
-<option value="tumbes">Tumbes, Perú</option>
-<option value="puerto maldonado">Puerto Maldonado, Perú</option>
-<option value="cajamarca">Cajamarca, Perú</option>
-<option value="ayacucho">Ayacucho, Perú</option>
-<option value="jaén">Jaén, Perú</option>
-<option value="talara">Talara, Perú</option>
-<!-- Argentina -->
-<option value="buenos aires">Buenos Aires, Argentina</option>
-<option value="córdoba">Córdoba, Argentina</option>
-<option value="mendoza">Mendoza, Argentina</option>
-<option value="rosario">Rosario, Argentina</option>
-<option value="salta">Salta, Argentina</option>
-<option value="tucumán">Tucumán, Argentina</option>
-<option value="bariloche">Bariloche, Argentina</option>
-<option value="ushuaia">Ushuaia, Argentina</option>
-<!-- Brasil -->
-<option value="são paulo">São Paulo, Brasil</option>
-<option value="rio de janeiro">Río de Janeiro, Brasil</option>
-<option value="brasilia">Brasilia, Brasil</option>
-<option value="porto alegre">Porto Alegre, Brasil</option>
-<option value="belo horizonte">Belo Horizonte, Brasil</option>
-<option value="salvador">Salvador, Brasil</option>
-<option value="recife">Recife, Brasil</option>
-<option value="fortaleza">Fortaleza, Brasil</option>
-<option value="manaos">Manaos, Brasil</option>
-<!-- Chile -->
-<option value="santiago">Santiago, Chile</option>
-<option value="antofagasta">Antofagasta, Chile</option>
-<option value="concepción">Concepción, Chile</option>
-<option value="puerto montt">Puerto Montt, Chile</option>
-<option value="iquique">Iquique, Chile</option>
-<!-- Colombia -->
-<option value="bogotá">Bogotá, Colombia</option>
-<option value="medellín">Medellín, Colombia</option>
-<option value="cali">Cali, Colombia</option>
-<option value="cartagena">Cartagena, Colombia</option>
-<option value="barranquilla">Barranquilla, Colombia</option>
-<!-- Ecuador -->
-<option value="quito">Quito, Ecuador</option>
-<option value="guayaquil">Guayaquil, Ecuador</option>
-<!-- Otros Sudamérica -->
-<option value="montevideo">Montevideo, Uruguay</option>
-<option value="asunción">Asunción, Paraguay</option>
-<option value="santa cruz">Santa Cruz, Bolivia</option>
-<option value="la paz">La Paz, Bolivia</option>
-<option value="caracas">Caracas, Venezuela</option>
-<!-- Centroamérica y Caribe -->
-<option value="panamá">Panamá, Panamá</option>
-<option value="san josé">San José, Costa Rica</option>
-<option value="san salvador">San Salvador, El Salvador</option>
-<option value="punta cana">Punta Cana, R. Dominicana</option>
-<option value="la habana">La Habana, Cuba</option>
-<option value="curazao">Curazao</option>
-<!-- Norteamérica -->
-<option value="miami">Miami, USA</option>
-<option value="nueva york">Nueva York, USA</option>
-<option value="los ángeles">Los Ángeles, USA</option>
-<option value="orlando">Orlando, USA</option>
-<option value="atlanta">Atlanta, USA</option>
-<option value="houston">Houston, USA</option>
-<option value="fort lauderdale">Fort Lauderdale, USA</option>
-<option value="newark">Newark, USA</option>
-<option value="ciudad de méxico">Ciudad de México</option>
-<option value="cancún">Cancún, México</option>
-<!-- Europa -->
-<option value="madrid">Madrid, España</option>
-<option value="barcelona">Barcelona, España</option>
-<option value="paris">París, Francia</option>
-<option value="frankfurt">Frankfurt, Alemania</option>
-<option value="amsterdam">Amsterdam, Holanda</option>
-<option value="roma">Roma, Italia</option>
-<option value="milan">Milán, Italia</option>
-<option value="london">Londres, UK</option>
-                                </datalist>
-                            </div>
-                        </div>
+                        <div class="input-field autocomplete-container">
+    <label>Origen</label>
+    <div class="input-with-icon">
+        <i class="fas fa-plane-departure"></i>
+        <input type="text" id="origen_texto" placeholder="¿De dónde sales?" autocomplete="off" required>
+        <input type="hidden" id="origen_iata" name="origen">
+    </div>
+    <ul id="origen-sugerencias" class="autocomplete-list"></ul>
+</div>
 
-                        <!-- Destino -->
-                        <div class="input-field">
-                            <label>Destino</label>
-                            <div class="input-with-icon">
-                                <i class="fas fa-plane-arrival"></i>
-                                <input type="text" id="destination" class="city-select" placeholder="¿A dónde vas?" required list="listDestino">
-<datalist id="listDestino">
-                                    <option value="">¿A dónde vas?</option>
-                                    <optgroup label="── Perú ──">
-                                        <option value="lima">Lima</option>
-                                        <option value="cusco">Cusco</option>
-                                        <option value="arequipa">Arequipa</option>
-                                        <option value="trujillo">Trujillo</option>
-                                        <option value="chiclayo">Chiclayo</option>
-                                        <option value="piura">Piura</option>
-                                        <option value="iquitos">Iquitos</option>
-                                        <option value="tarapoto">Tarapoto</option>
-                                        <option value="pucallpa">Pucallpa</option>
-                                        <option value="juliaca">Juliaca</option>
-                                        <option value="tacna">Tacna</option>
-                                        <option value="tumbes">Tumbes</option>
-                                        <option value="puerto maldonado">Puerto Maldonado</option>
-                                    </optgroup>
-                                    <optgroup label="── Sudamérica ──">
-                                        <option value="bogotá">Bogotá, Colombia</option>
-                                        <option value="medellín">Medellín, Colombia</option>
-                                        <option value="cartagena">Cartagena, Colombia</option>
-                                        <option value="san andrés">San Andrés, Colombia</option>
-                                        <option value="buenos aires">Buenos Aires, Argentina</option>
-                                        <option value="santiago">Santiago, Chile</option>
-                                        <option value="quito">Quito, Ecuador</option>
-                                        <option value="guayaquil">Guayaquil, Ecuador</option>
-                                        <option value="são paulo">São Paulo, Brasil</option>
-                                        <option value="río de janeiro">Río de Janeiro, Brasil</option>
-                                    </optgroup>
-                                    <optgroup label="── Norteamérica ──">
-                                        <option value="miami">Miami, USA</option>
-                                        <option value="orlando">Orlando, USA</option>
-                                        <option value="nueva york">Nueva York, USA</option>
-                                        <option value="los ángeles">Los Ángeles, USA</option>
-                                        <option value="cancún">Cancún, México</option>
-                                        <option value="ciudad de méxico">Ciudad de México</option>
-                                        <option value="punta cana">Punta Cana, R. Dominicana</option>
-                                        <option value="aruba">Aruba</option>
-                                    </optgroup>
-                                    <optgroup label="── Europa ──">
-                                        <option value="madrid">Madrid, España</option>
-                                        <option value="barcelona">Barcelona, España</option>
-                                        <option value="paris">París, Francia</option>
-                                        <option value="roma">Roma, Italia</option>
-                                        <option value="london">Londres, UK</option>
-                                    </optgroup>
-                                    <optgroup label="── Caribe / Asia ──">
-                                        <option value="varadero">Varadero, Cuba</option>
-                                        <option value="phuket">Phuket, Tailandia</option>
-                                        <option value="bali">Bali, Indonesia</option>
-                                        <option value="tokio">Tokio, Japón</option>
-                                        <option value="dubai">Dubai, EAU</option>
-                                    </optgroup>
-                                </datalist>
-                            </div>
-                        </div>
+<div class="input-field autocomplete-container">
+    <label>Destino</label>
+    <div class="input-with-icon">
+        <i class="fas fa-plane-arrival"></i>
+        <input type="text" id="destino_texto" placeholder="¿A dónde vas?" autocomplete="off" required>
+        <input type="hidden" id="destino_iata" name="destino">
+    </div>
+    <ul id="destino-sugerencias" class="autocomplete-list"></ul>
+</div>
 
                         <!-- Ida -->
                         <div class="input-field">
@@ -2752,6 +2636,67 @@ if (this.dataset.type === 'oneway') {
     </script>    <!-- ===== CHAT BOT (Good Call Travel - Railway API) ===== -->
     <div id="gct-chat-widget"></div>
     <script data-cfasync="false" src="https://botdepaginaweb-production.up.railway.app/widget.js"></script>
+    <script>
+document.addEventListener("DOMContentLoaded", async () => {
+    let aeropuertos = [];
+
+    try {
+        const respuesta = await fetch('aeropuertos.json');
+        aeropuertos = await respuesta.json();
+    } catch (error) {
+        console.error("Error cargando aeropuertos:", error);
+    }
+
+    function configurarAutocomplete(inputId, hiddenId, listId) {
+        const inputVisual = document.getElementById(inputId);
+        const inputOculto = document.getElementById(hiddenId);
+        const listaSugerencias = document.getElementById(listId);
+
+        inputVisual.addEventListener("input", function() {
+            const valor = this.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            listaSugerencias.innerHTML = ''; 
+            
+            if (!valor || valor.length < 2) { // Espera a que escriba 2 letras
+                listaSugerencias.style.display = 'none';
+                inputOculto.value = '';
+                return;
+            }
+
+            const resultados = aeropuertos.filter(a => {
+                const searchStr = `${a.ciudad} ${a.iata} ${a.pais}`.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                return searchStr.includes(valor);
+            }).slice(0, 8); 
+
+            if (resultados.length > 0) {
+                listaSugerencias.style.display = 'block';
+                resultados.forEach(item => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `<span class="iata-badge">${item.iata}</span> <span class="city-name">${item.ciudad}</span> <span class="country-name">${item.pais}</span>`;
+                    
+                    li.addEventListener("click", () => {
+                        inputVisual.value = `${item.ciudad}, ${item.pais}`;
+                        inputOculto.value = item.iata; 
+                        listaSugerencias.style.display = 'none';
+                    });
+                    
+                    listaSugerencias.appendChild(li);
+                });
+            } else {
+                listaSugerencias.style.display = 'none';
+            }
+        });
+
+        document.addEventListener("click", function(e) {
+            if (e.target !== inputVisual) {
+                listaSugerencias.style.display = 'none';
+            }
+        });
+    }
+
+    configurarAutocomplete("origen_texto", "origen_iata", "origen-sugerencias");
+    configurarAutocomplete("destino_texto", "destino_iata", "destino-sugerencias");
+});
+</script>
 
 </body>
 </html>
