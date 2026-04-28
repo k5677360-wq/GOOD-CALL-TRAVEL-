@@ -13,7 +13,7 @@
 /* 1. Forzar ancho para que no se vea pequeño */
 .cotizador-wrapper {
     width: 98% !important;
-    max-width: 1300px !important; /* Aumentamos a 1300 para que respire */
+    max-width: 1300px !important;
     margin: 0 auto !important;
     position: relative !important;
     z-index: 200 !important;
@@ -27,15 +27,9 @@
 /* 2. Configurar las 8 columnas de Ida y Vuelta - AJUSTADO */
 .cotizador-form-horizontal {
     display: grid !important;
-    /* Explicación: Damos 3fr (mucho más espacio) a Origen y Destino, y bajamos Adultos/Ninos a 0.5fr */
     grid-template-columns: 3fr 3fr 1.8fr 1.8fr 0.6fr 0.6fr 0.6fr 150px !important;
     gap: 10px !important;
     align-items: flex-end !important;
-}
-
-/* 3. Configurar Solo Ida */
-.cotizador-form-horizontal.oneway {
-    grid-template-columns: 2.5fr 2.5fr 1.6fr 0.8fr 0.8fr 0.8fr 150px !important;
 }
 
 /* 4. Evitar que la lista de aeropuertos se esconda */
@@ -49,9 +43,10 @@
 
 /* 5. Asegurar que el texto se lea completo y tenga margen del icono */
 .input-with-icon input {
-    padding-left: 40px !important; /* Aumentamos a 40px */
+    padding-left: 40px !important;
     text-overflow: ellipsis !important;
 }
+
 /* ===========================================
    CORRECCIÓN BUSCADOR - ESTRUCTURA SOLO IDA
    =========================================== */
@@ -59,85 +54,38 @@
 /* 1. Definir la estructura base del formulario en Solo Ida */
 .cotizador-form-horizontal.oneway {
     display: flex !important;
-    flex-wrap: wrap !important; /* Permitir que los elementos se muevan a una nueva línea */
-    gap: 15px !important; /* Espacio entre los elementos */
+    flex-wrap: wrap !important;
+    gap: 15px !important;
 }
 
 /* 2. Origen y Destino arriba, lado a lado */
-.cotizador-form-horizontal.oneway .search-group:nth-child(1), /* Origen */
-.cotizador-form-horizontal.oneway .search-group:nth-child(2)  /* Destino */ {
-    flex: 1 1 45% !important; /* Ocupan casi la mitad del ancho cada uno */
+.cotizador-form-horizontal.oneway .search-group:nth-child(1),
+.cotizador-form-horizontal.oneway .search-group:nth-child(2) {
+    flex: 1 1 45% !important;
     width: 45% !important;
-    min-width: 250px !important; /* Ancho mínimo para mantener la legibilidad */
+    min-width: 250px !important;
 }
 
 /* 3. Ida, Pasajeros y Botón abajo, en la misma línea */
-.cotizador-form-horizontal.oneway .search-group:nth-child(3), /* Ida */
-.cotizador-form-horizontal.oneway .search-group:nth-child(4), /* Adultos */
-.cotizador-form-horizontal.oneway .search-group:nth-child(5), /* Niños */
-.cotizador-form-horizontal.oneway .search-group:nth-child(6), /* Infantes */
-.cotizador-form-horizontal.oneway .search-btn /* Botón */ {
-    flex: 1 1 auto !important; /* Se ajustan automáticamente al ancho disponible */
+.cotizador-form-horizontal.oneway .search-group:nth-child(3),
+.cotizador-form-horizontal.oneway .search-group:nth-child(4),
+.cotizador-form-horizontal.oneway .search-group:nth-child(5),
+.cotizador-form-horizontal.oneway .search-group:nth-child(6),
+.cotizador-form-horizontal.oneway .search-btn {
+    flex: 1 1 auto !important;
 }
 
 /* 4. Ajustar el ancho de los selectores de pasajeros */
-.cotizador-form-horizontal.oneway .search-group:nth-child(4), /* Adultos */
-.cotizador-form-horizontal.oneway .search-group:nth-child(5), /* Niños */
-.cotizador-form-horizontal.oneway .search-group:nth-child(6)  /* Infantes */ {
-    max-width: 80px !important; /* Ancho máximo para los selectores de pasajeros */
+.cotizador-form-horizontal.oneway .search-group:nth-child(4),
+.cotizador-form-horizontal.oneway .search-group:nth-child(5),
+.cotizador-form-horizontal.oneway .search-group:nth-child(6) {
+    max-width: 80px !important;
 }
 
 /* 5. Asegurar que el botón de búsqueda se alinee correctamente */
 .cotizador-form-horizontal.oneway .search-btn {
-    align-self: flex-end !important; /* Alinear el botón en la parte inferior */
+    align-self: flex-end !important;
 }
-/* ===========================================
-   CORRECCIÓN BUSCADOR - ESTRUCTURA SOLO IDA
-   =========================================== */
-
-/* 1. Definir la estructura base del formulario en Solo Ida */
-.cotizador-form-horizontal.oneway {
-    display: flex !important;
-    flex-wrap: wrap !important; /* Permitir que los elementos se muevan a una nueva línea */
-    gap: 15px !important; /* Espacio entre los elementos */
-}
-
-/* 2. Origen y Destino arriba, lado a lado */
-.cotizador-form-horizontal.oneway .search-group:nth-child(1), /* Origen */
-.cotizador-form-horizontal.oneway .search-group:nth-child(2)  /* Destino */ {
-    flex: 1 1 45% !important; /* Ocupan casi la mitad del ancho cada uno */
-    width: 45% !important;
-    min-width: 250px !important; /* Ancho mínimo para mantener la legibilidad */
-}
-
-/* 3. Ida, Pasajeros y Botón abajo, en la misma línea */
-.cotizador-form-horizontal.oneway .search-group:nth-child(3), /* Ida */
-.cotizador-form-horizontal.oneway .search-group:nth-child(4), /* Adultos */
-.cotizador-form-horizontal.oneway .search-group:nth-child(5), /* Niños */
-.cotizador-form-horizontal.oneway .search-group:nth-child(6), /* Infantes */
-.cotizador-form-horizontal.oneway .search-btn /* Botón */ {
-    flex: 1 1 auto !important; /* Se ajustan automáticamente al ancho disponible */
-}
-
-/* 4. Ajustar el ancho de los selectores de pasajeros */
-.cotizador-form-horizontal.oneway .search-group:nth-child(4), /* Adultos */
-.cotizador-form-horizontal.oneway .search-group:nth-child(5), /* Niños */
-.cotizador-form-horizontal.oneway .search-group:nth-child(6)  /* Infantes */ {
-    max-width: 80px !important; /* Ancho máximo para los selectores de pasajeros */
-}
-
-/* 5. Asegurar que el botón de búsqueda se alinee correctamente */
-.cotizador-form-horizontal.oneway .search-btn {
-    align-self: flex-end !important; /* Alinear el botón en la parte inferior */
-}
-
-/* ===========================================
-   FIN CORRECCIÓN - ABAJO SIGUE TU DISEÑO
-   =========================================== */
-
-/* ===========================================
-   FIN CORRECCIÓN - ABAJO SIGUE TU DISEÑO
-   =========================================== */
 
 /* ===========================================
    FIN CORRECCIÓN - ABAJO SIGUE TU DISEÑO
@@ -2157,7 +2105,7 @@ select.search-input {
 
 .scroll-indicator {
 
-    display: none !important; /* Completamente oculto */
+    display: none !important;
 
 }
 
@@ -2299,6 +2247,10 @@ select.search-input {
 
     transition: var(--transition-base);
 
+    position: relative;
+
+    overflow: hidden;
+
 }
 
 
@@ -2354,6 +2306,30 @@ select.search-input {
     margin: 0;
 
 }
+
+
+
+.badge-item::before {
+
+    content: '';
+
+    position: absolute;
+
+    top: 0; left: 0;
+
+    width: 3px;
+
+    height: 0;
+
+    background: var(--primary-gradient);
+
+    border-radius: 2px 0 0 2px;
+
+    transition: height 0.4s ease;
+
+}
+
+.badge-item:hover::before { height: 100%; }
 
 
 
@@ -2474,24 +2450,6 @@ select.search-input {
     padding: 0;
 
     margin-bottom: 1.2rem;
-
-}
-
-.section-label::before,
-
-.section-label::after {
-
-    content: '';
-
-    display: block;
-
-    width: 35px;
-
-    height: 1px;
-
-    background: currentColor;
-
-    opacity: 0.4;
 
 }
 
@@ -3224,8 +3182,6 @@ select.search-input {
     z-index: 1;
 
 }
-
-
 
 
 
@@ -5973,6 +5929,8 @@ select.search-input {
 
 
 
+/* FIX: Bloque @media (max-width: 480px) correctamente cerrado */
+
 @media (max-width: 480px) {
 
     .section-title {
@@ -5989,9 +5947,7 @@ select.search-input {
 
     }
 
-    
-
-
+}
 
 
 
@@ -6171,18 +6127,6 @@ select.search-input {
 
 
 
-/* Animaciones */
-
-@keyframes fadeIn {
-
-    from { opacity: 0; }
-
-    to { opacity: 1; }
-
-}
-
-
-
 @keyframes slideUp {
 
     from {
@@ -6308,16 +6252,6 @@ select.search-input {
     margin: 0 auto 24px;
 
     animation: spin 1s linear infinite;
-
-}
-
-
-
-@keyframes spin {
-
-    0% { transform: rotate(0deg); }
-
-    100% { transform: rotate(360deg); }
 
 }
 
@@ -7027,10 +6961,6 @@ select.search-input {
 
 
 
-
-
-
-
 /* ============================================
 
    MODERNIZACIÓN PREMIUM - MINIMALISTA COOL
@@ -7082,12 +7012,6 @@ select.search-input {
     100% { transform: translateY(-100px) translateX(40px); opacity: 0; }
 
 }
-
-
-
-/* Cards destinos - hover glassmorphism */
-
-
 
 
 
@@ -7175,68 +7099,37 @@ select.search-input {
 
 
 
-/* Inputs - borde animado al focus */
+/* Inputs - tamaño y alineación de iconos */
 
-/* PASO 3: Arreglar el tamaño del texto y los cuadros internos */
 .input-with-icon input, 
+
 .input-field select,
+
 .input-field input[type="date"] {
-    height: 45px !important; /* Altura fija para que todos sean iguales */
-    padding: 0 10px 0 35px !important; /* Espacio a la izquierda para que el icono no tape el texto */
-    font-size: 0.85rem !important; /* Tamaño de letra ideal para que quepan nombres largos */
+
+    height: 45px !important;
+
+    padding: 0 10px 0 35px !important;
+
+    font-size: 0.85rem !important;
+
     width: 100% !important;
+
     border-radius: 10px !important;
+
 }
 
-/* Esto asegura que los iconos (el avioncito, el calendario) estén bien centrados */
 .input-with-icon i {
+
     position: absolute !important;
+
     left: 12px !important;
+
     top: 50% !important;
+
     transform: translateY(-50%) !important;
+
     z-index: 10 !important;
-}
-
-
-/* Trust badges - hover lift */
-
-.badge-item {
-
-    position: relative;
-
-    overflow: hidden;
-
-}
-
-.badge-item::before {
-
-    content: '';
-
-    position: absolute;
-
-    top: 0; left: 0;
-
-    width: 3px;
-
-    height: 0;
-
-    background: var(--primary-gradient);
-
-    border-radius: 2px 0 0 2px;
-
-    transition: height 0.4s ease;
-
-}
-
-.badge-item:hover::before { height: 100%; }
-
-
-
-/* Service cards - borde top animado */
-
-.service-card {
-
-    position: relative;
 
 }
 
