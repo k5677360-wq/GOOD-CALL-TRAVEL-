@@ -15,49 +15,67 @@ document.addEventListener('DOMContentLoaded', function() {
         dateInput.setAttribute('min', today);
     }
 
-    // ==================== SUBMIT DEL FORMULARIO ====================
+   // ==================== SUBMIT DEL FORMULARIO ====================
     if (searchForm) {
         searchForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Obtener valores del formulario
-            const origen = document.getElementById('origin').value.trim();
-            const destino = document.getElementById('destination').value.trim();
-            const fecha = document.getElementById('date').value;
-            const viajeros = document.getElementById('travelers').value;
+            // Obtener códigos IATA de los campos ocultos generados por el autocompletado
+            const codigoOrigen = document.getElementById('origen_iata').value;
+            const codigoDestino = document.getElementById('destino_iata').value;
+            
+            // Obtener los nombres mostrados para el UI
+            const nombreOrigen = document.getElementById('origen_texto').value;
+            const nombreDestino = document.getElementById('destino_texto').value;
 
-            // Validar campos
-            if (!origen || !destino || !fecha || !viajeros) {
-                alert('⚠️ Por favor completa todos los campos');
-                return;
-            }
+            // Obtener fechas y pasajeros
+            const fechaIda = document.getElementById('departureDate').value;
+            const fechaVuelta = document.getElementById('returnDate') ? document.getElementById('returnDate').value : '';
+            const isOneway = document.querySelector('.tab-btn[data-type="oneway"]').classList.contains('active');
+            
+            const adultos = document.getElementById('adults') ? document.getElementById('adults').value : 1;
+            const ninos = document.getElementById('children') ? document.getElementById('children').value : 0;
+            const infantes = document.getElementById('infants') ? document.getElementById('infants').value : 0;
+            
+            // Calcular total de viajeros para la URL
+            const totalViajeros = parseInt(adultos) + parseInt(ninos) + parseInt(infantes);
 
-            // Validar que origen y destino sean diferentes
-            if (origen.toLowerCase() === destino.toLowerCase()) {
-                alert('⚠️ El origen y destino deben ser diferentes');
-                return;
-            }
-
-            // Obtener códigos IATA
-            const codigoOrigen = obtenerCodigoIATA(origen);
-            const codigoDestino = obtenerCodigoIATA(destino);
-
-            // Validar que se encontraron los códigos
+            // Validaciones
             if (!codigoOrigen || !codigoDestino) {
-                alert('⚠️ Ciudad no válida. Por favor selecciona una ciudad del menú.');
+                alert('⚠️ Por favor selecciona una ciudad válida de la lista desplegable.');
                 return;
             }
 
-            // Convertir fecha de YYYY-MM-DD a YYYYMMDD
-            const fechaAPI = fecha.replace(/-/g, '');
+            if (!fechaIda) {
+                alert('⚠️ Por favor selecciona una fecha de ida.');
+                return;
+            }
 
-            // Guardar nombres de ciudades en localStorage para mostrarlos en resultados
-            localStorage.setItem('nombreOrigen', origen);
-            localStorage.setItem('nombreDestino', destino);
-            localStorage.setItem('fechaBusqueda', fecha);
+            if (!isOneway && !fechaVuelta) {
+                alert('⚠️ Por favor selecciona una fecha de vuelta o cambia a "Solo Ida".');
+                return;
+            }
 
-            // Construir URL de resultados
-            const urlResultados = `resultados.html?origen=${codigoOrigen}&destino=${codigoDestino}&fecha=${fechaAPI}&pasajeros=${viajeros}`;
+            if (codigoOrigen === codigoDestino) {
+                alert('⚠️ El origen y destino deben ser diferentes.');
+                return;
+            }
+
+            // Formatear fechas para la API (YYYYMMDD)
+            const fechaIdaAPI = fechaIda.replace(/-/g, '');
+            const fechaVueltaAPI = fechaVuelta ? fechaVuelta.replace(/-/g, '') : '';
+
+            // Guardar nombres en localStorage para la página de resultados
+            localStorage.setItem('nombreOrigen', nombreOrigen.split(',')[0]); 
+            localStorage.setItem('nombreDestino', nombreDestino.split(',')[0]);
+            localStorage.setItem('fechaBusqueda', fechaIda);
+
+            // Construir URL de resultados (Ajustada para soportar ida y vuelta si aplica)
+            let urlResultados = `resultados.html?origen=${codigoOrigen}&destino=${codigoDestino}&fecha=${fechaIdaAPI}&pasajeros=${totalViajeros}`;
+            
+            if (!isOneway && fechaVueltaAPI) {
+                urlResultados += `&fecha_vuelta=${fechaVueltaAPI}`;
+            }
 
             console.log('🚀 Redirigiendo a:', urlResultados);
 
@@ -65,7 +83,10 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = urlResultados;
         });
     }
+});
 
+// NOTA: La antigua función obtenerCodigoIATA() ha sido ELIMINADA 
+// ya que el archivo aeropuertos.json ahora maneja esa lógica en el frontend
     // ==================== ANIMACIONES DE SCROLL ====================
     const observerOptions = {
         threshold: 0.1,
