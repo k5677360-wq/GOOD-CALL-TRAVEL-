@@ -6,7 +6,50 @@
 
    =========================================== */
 
+/* ===========================================
+   CORRECCIÓN BUSCADOR - AGREGAR AL INICIO
+   =========================================== */
 
+/* 1. Forzar ancho para que no se vea pequeño */
+.cotizador-wrapper {
+    width: 98% !important;
+    max-width: 1260px !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    z-index: 200 !important; /* Para que flote sobre todo */
+}
+
+/* 2. Configurar las 8 columnas de Ida y Vuelta */
+.cotizador-form-horizontal {
+    display: grid !important;
+    grid-template-columns: 2.2fr 2.2fr 1.4fr 1.4fr 0.6fr 0.6fr 0.6fr 140px !important;
+    gap: 12px !important;
+    align-items: flex-end !important;
+}
+
+/* 3. Configurar Solo Ida */
+.cotizador-form-horizontal.oneway {
+    grid-template-columns: 2.5fr 2.5fr 1.6fr 0.8fr 0.8fr 0.8fr 150px !important;
+}
+
+/* 4. Evitar que la lista de aeropuertos se esconda */
+.autocomplete-list {
+    position: absolute !important;
+    z-index: 9999 !important;
+    background: white !important;
+    width: 100% !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3) !important;
+}
+
+/* 5. Asegurar que el texto se lea completo */
+.input-with-icon input {
+    padding-left: 35px !important;
+    text-overflow: ellipsis !important;
+}
+
+/* ===========================================
+   FIN CORRECCIÓN - ABAJO SIGUE TU DISEÑO
+   =========================================== */
 
 /* ===========================
 
@@ -7175,7 +7218,5 @@ select.search-input {
     z-index: 9999;
 
     transition: width 0.1s linear;
-
-}
 
 }
