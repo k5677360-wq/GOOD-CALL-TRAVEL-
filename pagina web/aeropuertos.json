@@ -1,1 +1,7 @@
-
+[
+  {"iata": "LIM", "ciudad": "Lima", "pais": "Perú", "aeropuerto": "Jorge Chávez"},
+  {"iata": "CUZ", "ciudad": "Cusco", "pais": "Perú", "aeropuerto": "Alejandro Velasco Astete"},
+  {"iata": "BOG", "ciudad": "Bogotá", "pais": "Colombia", "aeropuerto": "El Dorado"},
+  {"iata": "MAD", "ciudad": "Madrid", "pais": "España", "aeropuerto": "Barajas"},
+  {"iata": "MIA", "ciudad": "Miami", "pais": "USA", "aeropuerto": "Miami International"}
+]
