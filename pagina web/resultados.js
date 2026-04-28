@@ -1,13 +1,17 @@
 // =====================================================
-// GOOD CALL TRAVEL - Resultados de Búsqueda
+// GOOD CALL TRAVEL - Resultados de Búsqueda (API REAL)
 // =====================================================
 
-// TU NÚMERO DE WHATSAPP (cámbialo por el tuyo)
+// TU NÚMERO DE WHATSAPP
 const WHATSAPP_NUMERO = '51983894837';
+
+// ⚠️ IMPORTANTE: Pon aquí la URL exacta de tu API de Python en Render
+const RENDER_API_URL = 'https://TU-APP.onrender.com/buscar'; 
 
 let vuelosOriginales = [];
 let parametrosBusqueda = {};
 
+// Nombres solo para mostrar en la interfaz
 const nombresCiudades = {
     'LIM': 'Lima', 'CUZ': 'Cusco', 'AQP': 'Arequipa', 'IQT': 'Iquitos',
     'PIU': 'Piura', 'TRU': 'Trujillo', 'CIX': 'Chiclayo', 'PCL': 'Pucallpa',
@@ -20,30 +24,16 @@ const nombresCiudades = {
     'JFK': 'Nueva York', 'LAX': 'Los Ángeles', 'MAD': 'Madrid', 'BCN': 'Barcelona'
 };
 
-// Códigos IATA de aerolíneas para logos
 const CODIGOS_AEROLINEA = {
-    'LATAM Airlines': 'LA',
-    'Sky Airline': 'H2',
-    'JetSmart': 'JF',
-    'JetSmart Airlines': 'JF',
-    'Jetsmart': 'JF',
-    'Viva Air': 'VV',
-    'Avianca': 'AV',
-    'American Airlines': 'AA',
-    'Copa Airlines': 'CM',
-    'Iberia': 'IB',
-    'Air France': 'AF',
-    'KLM': 'KL',
-    'United Airlines': 'UA',
-    'Delta': 'DL',
+    'LATAM Airlines': 'LA', 'Sky Airline': 'H2', 'JetSmart': 'JF', 
+    'JetSmart Airlines': 'JF', 'Jetsmart': 'JF', 'Viva Air': 'VV', 
+    'Avianca': 'AV', 'American Airlines': 'AA', 'Copa Airlines': 'CM', 
+    'Iberia': 'IB', 'Air France': 'AF', 'KLM': 'KL', 'United Airlines': 'UA', 'Delta': 'DL',
 };
 
 function obtenerLogoAerolinea(nombreAerolinea) {
     const codigo = CODIGOS_AEROLINEA[nombreAerolinea];
-    if (codigo) {
-        return `https://pics.avs.io/100/100/${codigo}.png`;
-    }
-    return null;
+    return codigo ? `https://pics.avs.io/100/100/${codigo}.png` : null;
 }
 
 // ==================== INICIALIZACIÓN ====================
@@ -55,168 +45,91 @@ document.addEventListener('DOMContentLoaded', function() {
     configurarFormularioNuevo();
 });
 
-// ==================== SELECTOR DE FECHAS ====================
-function renderizarSelectorFechas() {
-    const fecha = parametrosBusqueda.fecha; // YYYYMMDD
-    if (!fecha || fecha.length !== 8) return;
-
-    const año = parseInt(fecha.substring(0,4));
-    const mes = parseInt(fecha.substring(4,6)) - 1;
-    const dia = parseInt(fecha.substring(6,8));
-    const fechaBase = new Date(año, mes, dia);
-
-    // Generar 7 días: 3 antes, el seleccionado, 3 después
-    const dias = [];
-    for (let i = -3; i <= 10; i++) {
-        const d = new Date(fechaBase);
-        d.setDate(d.getDate() + i);
-        dias.push(d);
-    }
-
-    const diasSemana = ['dom','lun','mar','mié','jue','vie','sáb'];
-
-    const html = `
-    <div class="fecha-selector-wrap">
-        <button class="fecha-nav" id="btnFechaAnterior">&#8249;</button>
-        <div class="fecha-lista" id="fechaLista">
-            ${dias.map(d => {
-                const yyyymmdd = `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
-                const esActual = yyyymmdd === fecha;
-                const diaSem = diasSemana[d.getDay()];
-                const diaNum = String(d.getDate()).padStart(2,'0');
-                const mesNum = String(d.getMonth()+1).padStart(2,'0');
-                return `<button class="fecha-btn ${esActual ? 'fecha-activa' : ''}" data-fecha="${yyyymmdd}">
-                    <span class="fecha-diasem">${diaSem}</span>
-                    <span class="fecha-num">${diaNum}/${mesNum}</span>
-                </button>`;
-            }).join('')}
-        </div>
-        <button class="fecha-nav" id="btnFechaSiguiente">&#8250;</button>
-    </div>`;
-
-    // Insertar antes de los resultados
-    const topbar = document.querySelector('.results-topbar');
-    if (topbar) {
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = html;
-        topbar.parentNode.insertBefore(wrapper.firstElementChild, topbar);
-    }
-
-    // Click en fecha
-    document.getElementById('fechaLista').addEventListener('click', function(e) {
-        const btn = e.target.closest('.fecha-btn');
-        if (!btn) return;
-        const nuevaFecha = btn.dataset.fecha;
-        parametrosBusqueda.fecha = nuevaFecha;
-        document.querySelectorAll('.fecha-btn').forEach(b => b.classList.remove('fecha-activa'));
-        btn.classList.add('fecha-activa');
-        buscarVuelos();
-        // Actualizar URL sin recargar
-        const url = new URL(window.location.href);
-        url.searchParams.set('date', `${nuevaFecha.substring(0,4)}-${nuevaFecha.substring(4,6)}-${nuevaFecha.substring(6,8)}`);
-        window.history.replaceState({}, '', url);
-    });
-
-    // Navegación anterior/siguiente
-    document.getElementById('btnFechaAnterior').addEventListener('click', () => moverFechas(-7));
-    document.getElementById('btnFechaSiguiente').addEventListener('click', () => moverFechas(7));
-}
-
-function moverFechas(dias) {
-    const fecha = parametrosBusqueda.fecha;
-    const año = parseInt(fecha.substring(0,4));
-    const mes = parseInt(fecha.substring(4,6)) - 1;
-    const dia = parseInt(fecha.substring(6,8));
-    const nueva = new Date(año, mes, dia);
-    nueva.setDate(nueva.getDate() + dias);
-    const nuevaStr = `${nueva.getFullYear()}${String(nueva.getMonth()+1).padStart(2,'0')}${String(nueva.getDate()).padStart(2,'0')}`;
-    parametrosBusqueda.fecha = nuevaStr;
-    // Re-renderizar selector
-    const wrap = document.querySelector('.fecha-selector-wrap');
-    if (wrap) wrap.remove();
-    renderizarSelectorFechas();
-    buscarVuelos();
-}
-
 // ==================== LEER URL ====================
 function leerParametrosURL() {
     const urlParams = new URLSearchParams(window.location.search);
 
-    // Soporta parámetros en español (origen/destino/fecha) y en inglés (origin/destination/date)
-    const origenRaw  = urlParams.get('origen')  || urlParams.get('origin')      || '';
-    const destinoRaw = urlParams.get('destino') || urlParams.get('destination') || '';
-    const fechaRaw   = urlParams.get('fecha')   || urlParams.get('date')        || '';
-    const pasajeros  = parseInt(urlParams.get('pasajeros') || urlParams.get('adults')) || 1;
+    // El index.html ahora manda el IATA directo en 'origen' y 'destino'
+    const origen = urlParams.get('origen');
+    const destino = urlParams.get('destino');
+    const fechaRaw = urlParams.get('fecha');
+    const pasajeros = parseInt(urlParams.get('pasajeros')) || 1;
 
-    // Normalizar fecha: acepta 20260220 o 2026-02-20 → siempre guarda YYYYMMDD
-    const fecha = fechaRaw.replace(/-/g, '');
-
-    // Convertir nombre de ciudad a código IATA si llega como nombre (ej: "lima" → "LIM")
-    const NOMBRE_A_IATA = {
-        'lima': 'LIM', 'cusco': 'CUZ', 'cuzco': 'CUZ', 'arequipa': 'AQP',
-        'iquitos': 'IQT', 'piura': 'PIU', 'trujillo': 'TRU', 'chiclayo': 'CIX',
-        'tacna': 'TCQ', 'juliaca': 'JUL', 'pucallpa': 'PCL', 'tarapoto': 'TPP',
-        'tumbes': 'TBP', 'puerto maldonado': 'PEM', 'bogotá': 'BOG',
-        'santiago': 'SCL', 'miami': 'MIA', 'nueva york': 'JFK',
-        'los ángeles': 'LAX', 'madrid': 'MAD', 'barcelona': 'BCN',
-        'ciudad de méxico': 'MEX', 'cancún': 'CUN', 'buenos aires': 'EZE',
-        'são paulo': 'GRU', 'rio de janeiro': 'GIG', 'quito': 'UIO', 'guayaquil': 'GYE'
-    };
-
-    const origen  = NOMBRE_A_IATA[origenRaw.toLowerCase()]  || origenRaw.toUpperCase();
-    const destino = NOMBRE_A_IATA[destinoRaw.toLowerCase()] || destinoRaw.toUpperCase();
-
-    parametrosBusqueda = { origen, destino, fecha, pasajeros };
-
-    if (!origen || !destino || !fecha) {
-        mostrarError('Parámetros de búsqueda inválidos');
+    if (!origen || !destino || !fechaRaw) {
+        mostrarError('Parámetros de búsqueda inválidos. Por favor vuelve al inicio.');
+        return;
     }
+
+    const fecha = fechaRaw.replace(/-/g, '');
+    parametrosBusqueda = { origen, destino, fecha, pasajeros };
 }
+
 // ==================== RESUMEN ====================
 function mostrarResumenBusqueda() {
     if (!parametrosBusqueda.origen) return;
-    const urlParams = new URLSearchParams(window.location.search);
-    const nombreOrigen = urlParams.get('nombreOrigen') || nombresCiudades[parametrosBusqueda.origen] || parametrosBusqueda.origen;
-    const nombreDestino = urlParams.get('nombreDestino') || nombresCiudades[parametrosBusqueda.destino] || parametrosBusqueda.destino;
+    const nombreOrigen = localStorage.getItem('nombreOrigen') || nombresCiudades[parametrosBusqueda.origen] || parametrosBusqueda.origen;
+    const nombreDestino = localStorage.getItem('nombreDestino') || nombresCiudades[parametrosBusqueda.destino] || parametrosBusqueda.destino;
+    
     const fecha = parametrosBusqueda.fecha.toString();
-    if (fecha.length !== 8) return;
-    const fechaObj = new Date(fecha.substring(0,4), parseInt(fecha.substring(4,6))-1, fecha.substring(6,8));
-    const fechaFormateada = fechaObj.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    if (fecha.length === 8) {
+        const fechaObj = new Date(fecha.substring(0,4), parseInt(fecha.substring(4,6))-1, fecha.substring(6,8));
+        const fechaFormateada = fechaObj.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('fechaViaje').textContent = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+    }
+
     document.getElementById('ciudadOrigen').textContent = nombreOrigen;
     document.getElementById('ciudadDestino').textContent = nombreDestino;
-    document.getElementById('fechaViaje').textContent = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
     document.getElementById('numPasajeros').textContent = `${parametrosBusqueda.pasajeros} ${parametrosBusqueda.pasajeros === 1 ? 'pasajero' : 'pasajeros'}`;
 }
 
-// ==================== BUSCAR VUELOS ====================
+// ==================== BUSCAR VUELOS (API EN RENDER) ====================
 async function buscarVuelos() {
     try {
         mostrarLoading();
-        if (!window.CotizadorCostamar) throw new Error('CotizadorCostamar no cargado');
-        const resultado = await window.CotizadorCostamar.cotizarConFees({
-            origen: parametrosBusqueda.origen,
-            destino: parametrosBusqueda.destino,
-            fechaIda: parametrosBusqueda.fecha,
-            adultos: parametrosBusqueda.pasajeros
+        console.log("Buscando vuelos en API Render:", parametrosBusqueda);
+
+        const response = await fetch(RENDER_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                origen: parametrosBusqueda.origen,
+                destino: parametrosBusqueda.destino,
+                fecha_ida: parametrosBusqueda.fecha,
+                adultos: parametrosBusqueda.pasajeros,
+                ninos: 0,
+                infantes: 0
+            })
         });
-        if (resultado.success && resultado.vuelos && resultado.vuelos.length > 0) {
-            vuelosOriginales = resultado.vuelos;
-            mostrarResultados(resultado.vuelos);
-        } else if (resultado.success) {
-            mostrarSinResultados();
-        } else {
-            mostrarError(resultado.error || 'No se pudieron obtener los vuelos');
+
+        if (!response.ok) {
+            throw new Error(`Error HTTP: ${response.status}`);
         }
+
+        // Se asume que tu API devuelve una lista [] o { data: [] }
+        const data = await response.json(); 
+        const vuelos = data.data || data; // Ajusta esto según lo que devuelva tu Python
+
+        if (vuelos && vuelos.length > 0) {
+            vuelosOriginales = vuelos;
+            mostrarResultados(vuelos);
+        } else {
+            mostrarSinResultados();
+        }
+
     } catch (error) {
-        let msg = 'Error al conectar con el servidor';
+        console.error("Error en el fetch:", error);
+        let msg = 'Error al conectar con el servidor.';
         if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
-            msg = '🔌 No se pudo conectar. Asegúrate de que Python (api_costamar.py) esté corriendo.';
+            msg = '🔌 No se pudo conectar. Asegúrate de que tu API de Render esté activa y configurada (CORS).';
         }
         mostrarError(msg);
     }
 }
 
-// ==================== ESTADOS ====================
+// ==================== ESTADOS DE UI ====================
 function mostrarLoading() {
     document.getElementById('loadingState').style.display = 'block';
     document.getElementById('errorState').style.display = 'none';
@@ -242,14 +155,14 @@ function mostrarResultados(vuelos) {
     document.getElementById('noResultsState').style.display = 'none';
     document.getElementById('resultsContainer').style.display = 'block';
     document.getElementById('numVuelos').textContent = vuelos.length;
-    // Renderizar selector de fechas solo la primera vez
+    
     if (!document.querySelector('.fecha-selector-wrap')) {
         renderizarSelectorFechas();
     }
     renderizarVuelos(vuelos);
 }
 
-// ==================== RENDERIZAR ====================
+// ==================== RENDERIZAR VUELOS ====================
 function renderizarVuelos(vuelos) {
     const container = document.getElementById('vuelosContainer');
     if (!vuelos || vuelos.length === 0) {
@@ -259,16 +172,11 @@ function renderizarVuelos(vuelos) {
     container.innerHTML = vuelos.map((vuelo, index) => crearCardVuelo(vuelo, index)).join('');
 }
 
-// ==================== CREAR CARD PROFESIONAL ====================
 function crearCardVuelo(vuelo, index) {
     const esMejor = index === 0;
     const precioUSD = vuelo.precio_final || vuelo.precio || 0;
-    
     const precioBaseUSD = vuelo.precio_base || vuelo.precio || 0;
-    
     const feeUSD = vuelo.fee_por_persona || 0;
-    
-    
     const pasajeros = parametrosBusqueda.pasajeros;
     const totalGrupoUSD = precioUSD * pasajeros;
 
@@ -289,23 +197,17 @@ function crearCardVuelo(vuelo, index) {
     return `
     <div class="vuelo-card" id="card-${index}">
        ${esMejor ? '<div class="best-badge-wrap"><span class="badge-recomendado">Recomendado</span><span class="badge-economico">Más económico</span></div>' : ''}
-        <!-- FILA PRINCIPAL -->
+        
         <div class="card-main">
-            
-            <!-- AEROLÍNEA -->
             <div class="airline-col">
                 <div class="airline-logo-wrap">
-                    ${logoUrl 
-                        ? `<img class="airline-logo" src="${logoUrl}" alt="${vuelo.aerolinea}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-                        : ''
-                    }
+                    ${logoUrl ? `<img class="airline-logo" src="${logoUrl}" alt="${vuelo.aerolinea}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : ''}
                     <div class="airline-logo-fallback" ${logoUrl ? 'style="display:none"' : ''}>${initiales}</div>
                 </div>
                 <div class="airline-name">${vuelo.aerolinea || 'Aerolínea'}</div>
                 <div class="flight-number">${vuelo.numero_vuelo || ''}</div>
             </div>
             
-            <!-- HORARIO -->
             <div class="horario-col">
                 <div class="time-block">
                     <div class="hora">${vuelo.hora_salida || '--:--'}</div>
@@ -328,19 +230,14 @@ function crearCardVuelo(vuelo, index) {
                 </div>
             </div>
             
-            <!-- PRECIO -->
             <div class="precio-col">
                 <div class="precio-moneda">USD</div>
                 <div class="precio-valor">$${precioUSD.toFixed(2)}</div>
-                
                 <div class="precio-persona">por persona</div>
-                <button class="btn-reservar" onclick="reservar(${index})">
-                    Reservar ahora →
-                </button>
+                <button class="btn-reservar" onclick="reservar(${index})">Reservar ahora →</button>
             </div>
         </div>
         
-        <!-- EQUIPAJE RÁPIDO -->
         <div class="card-equipaje">
             <div class="equip-item ${eqPersonalIncluido ? 'equip-incluido' : 'equip-no'}">
                 <span class="equip-icon">■</span>
@@ -356,7 +253,6 @@ function crearCardVuelo(vuelo, index) {
             </div>
         </div>
         
-        <!-- TOGGLE DETALLES -->
         <div class="card-toggle">
             <button class="btn-toggle-detalle" onclick="toggleDetalles(${index})">
                 <svg class="toggle-icon" id="icon-${index}" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
@@ -365,10 +261,7 @@ function crearCardVuelo(vuelo, index) {
             ${pasajeros > 1 ? `<span style="font-size:.82rem;color:#64748b;font-weight:600">Total ${pasajeros} personas: <strong style="color:#1a3a6c">$${totalGrupoUSD.toFixed(2)}</strong></span>` : ''}
         </div>
         
-        <!-- PANEL DE DETALLES -->
         <div class="card-detalles" id="detalles-${index}">
-            
-            <!-- Info vuelo -->
             <div class="detalle-seccion">
                 <div class="detalle-titulo">Información del vuelo</div>
                 <div class="detalle-fila">
@@ -393,7 +286,6 @@ function crearCardVuelo(vuelo, index) {
                 </div>
             </div>
             
-            <!-- Equipaje detallado -->
             <div class="detalle-seccion">
                 <div class="detalle-titulo">Equipaje incluido</div>
                 <div class="detalle-fila">
@@ -409,7 +301,6 @@ function crearCardVuelo(vuelo, index) {
                     <span class="detalle-valor" style="color:${eqBodegaIncluido ? '#16a34a' : '#dc2626'}">${eqBodega}</span>
                 </div>
                 
-                <!-- AGREGAR MALETA -->
                 ${!eqBodegaIncluido ? `
                 <div class="maleta-addon" style="margin-top:12px">
                     <div class="maleta-info">
@@ -421,15 +312,12 @@ function crearCardVuelo(vuelo, index) {
                     </div>
                     <div>
                         <div class="maleta-precio">Consultar precio</div>
-                        <button class="btn-add-maleta" id="maleta-btn-${index}" onclick="agregarMaleta(${index})">
-                            + Agregar
-                        </button>
+                        <button class="btn-add-maleta" id="maleta-btn-${index}" onclick="agregarMaleta(${index})">+ Agregar</button>
                     </div>
                 </div>
                 ` : ''}
             </div>
             
-            <!-- Desglose precios -->
             <div class="detalle-seccion">
                 <div class="detalle-titulo">Desglose de precios</div>
                 <div class="detalle-fila">
@@ -453,27 +341,24 @@ function crearCardVuelo(vuelo, index) {
                 </div>
                 ` : ''}
             </div>
-            
         </div>
     </div>
     `;
 }
 
-// ==================== TOGGLE DETALLES ====================
 function toggleDetalles(index) {
     const panel = document.getElementById(`detalles-${index}`);
     const icon = document.getElementById(`icon-${index}`);
-    const estaAbierto = panel.classList.contains('open');
     panel.classList.toggle('open');
     icon.classList.toggle('open');
 }
 
-// ==================== RESERVAR (abre modal WhatsApp) ====================
+// ==================== INTERACCIONES ====================
 function reservar(index) {
     const vuelo = vuelosOriginales[index];
     const precioFinalUSD = vuelo.precio_final || vuelo.precio;
-    const origen = nombresCiudades[parametrosBusqueda.origen] || parametrosBusqueda.origen;
-    const destino = nombresCiudades[parametrosBusqueda.destino] || parametrosBusqueda.destino;
+    const origen = localStorage.getItem('nombreOrigen') || parametrosBusqueda.origen;
+    const destino = localStorage.getItem('nombreDestino') || parametrosBusqueda.destino;
 
     const mensaje = `✈️ *Hola Good Call Travel!*\n\nQuiero reservar este vuelo:\n\n🗺️ Ruta: ${origen} → ${destino}\n✈️ Aerolínea: ${vuelo.aerolinea}\n🕐 Horario: ${vuelo.hora_salida} → ${vuelo.hora_llegada}\n📅 Fecha: ${parametrosBusqueda.fecha}\n👥 Pasajeros: ${parametrosBusqueda.pasajeros}\n💰 Precio: $${precioFinalUSD.toFixed(2)} por persona\n\n¿Me pueden confirmar disponibilidad?`;
 
@@ -488,7 +373,6 @@ function cerrarWAModal() {
     document.getElementById('waModal').style.display = 'none';
 }
 
-// ==================== AGREGAR MALETA ====================
 function agregarMaleta(index) {
     const btn = document.getElementById(`maleta-btn-${index}`);
     if (btn.classList.contains('added')) {
@@ -498,14 +382,14 @@ function agregarMaleta(index) {
         btn.classList.add('added');
         btn.textContent = '✓ Añadida';
     }
-    reservar(index); // Abre WhatsApp para que el agente confirme el precio de la maleta
+    reservar(index); 
 }
 
-// ==================== ORDENAMIENTO ====================
 function configurarOrdenamiento() {
     const sel = document.getElementById('sortSelect');
     if (sel) sel.addEventListener('change', function() { ordenarVuelos(this.value); });
 }
+
 function ordenarVuelos(criterio) {
     let vuelos = [...vuelosOriginales];
     if (criterio === 'precio') vuelos.sort((a,b) => (a.precio_final||a.precio)-(b.precio_final||b.precio));
@@ -513,50 +397,95 @@ function ordenarVuelos(criterio) {
     else if (criterio === 'duracion') vuelos.sort((a,b) => parseDuracion(a.duracion)-parseDuracion(b.duracion));
     renderizarVuelos(vuelos);
 }
+
 function parseDuracion(dur) {
     if (!dur) return 999;
     const m = dur.match(/(\d+)h\s*(\d+)?m?/);
     return m ? parseInt(m[1])*60 + (parseInt(m[2])||0) : 999;
 }
 
-// ==================== FORMULARIO MODIFICAR ====================
-function configurarFormularioNuevo() {
-    const btnToggle = document.getElementById('btnToggleSearch');
-    const btnCancel = document.getElementById('btnCancelSearch');
-    const container = document.getElementById('searchFormContainer');
-    const form = document.getElementById('newSearchForm');
-    const dateInput = document.getElementById('newDate');
+// ==================== SELECTOR DE FECHAS (UI) ====================
+function renderizarSelectorFechas() {
+    const fecha = parametrosBusqueda.fecha; 
+    if (!fecha || fecha.length !== 8) return;
 
-    if (dateInput) dateInput.setAttribute('min', new Date().toISOString().split('T')[0]);
-    if (btnToggle) btnToggle.addEventListener('click', () => {
-        container.style.display = container.style.display === 'none' ? 'block' : 'none';
+    const año = parseInt(fecha.substring(0,4));
+    const mes = parseInt(fecha.substring(4,6)) - 1;
+    const dia = parseInt(fecha.substring(6,8));
+    const fechaBase = new Date(año, mes, dia);
+
+    const dias = [];
+    for (let i = -3; i <= 10; i++) {
+        const d = new Date(fechaBase);
+        d.setDate(d.getDate() + i);
+        dias.push(d);
+    }
+
+    const diasSemana = ['dom','lun','mar','mié','jue','vie','sáb'];
+
+    const html = `
+    <div class="fecha-selector-wrap">
+        <button class="fecha-nav" id="btnFechaAnterior">&#8249;</button>
+        <div class="fecha-lista" id="fechaLista">
+            ${dias.map(d => {
+                const yyyymmdd = `${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}${String(d.getDate()).padStart(2,'0')}`;
+                const esActual = yyyymmdd === fecha;
+                return `<button class="fecha-btn ${esActual ? 'fecha-activa' : ''}" data-fecha="${yyyymmdd}">
+                    <span class="fecha-diasem">${diasSemana[d.getDay()]}</span>
+                    <span class="fecha-num">${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}</span>
+                </button>`;
+            }).join('')}
+        </div>
+        <button class="fecha-nav" id="btnFechaSiguiente">&#8250;</button>
+    </div>`;
+
+    const topbar = document.querySelector('.results-topbar');
+    if (topbar) {
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = html;
+        topbar.parentNode.insertBefore(wrapper.firstElementChild, topbar);
+    }
+
+    document.getElementById('fechaLista').addEventListener('click', function(e) {
+        const btn = e.target.closest('.fecha-btn');
+        if (!btn) return;
+        parametrosBusqueda.fecha = btn.dataset.fecha;
+        
+        const url = new URL(window.location.href);
+        url.searchParams.set('fecha', parametrosBusqueda.fecha);
+        window.history.replaceState({}, '', url);
+        
+        buscarVuelos();
     });
-    if (btnCancel) btnCancel.addEventListener('click', () => { container.style.display = 'none'; });
-    if (form) form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const origen = document.getElementById('newOrigin').value.trim();
-        const destino = document.getElementById('newDestination').value.trim();
-        const fecha = document.getElementById('newDate').value;
-        const viajeros = document.getElementById('newTravelers').value;
-        if (!origen || !destino || !fecha) { alert('Completa todos los campos'); return; }
-        const co = obtenerCodigoIATA(origen);
-        const cd = obtenerCodigoIATA(destino);
-        if (!co || !cd) { alert('Ciudad no válida. Selecciona del menú.'); return; }
-        window.location.href = `resultados.html?origen=${co}&destino=${cd}&fecha=${fecha.replace(/-/g,'')}&pasajeros=${viajeros}&nombreOrigen=${encodeURIComponent(origen)}&nombreDestino=${encodeURIComponent(destino)}`;
-    });
+
+    document.getElementById('btnFechaAnterior').addEventListener('click', () => moverFechas(-7));
+    document.getElementById('btnFechaSiguiente').addEventListener('click', () => moverFechas(7));
 }
 
-function obtenerCodigoIATA(ciudad) {
-    const mapa = {
-        'lima': 'LIM', 'lima, perú': 'LIM', 'cusco': 'CUZ', 'cusco, perú': 'CUZ',
-        'arequipa': 'AQP', 'arequipa, perú': 'AQP', 'iquitos': 'IQT', 'iquitos, perú': 'IQT',
-        'piura': 'PIU', 'piura, perú': 'PIU', 'trujillo': 'TRU', 'trujillo, perú': 'TRU',
-        'chiclayo': 'CIX', 'chiclayo, perú': 'CIX', 'pucallpa': 'PCL', 'tarapoto': 'TPP',
-        'juliaca': 'JUL', 'tacna': 'TCQ', 'tumbes': 'TBP', 'puerto maldonado': 'PEM',
-        'bogotá': 'BOG', 'bogotá, colombia': 'BOG', 'medellín': 'MDE', 'quito': 'UIO',
-        'guayaquil': 'GYE', 'santiago': 'SCL', 'santiago, chile': 'SCL',
-        'buenos aires': 'EZE', 'ciudad de méxico': 'MEX', 'cancún': 'CUN',
-        'miami': 'MIA', 'nueva york': 'JFK', 'los ángeles': 'LAX', 'madrid': 'MAD', 'barcelona': 'BCN'
-    };
-    return mapa[ciudad.toLowerCase()] || null;
+function moverFechas(diasMod) {
+    const fecha = parametrosBusqueda.fecha;
+    const nueva = new Date(parseInt(fecha.substring(0,4)), parseInt(fecha.substring(4,6)) - 1, parseInt(fecha.substring(6,8)));
+    nueva.setDate(nueva.getDate() + diasMod);
+    parametrosBusqueda.fecha = `${nueva.getFullYear()}${String(nueva.getMonth()+1).padStart(2,'0')}${String(nueva.getDate()).padStart(2,'0')}`;
+    
+    const wrap = document.querySelector('.fecha-selector-wrap');
+    if (wrap) wrap.remove();
+    renderizarSelectorFechas();
+    buscarVuelos();
+}
+
+// ==================== FORMULARIO MODIFICAR (Arriba) ====================
+function configurarFormularioNuevo() {
+    const btnToggle = document.getElementById('btnToggleSearch');
+    const container = document.getElementById('searchFormContainer');
+    const btnCancel = document.getElementById('btnCancelSearch');
+    const form = document.getElementById('newSearchForm');
+    
+    if (btnToggle) btnToggle.addEventListener('click', () => container.style.display = container.style.display === 'none' ? 'block' : 'none');
+    if (btnCancel) btnCancel.addEventListener('click', () => container.style.display = 'none');
+    
+    if (form) form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        window.location.href = "index.html"; // Por simplicidad, si quieren cambiar, los mandamos al inicio que ya tiene el nuevo autocompletado avanzado
+    });
 }
