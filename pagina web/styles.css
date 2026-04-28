@@ -13,16 +13,22 @@
 /* 1. Forzar ancho para que no se vea pequeño */
 .cotizador-wrapper {
     width: 98% !important;
-    max-width: 1260px !important;
+    max-width: 1300px !important; /* Aumentamos a 1300 para que respire */
     margin: 0 auto !important;
     position: relative !important;
-    z-index: 200 !important; /* Para que flote sobre todo */
+    z-index: 200 !important;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(18px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 25px 30px !important;
 }
 
 /* 2. Configurar las 8 columnas de Ida y Vuelta */
 .cotizador-form-horizontal {
     display: grid !important;
-    grid-template-columns: 2.2fr 2.2fr 1.4fr 1.4fr 0.6fr 0.6fr 0.6fr 140px !important;
+    /* Explicación: 2.5fr para Origen/Destino (más espacio), 1.5fr para fechas, y 0.5fr para pasajeros */
+    grid-template-columns: 2.5fr 2.5fr 1.5fr 1.5fr 0.6fr 0.6fr 0.6fr 140px !important;
     gap: 12px !important;
     align-items: flex-end !important;
 }
@@ -7085,18 +7091,25 @@ select.search-input {
 
 /* Inputs - borde animado al focus */
 
-.input-with-icon input:focus,
-
-.input-field select:focus,
-
-.input-field input:focus {
-
-    transform: translateY(-1px);
-
-    box-shadow: 0 4px 20px rgba(255,255,255,0.15), 0 0 0 2px rgba(255,255,255,0.3) !important;
-
+/* PASO 3: Arreglar el tamaño del texto y los cuadros internos */
+.input-with-icon input, 
+.input-field select,
+.input-field input[type="date"] {
+    height: 45px !important; /* Altura fija para que todos sean iguales */
+    padding: 0 10px 0 35px !important; /* Espacio a la izquierda para que el icono no tape el texto */
+    font-size: 0.85rem !important; /* Tamaño de letra ideal para que quepan nombres largos */
+    width: 100% !important;
+    border-radius: 10px !important;
 }
 
+/* Esto asegura que los iconos (el avioncito, el calendario) estén bien centrados */
+.input-with-icon i {
+    position: absolute !important;
+    left: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10 !important;
+}
 
 
 /* Trust badges - hover lift */
