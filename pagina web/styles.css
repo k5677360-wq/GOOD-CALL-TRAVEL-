@@ -1388,3 +1388,163 @@ select.search-input {
 ::-webkit-scrollbar-track { background: var(--light-gray); }
 ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 6px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary-navy); }
+
+/* ===========================
+   MOBILE FIXES - COTIZADOR
+   =========================== */
+
+/* Fix principal: apila todo en columna en mobile */
+@media (max-width: 768px) {
+
+    /* Wrapper del cotizador */
+    .cotizador-wrapper {
+        padding: 16px !important;
+        margin: 0 12px !important;
+        width: calc(100% - 24px) !important;
+        border-radius: 14px !important;
+    }
+
+    /* Forzar columna en AMBOS modos (ida/vuelta y solo ida) */
+    .cotizador-form-horizontal,
+    .cotizador-form-horizontal.oneway {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        flex-wrap: unset !important;
+    }
+
+    /* Cada campo ocupa el 100% */
+    .cotizador-form-horizontal > *,
+    .cotizador-form-horizontal.oneway > * {
+        flex: 1 1 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* Labels visibles y sin superposición */
+    .input-field label,
+    .cotizador-wrapper label {
+        display: block !important;
+        font-size: 0.7rem !important;
+        margin-bottom: 4px !important;
+        color: rgba(255,255,255,0.9) !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    /* Inputs más altos y fáciles de tocar */
+    .input-with-icon input,
+    .input-field select,
+    .input-field input[type="date"],
+    .input-field input[type="number"] {
+        height: 50px !important;
+        font-size: 1rem !important;
+        padding: 0 12px 0 40px !important;
+        width: 100% !important;
+        border-radius: 10px !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+    }
+
+    /* Ícono dentro del input */
+    .input-with-icon {
+        position: relative !important;
+        width: 100% !important;
+    }
+
+    .input-with-icon i {
+        left: 12px !important;
+        font-size: 1rem !important;
+    }
+
+    /* Botón buscar a full width */
+    .cotizador-form-horizontal .btn-buscar,
+    .cotizador-form-horizontal.oneway .btn-buscar {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        height: 50px !important;
+        font-size: 1rem !important;
+        margin-top: 4px !important;
+        border-radius: 12px !important;
+    }
+
+    /* Autocomplete visible */
+    .autocomplete-list {
+        width: 100% !important;
+        max-height: 200px !important;
+        overflow-y: auto !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* Tabs "Ida y Vuelta / Solo Ida" */
+    .trip-type-tabs,
+    .cotizador-tabs {
+        display: flex !important;
+        width: 100% !important;
+        margin-bottom: 12px !important;
+        gap: 8px !important;
+    }
+
+    .trip-type-tabs button,
+    .cotizador-tabs button {
+        flex: 1 !important;
+        padding: 10px 8px !important;
+        font-size: 0.85rem !important;
+        border-radius: 50px !important;
+    }
+
+    /* Pasajeros: mostrar en fila de 3 */
+    .passengers-row {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    .passengers-row .input-field {
+        min-width: 0 !important;
+        flex: unset !important;
+    }
+}
+
+/* Pantallas muy pequeñas (< 400px) */
+@media (max-width: 400px) {
+
+    .cotizador-wrapper {
+        padding: 12px !important;
+        margin: 0 8px !important;
+        width: calc(100% - 16px) !important;
+    }
+
+    .input-with-icon input,
+    .input-field select,
+    .input-field input[type="date"] {
+        height: 48px !important;
+        font-size: 0.95rem !important;
+    }
+
+    /* Pasajeros en fila si no caben de 3 */
+    .passengers-row {
+        grid-template-columns: 1fr 1fr !important;
+    }
+}
+
+/* Fix botón WhatsApp: que no tape el form */
+.whatsapp-float,
+a[href*="wa.me"],
+a[href*="whatsapp"] {
+    bottom: 1.2rem !important;
+    right: 1.2rem !important;
+    z-index: 9990 !important;
+}
+
+/* Evitar que el form hero tape el whatsapp btn */
+.hero-search-card {
+    padding-bottom: 80px !important;
+}
+
+@media (min-width: 769px) {
+    .hero-search-card {
+        padding-bottom: var(--spacing-lg) !important;
+    }
+}
