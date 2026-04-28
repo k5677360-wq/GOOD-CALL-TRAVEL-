@@ -1902,7 +1902,7 @@
                         <button class="tab-btn" data-type="oneway">Solo Ida</button>
                     </div>
 
-                    <form id="searchForm" class="cotizador-form-horizontal">
+                    <form id="vuelosForm" class="cotizador-form-horizontal">
                         <!-- Origen -->
                         <div class="input-field autocomplete-container">
     <label>Origen</label>
@@ -2534,112 +2534,12 @@
     <script src="fix-bugs.js"></script>
 
     <script>
-        // === AOS INIT ===
-        AOS.init({
-            duration: 700,
-            once: true,
-            offset: 60,
-            easing: 'ease-out-cubic'
-        });
-
-        // === NAVBAR SCROLL ===
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', function () {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        }, { passive: true });
-
-        // === MOBILE MENU ===
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', function () {
-                navLinks.classList.toggle('active');
-            });
-        }
-
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.navbar')) {
-                navLinks && navLinks.classList.remove('active');
-            }
-        });
-
-        // === TABS COTIZADOR ===
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                const returnField = document.getElementById('returnDateField');
-                if (returnField) {
-                    returnField.style.display = this.dataset.type === 'oneway' ? 'none' : '';
-const form = document.getElementById('searchForm');
-if (this.dataset.type === 'oneway') {
-    form.classList.add('oneway');
-} else {
-    form.classList.remove('oneway');
-}
-                }
-            });
-        });
-
-        // === SMOOTH SCROLL ===
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href === '#' || href === '#!') return;
-                const target = document.querySelector(href);
-                if (!target) return;
-                e.preventDefault();
-                const offset = 80;
-                window.scrollTo({
-                    top: target.offsetTop - offset,
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // === QUOTE MODAL ===
-        function closeQuoteModal() {
-            const modal = document.getElementById('quoteModal');
-            if (modal) modal.classList.remove('active');
-        }
-
-        function openQuoteModal(content) {
-            const modal = document.getElementById('quoteModal');
-            const contentEl = document.getElementById('quoteModalContent');
-            if (modal && contentEl) {
-                contentEl.innerHTML = content || '';
-                modal.classList.add('active');
-            }
-        }
-
-        // Cerrar modal con ESC
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeQuoteModal();
-        });
-        // === HERO SLIDER (2 imágenes, transición cada 6s) ===
-        (function() {
-            const slides = document.querySelectorAll('.hero-slide');
-            if (!slides.length) return;
-            let current = 0;
-            setInterval(function() {
-                slides[current].classList.remove('active');
-                current = (current + 1) % slides.length;
-                slides[current].classList.add('active');
-            }, 6000);
-        })();
-
-    </script>    <!-- ===== CHAT BOT (Good Call Travel - Railway API) ===== -->
-    <div id="gct-chat-widget"></div>
-    <script data-cfasync="false" src="https://botdepaginaweb-production.up.railway.app/widget.js"></script>
-    <script>
 document.addEventListener("DOMContentLoaded", async () => {
+    
+    // ==========================================
+    // 1. MOTOR DE AUTOCOMPLETADO (JSON)
+    // ==========================================
     let aeropuertos = [];
-
     try {
         const respuesta = await fetch('aeropuertos.json');
         aeropuertos = await respuesta.json();
@@ -2652,11 +2552,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         const inputOculto = document.getElementById(hiddenId);
         const listaSugerencias = document.getElementById(listId);
 
+        if (!inputVisual) return;
+
         inputVisual.addEventListener("input", function() {
             const valor = this.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             listaSugerencias.innerHTML = ''; 
             
-            if (!valor || valor.length < 2) { // Espera a que escriba 2 letras
+            if (!valor || valor.length < 2) { 
                 listaSugerencias.style.display = 'none';
                 inputOculto.value = '';
                 return;
@@ -2695,6 +2597,84 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     configurarAutocomplete("origen_texto", "origen_iata", "origen-sugerencias");
     configurarAutocomplete("destino_texto", "destino_iata", "destino-sugerencias");
+
+
+    // ==========================================
+    // 2. ENVÍO DEL FORMULARIO Y REDIRECCIÓN
+    // ==========================================
+    const vuelosForm = document.getElementById('vuelosForm');
+    const dateInput = document.getElementById('departureDate');
+
+    // Configurar fecha mínima (hoy)
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    }
+
+    if (vuelosForm) {
+        vuelosForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita que la página se recargue
+            
+            // 1. Obtener códigos IATA
+            const codigoOrigen = document.getElementById('origen_iata').value;
+            const codigoDestino = document.getElementById('destino_iata').value;
+            
+            // 2. Obtener nombres para mostrarlos bonito después
+            const nombreOrigen = document.getElementById('origen_texto').value;
+            const nombreDestino = document.getElementById('destino_texto').value;
+
+            // 3. Obtener fechas y tipo de viaje
+            const fechaIda = document.getElementById('departureDate') ? document.getElementById('departureDate').value : '';
+            const inputVuelta = document.getElementById('returnDate');
+            const fechaVuelta = inputVuelta ? inputVuelta.value : '';
+            
+            const tabOneway = document.querySelector('.tab-btn[data-type="oneway"]');
+            const isOneway = tabOneway ? tabOneway.classList.contains('active') : false;
+            
+            // 4. Obtener pasajeros
+            const adultos = document.getElementById('adults') ? document.getElementById('adults').value : 1;
+            const ninos = document.getElementById('children') ? document.getElementById('children').value : 0;
+            const infantes = document.getElementById('infants') ? document.getElementById('infants').value : 0;
+            const totalViajeros = parseInt(adultos) + parseInt(ninos) + parseInt(infantes);
+
+            // --- VALIDACIONES DE SEGURIDAD ---
+            if (!codigoOrigen || !codigoDestino) {
+                alert('⚠️ Por favor selecciona una ciudad válida de la lista sugerida.');
+                return;
+            }
+            if (!fechaIda) {
+                alert('⚠️ Por favor selecciona una fecha de ida.');
+                return;
+            }
+            if (!isOneway && !fechaVuelta && inputVuelta) {
+                alert('⚠️ Por favor selecciona una fecha de vuelta o cambia a "Solo Ida".');
+                return;
+            }
+            if (codigoOrigen === codigoDestino) {
+                alert('⚠️ El origen y destino deben ser diferentes.');
+                return;
+            }
+
+            // --- PREPARAR DATOS PARA TU API DE PYTHON ---
+            const fechaIdaAPI = fechaIda.replace(/-/g, '');
+            const fechaVueltaAPI = fechaVuelta ? fechaVuelta.replace(/-/g, '') : '';
+
+            // Guardar para uso de la otra página
+            localStorage.setItem('nombreOrigen', nombreOrigen.split(',')[0]); 
+            localStorage.setItem('nombreDestino', nombreDestino.split(',')[0]);
+            localStorage.setItem('fechaBusqueda', fechaIda);
+
+            // --- CONSTRUIR URL Y REDIRIGIR ---
+            let urlResultados = `resultados.html?origen=${codigoOrigen}&destino=${codigoDestino}&fecha=${fechaIdaAPI}&pasajeros=${totalViajeros}`;
+            
+            if (!isOneway && fechaVueltaAPI) {
+                urlResultados += `&fecha_vuelta=${fechaVueltaAPI}`;
+            }
+
+            console.log('🚀 Todo correcto. Redirigiendo a:', urlResultados);
+            window.location.href = urlResultados;
+        });
+    }
 });
 </script>
 
